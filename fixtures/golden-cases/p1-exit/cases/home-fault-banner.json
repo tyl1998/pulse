@@ -1,0 +1,55 @@
+{
+  "$schema": "urn:pulse:schema:1-draft:case",
+  "case_id": "home-fault-banner",
+  "name": "首页错误注入状态为空",
+  "goal": "确认没有注入缺陷时首页显示“已开启错误注入：无”",
+  "parameters": {},
+  "profile_refs": ["target-exit"],
+  "inputs": {},
+  "locators": {},
+  "preconditions": [
+    {
+      "id": "home-visible",
+      "required": true,
+      "condition": {
+        "operator": "exists",
+        "target": {
+          "locator_ref": "home-title"
+        },
+        "source": "native",
+        "timeout_ms": 30000
+      }
+    }
+  ],
+  "steps": [
+    {
+      "type": "wait",
+      "id": "home-ready",
+      "timeout_ms": 60000,
+      "condition": {
+        "operator": "text_equals",
+        "target": {
+          "locator_ref": "fault-banner"
+        },
+        "source": "native",
+        "expected": "已开启错误注入：无",
+        "timeout_ms": 30000
+      }
+    }
+  ],
+  "checks": [
+    {
+      "id": "no-active-fault",
+      "required": true,
+      "condition": {
+        "operator": "text_equals",
+        "target": {
+          "locator_ref": "fault-banner"
+        },
+        "source": "native",
+        "expected": "已开启错误注入：无",
+        "timeout_ms": 30000
+      }
+    }
+  ]
+}

@@ -1,0 +1,424 @@
+{
+  "$schema": "urn:pulse:schema:1-draft:case",
+  "case_id": "physical-pass",
+  "name": "Physical FormActivity happy path",
+  "goal": "Fill, select, toggle, agree, submit and verify the exact result on a real device",
+  "parameters": {
+    "name": {
+      "type": "string",
+      "required": false,
+      "default": "Pulse"
+    }
+  },
+  "profile_refs": ["target-form"],
+  "inputs": {},
+  "locators": {},
+  "preconditions": [
+    {
+      "id": "form-visible",
+      "required": true,
+      "condition": {
+        "operator": "exists",
+        "target": {
+          "locator_ref": "title"
+        },
+        "source": "native",
+        "timeout_ms": 30000
+      }
+    }
+  ],
+  "steps": [
+    {
+      "type": "action",
+      "id": "launch-form",
+      "action": {
+        "kind": "launch",
+        "app_id": "com.pulse.target"
+      },
+      "timeout_ms": 120000
+    },
+    {
+      "type": "flow",
+      "id": "fill-flow",
+      "flow_ref": "fill-name",
+      "arguments": {
+        "value": {
+          "param_ref": "name"
+        }
+      },
+      "bind": {
+        "echo": "observed_name"
+      },
+      "timeout_ms": 180000
+    },
+    {
+      "type": "action",
+      "id": "use-return",
+      "action": {
+        "kind": "input",
+        "target": {
+          "locator_ref": "name"
+        },
+        "text": {
+          "var_ref": "observed_name"
+        },
+        "mode": "replace"
+      },
+      "timeout_ms": 120000
+    },
+    {
+      "type": "if",
+      "id": "ensure-large",
+      "condition": {
+        "operator": "checked",
+        "target": {
+          "locator_ref": "large"
+        },
+        "source": "native",
+        "expected": true,
+        "timeout_ms": 30000
+      },
+      "then": [
+        {
+          "type": "wait",
+          "id": "ensure-large-already",
+          "condition": {
+            "operator": "exists",
+            "target": {
+              "locator_ref": "title"
+            },
+            "source": "native",
+            "timeout_ms": 30000
+          },
+          "timeout_ms": 60000
+        }
+      ],
+      "else": [
+        {
+          "type": "action",
+          "id": "tap-large",
+          "action": {
+            "kind": "tap",
+            "target": {
+              "locator_ref": "large"
+            }
+          },
+          "timeout_ms": 120000
+        }
+      ],
+      "timeout_ms": 180000
+    },
+    {
+      "type": "if",
+      "id": "ensure-notify",
+      "condition": {
+        "operator": "checked",
+        "target": {
+          "locator_ref": "notify"
+        },
+        "source": "native",
+        "expected": true,
+        "timeout_ms": 30000
+      },
+      "then": [
+        {
+          "type": "wait",
+          "id": "ensure-notify-already",
+          "condition": {
+            "operator": "exists",
+            "target": {
+              "locator_ref": "title"
+            },
+            "source": "native",
+            "timeout_ms": 30000
+          },
+          "timeout_ms": 60000
+        }
+      ],
+      "else": [
+        {
+          "type": "action",
+          "id": "tap-notify",
+          "action": {
+            "kind": "tap",
+            "target": {
+              "locator_ref": "notify"
+            }
+          },
+          "timeout_ms": 120000
+        }
+      ],
+      "timeout_ms": 180000
+    },
+    {
+      "type": "if",
+      "id": "ensure-agree",
+      "condition": {
+        "operator": "checked",
+        "target": {
+          "locator_ref": "agree"
+        },
+        "source": "native",
+        "expected": true,
+        "timeout_ms": 30000
+      },
+      "then": [
+        {
+          "type": "wait",
+          "id": "ensure-agree-already",
+          "condition": {
+            "operator": "exists",
+            "target": {
+              "locator_ref": "title"
+            },
+            "source": "native",
+            "timeout_ms": 30000
+          },
+          "timeout_ms": 60000
+        }
+      ],
+      "else": [
+        {
+          "type": "action",
+          "id": "tap-agree",
+          "action": {
+            "kind": "tap",
+            "target": {
+              "locator_ref": "agree"
+            }
+          },
+          "timeout_ms": 120000
+        }
+      ],
+      "timeout_ms": 180000
+    },
+    {
+      "type": "wait",
+      "id": "submit-enabled",
+      "timeout_ms": 60000,
+      "condition": {
+        "operator": "enabled",
+        "target": {
+          "locator_ref": "submit"
+        },
+        "source": "native",
+        "expected": true,
+        "timeout_ms": 30000
+      }
+    },
+    {
+      "type": "if",
+      "id": "submit-if",
+      "condition": {
+        "operator": "checked",
+        "target": {
+          "locator_ref": "agree"
+        },
+        "source": "native",
+        "expected": true,
+        "timeout_ms": 30000
+      },
+      "then": [
+        {
+          "type": "action",
+          "id": "tap-submit",
+          "action": {
+            "kind": "tap",
+            "target": {
+              "locator_ref": "submit"
+            }
+          },
+          "timeout_ms": 120000
+        }
+      ],
+      "else": [
+        {
+          "type": "wait",
+          "id": "submit-blocked",
+          "condition": {
+            "operator": "exists",
+            "target": {
+              "locator_ref": "title"
+            },
+            "source": "native",
+            "timeout_ms": 30000
+          },
+          "timeout_ms": 60000
+        }
+      ],
+      "timeout_ms": 180000
+    },
+    {
+      "type": "wait",
+      "id": "result-text",
+      "timeout_ms": 60000,
+      "condition": {
+        "operator": "text_equals",
+        "target": {
+          "locator_ref": "result"
+        },
+        "source": "native",
+        "expected": "提交成功：Pulse / 大杯 / 通知开",
+        "timeout_ms": 30000
+      }
+    },
+    {
+      "type": "loop",
+      "id": "verify-loop",
+      "max_iterations": 1,
+      "steps": [
+        {
+          "type": "check",
+          "id": "loop-result-check",
+          "checkpoint": {
+            "id": "loop-result",
+            "required": true,
+            "condition": {
+              "operator": "text_equals",
+              "target": {
+                "locator_ref": "result"
+              },
+              "source": "native",
+              "expected": "提交成功：Pulse / 大杯 / 通知开",
+              "timeout_ms": 30000
+            }
+          },
+          "timeout_ms": 60000
+        }
+      ],
+      "timeout_ms": 180000
+    }
+  ],
+  "checks": [
+    {
+      "id": "title",
+      "required": true,
+      "condition": {
+        "operator": "text_equals",
+        "target": {
+          "locator_ref": "title"
+        },
+        "source": "native",
+        "expected": "用户信息",
+        "timeout_ms": 30000
+      }
+    },
+    {
+      "id": "name",
+      "required": true,
+      "condition": {
+        "operator": "text_equals",
+        "target": {
+          "locator_ref": "name"
+        },
+        "source": "native",
+        "expected": "Pulse",
+        "timeout_ms": 30000
+      }
+    },
+    {
+      "id": "large-on",
+      "required": true,
+      "condition": {
+        "operator": "checked",
+        "target": {
+          "locator_ref": "large"
+        },
+        "source": "native",
+        "expected": true,
+        "timeout_ms": 30000
+      }
+    },
+    {
+      "id": "small-off",
+      "required": true,
+      "condition": {
+        "operator": "checked",
+        "target": {
+          "locator_ref": "small"
+        },
+        "source": "native",
+        "expected": false,
+        "timeout_ms": 30000
+      }
+    },
+    {
+      "id": "notify-on",
+      "required": true,
+      "condition": {
+        "operator": "checked",
+        "target": {
+          "locator_ref": "notify"
+        },
+        "source": "native",
+        "expected": true,
+        "timeout_ms": 30000
+      }
+    },
+    {
+      "id": "agree-on",
+      "required": true,
+      "condition": {
+        "operator": "checked",
+        "target": {
+          "locator_ref": "agree"
+        },
+        "source": "native",
+        "expected": true,
+        "timeout_ms": 30000
+      }
+    },
+    {
+      "id": "submit-enabled-final",
+      "required": true,
+      "condition": {
+        "operator": "enabled",
+        "target": {
+          "locator_ref": "submit"
+        },
+        "source": "native",
+        "expected": true,
+        "timeout_ms": 30000
+      }
+    },
+    {
+      "id": "result-exact",
+      "required": true,
+      "condition": {
+        "operator": "text_equals",
+        "target": {
+          "locator_ref": "result"
+        },
+        "source": "native",
+        "expected": "提交成功：Pulse / 大杯 / 通知开",
+        "timeout_ms": 30000
+      }
+    },
+    {
+      "id": "result-contains",
+      "required": true,
+      "condition": {
+        "operator": "contains",
+        "target": {
+          "locator_ref": "result"
+        },
+        "source": "native",
+        "expected": "提交成功：Pulse",
+        "timeout_ms": 30000
+      }
+    },
+    {
+      "id": "result-regex",
+      "required": true,
+      "condition": {
+        "operator": "regex",
+        "target": {
+          "locator_ref": "result"
+        },
+        "source": "native",
+        "expected": "^提交成功：Pulse / 大杯 / 通知开$",
+        "timeout_ms": 30000
+      }
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "$schema": "urn:pulse:schema:1-draft:data",
+  "data_id": "cart",
+  "values": {
+    "product": "Coffee",
+    "quantity": 2,
+    "total": 12.5
+  }
+}

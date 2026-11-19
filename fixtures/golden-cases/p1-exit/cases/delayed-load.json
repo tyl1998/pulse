@@ -1,0 +1,91 @@
+{
+  "$schema": "urn:pulse:schema:1-draft:case",
+  "case_id": "delayed-load",
+  "name": "延迟加载页等待",
+  "goal": "等待加载完成后确认内容与按钮出现",
+  "parameters": {},
+  "profile_refs": ["target-exit"],
+  "inputs": {},
+  "locators": {},
+  "preconditions": [
+    {
+      "id": "home-visible",
+      "required": true,
+      "condition": {
+        "operator": "exists",
+        "target": {
+          "locator_ref": "home-title"
+        },
+        "source": "native",
+        "timeout_ms": 30000
+      }
+    }
+  ],
+  "steps": [
+    {
+      "type": "wait",
+      "id": "home-ready",
+      "timeout_ms": 60000,
+      "condition": {
+        "operator": "exists",
+        "target": {
+          "locator_ref": "home-title"
+        },
+        "source": "native",
+        "timeout_ms": 30000
+      }
+    },
+    {
+      "type": "action",
+      "id": "open-delayed",
+      "action": {
+        "kind": "tap",
+        "target": {
+          "locator_ref": "open-delayed"
+        }
+      },
+      "timeout_ms": 120000
+    },
+    {
+      "type": "wait",
+      "id": "delayed-ready",
+      "timeout_ms": 120000,
+      "condition": {
+        "operator": "exists",
+        "target": {
+          "locator_ref": "delayed-content"
+        },
+        "source": "native",
+        "timeout_ms": 30000
+      }
+    }
+  ],
+  "checks": [
+    {
+      "id": "delayed-content",
+      "required": true,
+      "condition": {
+        "operator": "text_equals",
+        "target": {
+          "locator_ref": "delayed-content"
+        },
+        "source": "native",
+        "expected": "加载完成",
+        "timeout_ms": 30000
+      }
+    },
+    {
+      "id": "delayed-action",
+      "required": true,
+      "condition": {
+        "operator": "visible",
+        "target": {
+          "locator_ref": "delayed-action"
+        },
+        "source": "native",
+        "expected": true,
+        "timeout_ms": 30000
+      }
+    }
+  ]
+}

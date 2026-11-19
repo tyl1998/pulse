@@ -1,0 +1,91 @@
+{
+  "purpose": "Expected interpreter terminal states for the synthetic driver; not physical evidence.",
+  "cases": {
+    "pass": {
+      "status": "passed",
+      "reason": null,
+      "world": {
+        "text": "Coffee",
+        "items": 0,
+        "confirm_checked": false,
+        "banner": false
+      },
+      "step_status": {
+        "type-search": "passed",
+        "fill-flow": "passed",
+        "use-return": "passed",
+        "banner-branch": "passed",
+        "bounded": "passed",
+        "swipe": "passed",
+        "back": "passed",
+        "confirm-step": "passed"
+      },
+      "check_status": {
+        "product-name": "passed",
+        "contains-text": "passed",
+        "regex-text": "passed",
+        "count-eq": "passed",
+        "count-gt": "passed",
+        "visible-search": "passed",
+        "not-exists-banner": "passed",
+        "page-final": "passed"
+      },
+      "loop_entries": 2
+    },
+    "business-fail": {
+      "status": "failed",
+      "reason": "check_failed",
+      "world": {
+        "text": "Coffee",
+        "items": 0,
+        "confirm_checked": false,
+        "banner": false
+      },
+      "check_status": {
+        "product-name": "failed"
+      }
+    },
+    "evidence-blocked": {
+      "status": "blocked",
+      "reason": "check_blocked",
+      "world": {
+        "product_status": "indeterminate",
+        "text": "Coffee",
+        "items": 0
+      },
+      "check_status": {
+        "product-exists": "blocked"
+      }
+    },
+    "loop-limit": {
+      "status": "blocked",
+      "reason": "loop_limit_reached",
+      "world": {
+        "text": "Coffee",
+        "items": 0,
+        "confirm_checked": false,
+        "banner": false
+      },
+      "step_status": {
+        "never-done": "blocked"
+      }
+    },
+    "wait-timeout": {
+      "status": "failed",
+      "reason": "wait_timeout",
+      "world": {
+        "product_status": "not_found",
+        "text": "Coffee",
+        "items": 0
+      },
+      "step_status": {
+        "wait-product": "failed"
+      }
+    },
+    "ai-blocked": {
+      "status": "blocked",
+      "reason": "ai_policy",
+      "world": {}
+    }
+  }
+}

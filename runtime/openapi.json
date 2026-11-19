@@ -1,0 +1,3926 @@
+{
+  "components": {
+    "schemas": {
+      "AgentConnectBody": {
+        "additionalProperties": false,
+        "properties": {
+          "manual_recovery_confirmed": {
+            "default": false,
+            "title": "Manual Recovery Confirmed",
+            "type": "boolean"
+          },
+          "operation_id": {
+            "anyOf": [
+              {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "type": "string"
+              },
+              { "type": "null" }
+            ],
+            "title": "Operation Id"
+          },
+          "timeout_ms": {
+            "default": 30000,
+            "maximum": 120000,
+            "minimum": 1000,
+            "title": "Timeout Ms",
+            "type": "integer"
+          }
+        },
+        "title": "AgentConnectBody",
+        "type": "object"
+      },
+      "AgentObserveBody": {
+        "additionalProperties": false,
+        "description": "Observation-only draft, not a case schema or a general device operation.",
+        "properties": {
+          "display_id": {
+            "default": 0,
+            "maximum": 255,
+            "minimum": 0,
+            "title": "Display Id",
+            "type": "integer"
+          },
+          "for_action": { "default": false, "title": "For Action", "type": "boolean" },
+          "ocr": { "default": false, "title": "Ocr", "type": "boolean" },
+          "request_id": {
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "title": "Request Id",
+            "type": "string"
+          },
+          "screenshot": { "default": false, "title": "Screenshot", "type": "boolean" },
+          "session_id": {
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "title": "Session Id",
+            "type": "string"
+          },
+          "timeout_ms": {
+            "default": 15000,
+            "maximum": 30000,
+            "minimum": 1000,
+            "title": "Timeout Ms",
+            "type": "integer"
+          },
+          "tree": { "default": true, "title": "Tree", "type": "boolean" }
+        },
+        "required": ["session_id", "request_id"],
+        "title": "AgentObserveBody",
+        "type": "object"
+      },
+      "AgentPrepareBody": {
+        "additionalProperties": false,
+        "properties": {
+          "enable_accessibility": {
+            "default": true,
+            "title": "Enable Accessibility",
+            "type": "boolean"
+          },
+          "install": { "default": false, "title": "Install", "type": "boolean" },
+          "manual_recovery_confirmed": {
+            "default": false,
+            "title": "Manual Recovery Confirmed",
+            "type": "boolean"
+          },
+          "operation_id": {
+            "anyOf": [
+              {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "type": "string"
+              },
+              { "type": "null" }
+            ],
+            "title": "Operation Id"
+          },
+          "timeout_ms": {
+            "default": 30000,
+            "maximum": 120000,
+            "minimum": 1000,
+            "title": "Timeout Ms",
+            "type": "integer"
+          }
+        },
+        "title": "AgentPrepareBody",
+        "type": "object"
+      },
+      "ControlAcquireBody": {
+        "additionalProperties": false,
+        "properties": {
+          "run_id": {
+            "anyOf": [
+              {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "type": "string"
+              },
+              { "type": "null" }
+            ],
+            "title": "Run Id"
+          },
+          "session_id": {
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "title": "Session Id",
+            "type": "string"
+          },
+          "source": {
+            "pattern": "^(auto|manual|recorder|ai)$",
+            "title": "Source",
+            "type": "string"
+          }
+        },
+        "required": ["session_id", "source"],
+        "title": "ControlAcquireBody",
+        "type": "object"
+      },
+      "ControlRecoveryBody": {
+        "additionalProperties": false,
+        "properties": {
+          "confirmed": { "title": "Confirmed", "type": "boolean" },
+          "session_id": {
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "title": "Session Id",
+            "type": "string"
+          }
+        },
+        "required": ["session_id", "confirmed"],
+        "title": "ControlRecoveryBody",
+        "type": "object"
+      },
+      "ControlReleaseBody": {
+        "additionalProperties": false,
+        "properties": {
+          "control_epoch": {
+            "maximum": 2147483647,
+            "minimum": 0,
+            "title": "Control Epoch",
+            "type": "integer"
+          },
+          "run_id": {
+            "anyOf": [
+              {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "type": "string"
+              },
+              { "type": "null" }
+            ],
+            "title": "Run Id"
+          },
+          "session_id": {
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "title": "Session Id",
+            "type": "string"
+          },
+          "wait_for_idle_ms": {
+            "default": 0,
+            "maximum": 60000,
+            "minimum": 0,
+            "title": "Wait For Idle Ms",
+            "type": "integer"
+          }
+        },
+        "required": ["session_id", "control_epoch"],
+        "title": "ControlReleaseBody",
+        "type": "object"
+      },
+      "ControlTakeoverBody": {
+        "additionalProperties": false,
+        "properties": {
+          "run_id": {
+            "anyOf": [
+              {
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "type": "string"
+              },
+              { "type": "null" }
+            ],
+            "title": "Run Id"
+          },
+          "session_id": {
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "title": "Session Id",
+            "type": "string"
+          },
+          "source": {
+            "pattern": "^(auto|manual|recorder|ai)$",
+            "title": "Source",
+            "type": "string"
+          },
+          "timeout_ms": {
+            "default": 30000,
+            "maximum": 60000,
+            "minimum": 1000,
+            "title": "Timeout Ms",
+            "type": "integer"
+          }
+        },
+        "required": ["session_id", "source"],
+        "title": "ControlTakeoverBody",
+        "type": "object"
+      },
+      "DebugBreakpointsRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "breakpoints": {
+            "items": { "type": "string" },
+            "maxItems": 256,
+            "title": "Breakpoints",
+            "type": "array"
+          }
+        },
+        "title": "DebugBreakpointsRequest",
+        "type": "object"
+      },
+      "DebugSnapshot": {
+        "properties": {
+          "breakpoints": { "items": { "type": "string" }, "title": "Breakpoints", "type": "array" },
+          "current": {
+            "anyOf": [{ "$ref": "#/components/schemas/RunCurrent" }, { "type": "null" }]
+          },
+          "paused": { "title": "Paused", "type": "boolean" },
+          "run_id": { "title": "Run Id", "type": "string" },
+          "state": {
+            "enum": [
+              "queued",
+              "preparing",
+              "running",
+              "paused",
+              "stopping",
+              "passed",
+              "failed",
+              "blocked",
+              "canceled",
+              "interrupted"
+            ],
+            "title": "State",
+            "type": "string"
+          },
+          "step_mode": { "title": "Step Mode", "type": "boolean" }
+        },
+        "required": ["run_id", "state", "paused", "step_mode", "breakpoints"],
+        "title": "DebugSnapshot",
+        "type": "object"
+      },
+      "DebugState": {
+        "properties": {
+          "breakpoints": { "items": { "type": "string" }, "title": "Breakpoints", "type": "array" },
+          "current": {
+            "anyOf": [{ "$ref": "#/components/schemas/RunCurrent" }, { "type": "null" }]
+          },
+          "paused": { "default": false, "title": "Paused", "type": "boolean" },
+          "step_mode": { "default": false, "title": "Step Mode", "type": "boolean" }
+        },
+        "title": "DebugState",
+        "type": "object"
+      },
+      "EventEnvelope": {
+        "properties": {
+          "body": { "additionalProperties": true, "title": "Body", "type": "object" },
+          "device_id": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Device Id"
+          },
+          "msg_id": { "title": "Msg Id", "type": "string" },
+          "run_id": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Run Id" },
+          "seq": { "title": "Seq", "type": "integer" },
+          "ts": { "title": "Ts", "type": "number" },
+          "type": { "title": "Type", "type": "string" },
+          "v": { "const": 1, "default": 1, "title": "V", "type": "integer" }
+        },
+        "required": ["type", "msg_id", "seq", "ts", "body"],
+        "title": "EventEnvelope",
+        "type": "object"
+      },
+      "EventPage": {
+        "properties": {
+          "events": {
+            "items": { "$ref": "#/components/schemas/EventEnvelope" },
+            "title": "Events",
+            "type": "array"
+          },
+          "gap": { "title": "Gap", "type": "boolean" },
+          "latest_seq": { "title": "Latest Seq", "type": "integer" },
+          "oldest_seq": { "title": "Oldest Seq", "type": "integer" }
+        },
+        "required": ["events", "oldest_seq", "latest_seq", "gap"],
+        "title": "EventPage",
+        "type": "object"
+      },
+      "EvidenceSummary": {
+        "properties": {
+          "directory": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Directory"
+          },
+          "issues": {
+            "items": { "additionalProperties": true, "type": "object" },
+            "title": "Issues",
+            "type": "array"
+          },
+          "status": {
+            "default": "pending",
+            "enum": ["pending", "written", "incomplete", "unavailable"],
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "title": "EvidenceSummary",
+        "type": "object"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": { "$ref": "#/components/schemas/ValidationError" },
+            "title": "Detail",
+            "type": "array"
+          }
+        },
+        "title": "HTTPValidationError",
+        "type": "object"
+      },
+      "HealthResponse": {
+        "properties": {
+          "pid": { "title": "Pid", "type": "integer" },
+          "status": { "const": "ok", "title": "Status", "type": "string" },
+          "uptime_s": { "title": "Uptime S", "type": "number" },
+          "version": { "title": "Version", "type": "string" }
+        },
+        "required": ["status", "version", "pid", "uptime_s"],
+        "title": "HealthResponse",
+        "type": "object"
+      },
+      "Identifier": { "pattern": "^[A-Za-z_][A-Za-z0-9_-]*$(?![\\s\\S])", "type": "string" },
+      "ImageResource": {
+        "additionalProperties": false,
+        "properties": {
+          "png_base64": {
+            "maxLength": 1398104,
+            "minLength": 1,
+            "title": "Png Base64",
+            "type": "string"
+          }
+        },
+        "required": ["png_base64"],
+        "title": "ImageResource",
+        "type": "object"
+      },
+      "InlineLocator": {
+        "additionalProperties": false,
+        "properties": { "locator": { "$ref": "#/components/schemas/Locator" } },
+        "required": ["locator"],
+        "title": "InlineLocator",
+        "type": "object"
+      },
+      "IssueModel": {
+        "properties": {
+          "code": { "title": "Code", "type": "string" },
+          "message": { "title": "Message", "type": "string" },
+          "path": { "title": "Path", "type": "string" }
+        },
+        "required": ["code", "path", "message"],
+        "title": "IssueModel",
+        "type": "object"
+      },
+      "LocateActionContext": {
+        "additionalProperties": false,
+        "properties": {
+          "atomic_with_observation": {
+            "const": false,
+            "title": "Atomic With Observation",
+            "type": "boolean"
+          },
+          "error": {
+            "anyOf": [{ "$ref": "#/components/schemas/LocateError" }, { "type": "null" }]
+          },
+          "geometry": {
+            "anyOf": [{ "$ref": "#/components/schemas/LocateActionGeometry" }, { "type": "null" }]
+          },
+          "source": { "const": "adb_input_viewport", "title": "Source", "type": "string" },
+          "status": { "enum": ["available", "unavailable"], "title": "Status", "type": "string" }
+        },
+        "required": ["status", "source", "geometry", "error", "atomic_with_observation"],
+        "title": "LocateActionContext",
+        "type": "object"
+      },
+      "LocateActionGeometry": {
+        "additionalProperties": false,
+        "properties": {
+          "display_id": { "const": 0, "title": "Display Id", "type": "integer" },
+          "height": { "title": "Height", "type": "integer" },
+          "rotation": { "enum": [0, 90, 180, 270], "title": "Rotation", "type": "integer" },
+          "width": { "title": "Width", "type": "integer" }
+        },
+        "required": ["display_id", "width", "height", "rotation"],
+        "title": "LocateActionGeometry",
+        "type": "object"
+      },
+      "LocateActionTarget": {
+        "additionalProperties": false,
+        "description": "Only a native display target can be returned by the existing resolver.",
+        "properties": {
+          "coordinate_space": {
+            "const": "display_pixels",
+            "title": "Coordinate Space",
+            "type": "string"
+          },
+          "display_id": { "const": 0, "title": "Display Id", "type": "integer" },
+          "expected_package": {
+            "maxLength": 255,
+            "minLength": 3,
+            "title": "Expected Package",
+            "type": "string"
+          },
+          "node_path": {
+            "items": { "type": "integer" },
+            "maxItems": 32,
+            "title": "Node Path",
+            "type": "array"
+          },
+          "observation_id": {
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "title": "Observation Id",
+            "type": "string"
+          },
+          "source": { "const": "tree", "title": "Source", "type": "string" }
+        },
+        "required": [
+          "observation_id",
+          "source",
+          "coordinate_space",
+          "display_id",
+          "expected_package",
+          "node_path"
+        ],
+        "title": "LocateActionTarget",
+        "type": "object"
+      },
+      "LocateAttempt": {
+        "additionalProperties": false,
+        "properties": {
+          "by": {
+            "enum": ["res_id", "text", "desc", "xpath", "ocr_text", "image", "point"],
+            "title": "By",
+            "type": "string"
+          },
+          "error": {
+            "anyOf": [{ "$ref": "#/components/schemas/LocateError" }, { "type": "null" }]
+          },
+          "index": { "title": "Index", "type": "integer" },
+          "match_count": { "title": "Match Count", "type": "integer" },
+          "status": {
+            "enum": ["resolved", "ambiguous", "not_found", "indeterminate"],
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": ["index", "by", "status", "match_count", "error"],
+        "title": "LocateAttempt",
+        "type": "object"
+      },
+      "LocateBounds": {
+        "additionalProperties": false,
+        "properties": {
+          "bottom": { "title": "Bottom", "type": "integer" },
+          "left": { "title": "Left", "type": "integer" },
+          "right": { "title": "Right", "type": "integer" },
+          "top": { "title": "Top", "type": "integer" }
+        },
+        "required": ["left", "top", "right", "bottom"],
+        "title": "LocateBounds",
+        "type": "object"
+      },
+      "LocateCompleteness": {
+        "additionalProperties": false,
+        "properties": {
+          "reasons": { "items": { "type": "string" }, "title": "Reasons", "type": "array" },
+          "status": {
+            "enum": ["complete", "partial", "unavailable"],
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": ["status", "reasons"],
+        "title": "LocateCompleteness",
+        "type": "object"
+      },
+      "LocateCoordinateMapping": {
+        "additionalProperties": false,
+        "properties": {
+          "error": {
+            "anyOf": [{ "$ref": "#/components/schemas/LocateError" }, { "type": "null" }]
+          },
+          "status": { "enum": ["available", "unavailable"], "title": "Status", "type": "string" }
+        },
+        "required": ["status", "error"],
+        "title": "LocateCoordinateMapping",
+        "type": "object"
+      },
+      "LocateError": {
+        "additionalProperties": false,
+        "properties": { "code": { "title": "Code", "type": "string" } },
+        "required": ["code"],
+        "title": "LocateError",
+        "type": "object"
+      },
+      "LocateFraming": {
+        "additionalProperties": false,
+        "properties": {
+          "eof_received": { "title": "Eof Received", "type": "boolean" },
+          "protocol_version": { "const": 1, "title": "Protocol Version", "type": "integer" },
+          "source_data_validated": { "title": "Source Data Validated", "type": "boolean" },
+          "terminal_received": { "title": "Terminal Received", "type": "boolean" },
+          "validated": { "title": "Validated", "type": "boolean" }
+        },
+        "required": [
+          "protocol_version",
+          "validated",
+          "source_data_validated",
+          "terminal_received",
+          "eof_received"
+        ],
+        "title": "LocateFraming",
+        "type": "object"
+      },
+      "LocateHttpError": {
+        "additionalProperties": false,
+        "properties": { "error": { "title": "Error", "type": "string" } },
+        "required": ["error"],
+        "title": "LocateHttpError",
+        "type": "object"
+      },
+      "LocateMatch": {
+        "additionalProperties": false,
+        "description": "Public match metadata; text is available only to the Runtime-internal probe.",
+        "properties": {
+          "block_index": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Block Index"
+          },
+          "bounds": {
+            "anyOf": [{ "$ref": "#/components/schemas/LocateBounds" }, { "type": "null" }]
+          },
+          "coordinate_space": {
+            "enum": ["display_pixels", "screenshot_pixels"],
+            "title": "Coordinate Space",
+            "type": "string"
+          },
+          "display_id": { "const": 0, "title": "Display Id", "type": "integer" },
+          "node_path": {
+            "anyOf": [{ "items": { "type": "integer" }, "type": "array" }, { "type": "null" }],
+            "title": "Node Path"
+          },
+          "score": { "anyOf": [{ "type": "number" }, { "type": "null" }], "title": "Score" },
+          "source": { "enum": ["tree", "screenshot", "ocr"], "title": "Source", "type": "string" },
+          "states": { "$ref": "#/components/schemas/LocateStates" },
+          "visibility_evidence": {
+            "enum": ["native_state", "bitmap_bounds"],
+            "title": "Visibility Evidence",
+            "type": "string"
+          },
+          "visible": { "anyOf": [{ "type": "boolean" }, { "type": "null" }], "title": "Visible" }
+        },
+        "required": [
+          "source",
+          "coordinate_space",
+          "display_id",
+          "node_path",
+          "block_index",
+          "bounds",
+          "visible",
+          "visibility_evidence",
+          "states",
+          "score"
+        ],
+        "title": "LocateMatch",
+        "type": "object"
+      },
+      "LocateObservation": {
+        "additionalProperties": false,
+        "properties": {
+          "action_context": { "$ref": "#/components/schemas/LocateActionContext" },
+          "agent_lifecycle_id": { "title": "Agent Lifecycle Id", "type": "string" },
+          "atomic_snapshot": { "const": false, "title": "Atomic Snapshot", "type": "boolean" },
+          "completeness": { "$ref": "#/components/schemas/LocateCompleteness" },
+          "error": {
+            "anyOf": [{ "$ref": "#/components/schemas/LocateError" }, { "type": "null" }]
+          },
+          "framing": { "$ref": "#/components/schemas/LocateFraming" },
+          "requested": { "$ref": "#/components/schemas/LocateRequestedSources" },
+          "requested_display_id": { "title": "Requested Display Id", "type": "integer" },
+          "revision_end": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Revision End"
+          },
+          "revision_start": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Revision Start"
+          },
+          "runtime_time": { "$ref": "#/components/schemas/LocateRuntimeTime" },
+          "sources": { "$ref": "#/components/schemas/LocateObservationSources" },
+          "status": { "enum": ["completed", "failed"], "title": "Status", "type": "string" }
+        },
+        "required": [
+          "status",
+          "error",
+          "framing",
+          "agent_lifecycle_id",
+          "runtime_time",
+          "completeness",
+          "revision_start",
+          "revision_end",
+          "action_context",
+          "requested",
+          "requested_display_id",
+          "atomic_snapshot",
+          "sources"
+        ],
+        "title": "LocateObservation",
+        "type": "object"
+      },
+      "LocateObservationSource": {
+        "additionalProperties": false,
+        "description": "Source-local evidence without the tree/OCR/bitmap data payload.",
+        "properties": {
+          "capability": {
+            "anyOf": [
+              { "enum": ["available", "unavailable"], "type": "string" },
+              { "type": "null" }
+            ],
+            "title": "Capability"
+          },
+          "collection": {
+            "anyOf": [{ "$ref": "#/components/schemas/LocateSourceCollection" }, { "type": "null" }]
+          },
+          "completeness": { "$ref": "#/components/schemas/LocateCompleteness" },
+          "coordinates": { "$ref": "#/components/schemas/LocateSourceCoordinates" },
+          "error": {
+            "anyOf": [{ "$ref": "#/components/schemas/LocateSourceError" }, { "type": "null" }]
+          },
+          "requested": { "title": "Requested", "type": "boolean" },
+          "scope": { "$ref": "#/components/schemas/LocateSourceScope" },
+          "source": {
+            "enum": ["accessibility", "accessibility_screenshot", "mlkit_chinese"],
+            "title": "Source",
+            "type": "string"
+          },
+          "status": {
+            "enum": ["available", "unavailable", "failed"],
+            "title": "Status",
+            "type": "string"
+          },
+          "time": { "$ref": "#/components/schemas/LocateSourceTime" }
+        },
+        "required": [
+          "source",
+          "requested",
+          "capability",
+          "status",
+          "error",
+          "time",
+          "coordinates",
+          "scope",
+          "completeness"
+        ],
+        "title": "LocateObservationSource",
+        "type": "object"
+      },
+      "LocateObservationSources": {
+        "additionalProperties": false,
+        "properties": {
+          "ocr": { "$ref": "#/components/schemas/LocateObservationSource" },
+          "screenshot": { "$ref": "#/components/schemas/LocateObservationSource" },
+          "tree": { "$ref": "#/components/schemas/LocateObservationSource" }
+        },
+        "required": ["tree", "screenshot", "ocr"],
+        "title": "LocateObservationSources",
+        "type": "object"
+      },
+      "LocatePoint": {
+        "additionalProperties": false,
+        "properties": {
+          "x": { "title": "X", "type": "integer" },
+          "y": { "title": "Y", "type": "integer" }
+        },
+        "required": ["x", "y"],
+        "title": "LocatePoint",
+        "type": "object"
+      },
+      "LocateRejected": {
+        "additionalProperties": false,
+        "properties": {
+          "error": {
+            "enum": ["invalid_request", "request_too_large"],
+            "title": "Error",
+            "type": "string"
+          },
+          "status": { "const": "rejected", "title": "Status", "type": "string" }
+        },
+        "required": ["status", "error"],
+        "title": "LocateRejected",
+        "type": "object"
+      },
+      "LocateRequest": {
+        "additionalProperties": false,
+        "description": "HTTP envelope with the resolver's existing validation and defaults unchanged.",
+        "properties": {
+          "display_id": {
+            "default": 0,
+            "maximum": 255,
+            "minimum": 0,
+            "title": "Display Id",
+            "type": "integer"
+          },
+          "expected_package": {
+            "maxLength": 255,
+            "minLength": 3,
+            "title": "Expected Package",
+            "type": "string"
+          },
+          "image_threshold": {
+            "default": 0.999,
+            "maximum": 1,
+            "minimum": 0.98,
+            "title": "Image Threshold",
+            "type": "number"
+          },
+          "locators": {
+            "additionalProperties": { "$ref": "#/components/schemas/Locator" },
+            "propertyNames": { "$ref": "#/components/schemas/Identifier" },
+            "title": "Locators",
+            "type": "object"
+          },
+          "request_id": {
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "title": "Request Id",
+            "type": "string"
+          },
+          "resources": {
+            "additionalProperties": { "$ref": "#/components/schemas/ImageResource" },
+            "propertyNames": { "$ref": "#/components/schemas/Identifier" },
+            "title": "Resources",
+            "type": "object"
+          },
+          "serial": { "pattern": "^[A-Za-z0-9._:-]{1,64}$", "title": "Serial", "type": "string" },
+          "session_id": {
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "title": "Session Id",
+            "type": "string"
+          },
+          "target": { "$ref": "#/components/schemas/Target" },
+          "timeout_ms": {
+            "default": 15000,
+            "maximum": 30000,
+            "minimum": 1000,
+            "title": "Timeout Ms",
+            "type": "integer"
+          }
+        },
+        "required": ["serial", "session_id", "request_id", "expected_package", "target"],
+        "title": "LocateRequest",
+        "type": "object"
+      },
+      "LocateRequestedSources": {
+        "additionalProperties": false,
+        "properties": {
+          "ocr": { "title": "Ocr", "type": "boolean" },
+          "screenshot": { "title": "Screenshot", "type": "boolean" },
+          "tree": { "title": "Tree", "type": "boolean" }
+        },
+        "required": ["tree", "screenshot", "ocr"],
+        "title": "LocateRequestedSources",
+        "type": "object"
+      },
+      "LocateResult": {
+        "additionalProperties": false,
+        "description": "One locator query, not an action receipt or a business assertion.",
+        "properties": {
+          "action_target": {
+            "anyOf": [{ "$ref": "#/components/schemas/LocateActionTarget" }, { "type": "null" }]
+          },
+          "action_target_error": {
+            "anyOf": [{ "$ref": "#/components/schemas/LocateError" }, { "type": "null" }]
+          },
+          "attempts": {
+            "items": { "$ref": "#/components/schemas/LocateAttempt" },
+            "title": "Attempts",
+            "type": "array"
+          },
+          "automatic_replay": { "const": false, "title": "Automatic Replay", "type": "boolean" },
+          "business_success": { "title": "Business Success", "type": "null" },
+          "candidate_by": {
+            "anyOf": [
+              {
+                "enum": ["res_id", "text", "desc", "xpath", "ocr_text", "image", "point"],
+                "type": "string"
+              },
+              { "type": "null" }
+            ],
+            "title": "Candidate By"
+          },
+          "candidate_index": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Candidate Index"
+          },
+          "contract": {
+            "const": "pulse-runtime-locator-draft",
+            "title": "Contract",
+            "type": "string"
+          },
+          "error": {
+            "anyOf": [{ "$ref": "#/components/schemas/LocateError" }, { "type": "null" }]
+          },
+          "match_count": { "title": "Match Count", "type": "integer" },
+          "matches": {
+            "items": { "$ref": "#/components/schemas/LocateMatch" },
+            "title": "Matches",
+            "type": "array"
+          },
+          "observation": { "$ref": "#/components/schemas/LocateObservation" },
+          "observation_id": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Observation Id"
+          },
+          "point": {
+            "anyOf": [{ "$ref": "#/components/schemas/LocatePoint" }, { "type": "null" }]
+          },
+          "query_complete": {
+            "anyOf": [{ "type": "boolean" }, { "type": "null" }],
+            "title": "Query Complete"
+          },
+          "request_id": { "title": "Request Id", "type": "string" },
+          "serial": { "title": "Serial", "type": "string" },
+          "session_id": { "title": "Session Id", "type": "string" },
+          "status": {
+            "enum": ["resolved", "ambiguous", "not_found", "indeterminate"],
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "contract",
+          "serial",
+          "session_id",
+          "request_id",
+          "observation_id",
+          "status",
+          "error",
+          "candidate_index",
+          "candidate_by",
+          "match_count",
+          "matches",
+          "query_complete",
+          "attempts",
+          "point",
+          "action_target",
+          "action_target_error",
+          "business_success",
+          "automatic_replay",
+          "observation"
+        ],
+        "title": "LocateResult",
+        "type": "object"
+      },
+      "LocateRuntimeTime": {
+        "additionalProperties": false,
+        "properties": {
+          "duration_ms": { "title": "Duration Ms", "type": "number" },
+          "finished_at_epoch_ms": { "title": "Finished At Epoch Ms", "type": "integer" },
+          "started_at_epoch_ms": { "title": "Started At Epoch Ms", "type": "integer" }
+        },
+        "required": ["started_at_epoch_ms", "finished_at_epoch_ms", "duration_ms"],
+        "title": "LocateRuntimeTime",
+        "type": "object"
+      },
+      "LocateSourceCollection": {
+        "additionalProperties": false,
+        "properties": {
+          "error": {
+            "anyOf": [{ "$ref": "#/components/schemas/LocateSourceError" }, { "type": "null" }]
+          },
+          "purpose": { "const": "ocr_dependency", "title": "Purpose", "type": "string" },
+          "status": {
+            "enum": ["available", "unavailable", "failed"],
+            "title": "Status",
+            "type": "string"
+          },
+          "time": { "$ref": "#/components/schemas/LocateSourceTime" }
+        },
+        "required": ["status", "error", "time", "purpose"],
+        "title": "LocateSourceCollection",
+        "type": "object"
+      },
+      "LocateSourceCoordinates": {
+        "additionalProperties": false,
+        "properties": {
+          "coordinate_space": {
+            "enum": ["display_pixels", "screenshot_pixels"],
+            "title": "Coordinate Space",
+            "type": "string"
+          },
+          "display_id": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Display Id"
+          },
+          "height": { "anyOf": [{ "type": "integer" }, { "type": "null" }], "title": "Height" },
+          "original_height": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Original Height"
+          },
+          "original_width": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Original Width"
+          },
+          "requested_display_id": { "title": "Requested Display Id", "type": "integer" },
+          "rotation": { "title": "Rotation", "type": "null" },
+          "scale_x": { "anyOf": [{ "type": "number" }, { "type": "null" }], "title": "Scale X" },
+          "scale_y": { "anyOf": [{ "type": "number" }, { "type": "null" }], "title": "Scale Y" },
+          "to_display": {
+            "anyOf": [
+              { "$ref": "#/components/schemas/LocateCoordinateMapping" },
+              { "type": "null" }
+            ]
+          },
+          "to_original_bitmap": {
+            "anyOf": [
+              { "$ref": "#/components/schemas/LocateCoordinateMapping" },
+              { "type": "null" }
+            ]
+          },
+          "width": { "anyOf": [{ "type": "integer" }, { "type": "null" }], "title": "Width" }
+        },
+        "required": [
+          "coordinate_space",
+          "requested_display_id",
+          "display_id",
+          "width",
+          "height",
+          "original_width",
+          "original_height",
+          "scale_x",
+          "scale_y",
+          "rotation"
+        ],
+        "title": "LocateSourceCoordinates",
+        "type": "object"
+      },
+      "LocateSourceError": {
+        "additionalProperties": false,
+        "properties": {
+          "cause_code": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Cause Code"
+          },
+          "code": { "title": "Code", "type": "string" }
+        },
+        "required": ["code"],
+        "title": "LocateSourceError",
+        "type": "object"
+      },
+      "LocateSourceScope": {
+        "additionalProperties": false,
+        "properties": {
+          "display_id": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Display Id"
+          },
+          "kind": {
+            "enum": ["active_window", "default_display"],
+            "title": "Kind",
+            "type": "string"
+          },
+          "target_app_verified": { "title": "Target App Verified", "type": "null" },
+          "window_id": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Window Id"
+          }
+        },
+        "required": ["kind", "display_id", "window_id", "target_app_verified"],
+        "title": "LocateSourceScope",
+        "type": "object"
+      },
+      "LocateSourceTime": {
+        "additionalProperties": false,
+        "properties": {
+          "calibrated": { "const": false, "title": "Calibrated", "type": "boolean" },
+          "capture_clock": {
+            "anyOf": [{ "const": "platform_as_reported", "type": "string" }, { "type": "null" }],
+            "title": "Capture Clock"
+          },
+          "capture_clock_calibrated": {
+            "anyOf": [{ "const": false, "type": "boolean" }, { "type": "null" }],
+            "title": "Capture Clock Calibrated"
+          },
+          "captured_at_uptime_ms": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Captured At Uptime Ms"
+          },
+          "clock": { "const": "android_uptime_ms", "title": "Clock", "type": "string" },
+          "finished_at_uptime_ms": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Finished At Uptime Ms"
+          },
+          "started_at_uptime_ms": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Started At Uptime Ms"
+          }
+        },
+        "required": ["clock", "calibrated", "started_at_uptime_ms", "finished_at_uptime_ms"],
+        "title": "LocateSourceTime",
+        "type": "object"
+      },
+      "LocateStates": {
+        "additionalProperties": false,
+        "properties": {
+          "checkable": {
+            "anyOf": [{ "type": "boolean" }, { "type": "null" }],
+            "title": "Checkable"
+          },
+          "checked": { "anyOf": [{ "type": "boolean" }, { "type": "null" }], "title": "Checked" },
+          "clickable": {
+            "anyOf": [{ "type": "boolean" }, { "type": "null" }],
+            "title": "Clickable"
+          },
+          "editable": { "anyOf": [{ "type": "boolean" }, { "type": "null" }], "title": "Editable" },
+          "enabled": { "anyOf": [{ "type": "boolean" }, { "type": "null" }], "title": "Enabled" },
+          "focused": { "anyOf": [{ "type": "boolean" }, { "type": "null" }], "title": "Focused" },
+          "long_clickable": {
+            "anyOf": [{ "type": "boolean" }, { "type": "null" }],
+            "title": "Long Clickable"
+          },
+          "password": { "anyOf": [{ "type": "boolean" }, { "type": "null" }], "title": "Password" },
+          "scrollable": {
+            "anyOf": [{ "type": "boolean" }, { "type": "null" }],
+            "title": "Scrollable"
+          },
+          "selected": { "anyOf": [{ "type": "boolean" }, { "type": "null" }], "title": "Selected" },
+          "showing_hint_text": {
+            "anyOf": [{ "type": "boolean" }, { "type": "null" }],
+            "title": "Showing Hint Text"
+          },
+          "visible": { "anyOf": [{ "type": "boolean" }, { "type": "null" }], "title": "Visible" }
+        },
+        "required": [
+          "enabled",
+          "checked",
+          "checkable",
+          "clickable",
+          "editable",
+          "focused",
+          "showing_hint_text",
+          "selected",
+          "visible",
+          "password",
+          "long_clickable",
+          "scrollable"
+        ],
+        "title": "LocateStates",
+        "type": "object"
+      },
+      "Locator": {
+        "additionalProperties": false,
+        "properties": {
+          "candidates": {
+            "items": {
+              "discriminator": {
+                "mapping": {
+                  "desc": "#/components/schemas/LocatorCandidate",
+                  "image": "#/components/schemas/LocatorCandidate",
+                  "ocr_text": "#/components/schemas/LocatorCandidate",
+                  "point": "#/components/schemas/PointCandidate",
+                  "res_id": "#/components/schemas/LocatorCandidate",
+                  "text": "#/components/schemas/LocatorCandidate",
+                  "xpath": "#/components/schemas/LocatorCandidate"
+                },
+                "propertyName": "by"
+              },
+              "oneOf": [
+                { "$ref": "#/components/schemas/LocatorCandidate" },
+                { "$ref": "#/components/schemas/PointCandidate" }
+              ]
+            },
+            "minItems": 1,
+            "title": "Candidates",
+            "type": "array"
+          },
+          "expect": { "$ref": "#/components/schemas/LocatorExpect" }
+        },
+        "required": ["candidates", "expect"],
+        "title": "Locator",
+        "type": "object"
+      },
+      "LocatorCandidate": {
+        "additionalProperties": false,
+        "properties": {
+          "by": {
+            "enum": ["res_id", "text", "desc", "xpath", "ocr_text", "image"],
+            "title": "By",
+            "type": "string"
+          },
+          "scope": {
+            "anyOf": [{ "$ref": "#/components/schemas/Identifier" }, { "type": "null" }],
+            "default": null
+          },
+          "value": { "$ref": "#/components/schemas/Text" }
+        },
+        "required": ["by", "value"],
+        "title": "LocatorCandidate",
+        "type": "object"
+      },
+      "LocatorExpect": {
+        "additionalProperties": false,
+        "properties": {
+          "unique": { "title": "Unique", "type": "boolean" },
+          "visible": { "title": "Visible", "type": "boolean" }
+        },
+        "required": ["unique", "visible"],
+        "title": "LocatorExpect",
+        "type": "object"
+      },
+      "LocatorRef": {
+        "additionalProperties": false,
+        "properties": { "locator_ref": { "$ref": "#/components/schemas/Identifier" } },
+        "required": ["locator_ref"],
+        "title": "LocatorRef",
+        "type": "object"
+      },
+      "NonNegativeInt": { "maximum": 9007199254740991, "minimum": 0, "type": "integer" },
+      "Point": {
+        "additionalProperties": false,
+        "properties": {
+          "height": { "$ref": "#/components/schemas/PositiveInt" },
+          "width": { "$ref": "#/components/schemas/PositiveInt" },
+          "x": { "$ref": "#/components/schemas/NonNegativeInt" },
+          "y": { "$ref": "#/components/schemas/NonNegativeInt" }
+        },
+        "required": ["x", "y", "width", "height"],
+        "title": "Point",
+        "type": "object"
+      },
+      "PointCandidate": {
+        "additionalProperties": false,
+        "properties": {
+          "by": { "const": "point", "title": "By", "type": "string" },
+          "scope": {
+            "anyOf": [{ "$ref": "#/components/schemas/Identifier" }, { "type": "null" }],
+            "default": null
+          },
+          "value": { "$ref": "#/components/schemas/Point" }
+        },
+        "required": ["by", "value"],
+        "title": "PointCandidate",
+        "type": "object"
+      },
+      "PositiveInt": { "exclusiveMinimum": 0, "maximum": 9007199254740991, "type": "integer" },
+      "PreflightRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "case_id": {
+            "pattern": "^[A-Za-z_][A-Za-z0-9_.:-]{0,127}$",
+            "title": "Case Id",
+            "type": "string"
+          },
+          "inputs": { "additionalProperties": true, "title": "Inputs", "type": "object" },
+          "model_available": { "default": false, "title": "Model Available", "type": "boolean" },
+          "profile_id": {
+            "anyOf": [
+              { "pattern": "^[A-Za-z_][A-Za-z0-9_.:-]{0,127}$", "type": "string" },
+              { "type": "null" }
+            ],
+            "title": "Profile Id"
+          },
+          "strategy": { "anyOf": [{ "$ref": "#/components/schemas/Strategy" }, { "type": "null" }] }
+        },
+        "required": ["case_id"],
+        "title": "PreflightRequest",
+        "type": "object"
+      },
+      "PreflightResponse": {
+        "properties": {
+          "ai_requirements": {
+            "items": { "$ref": "#/components/schemas/IssueModel" },
+            "title": "Ai Requirements",
+            "type": "array"
+          },
+          "issues": {
+            "items": { "$ref": "#/components/schemas/IssueModel" },
+            "title": "Issues",
+            "type": "array"
+          },
+          "offline_ready": { "title": "Offline Ready", "type": "boolean" }
+        },
+        "required": ["offline_ready", "issues", "ai_requirements"],
+        "title": "PreflightResponse",
+        "type": "object"
+      },
+      "ProjectDetail": {
+        "properties": {
+          "allowed_apps": {
+            "items": { "type": "string" },
+            "title": "Allowed Apps",
+            "type": "array"
+          },
+          "case_ids": { "items": { "type": "string" }, "title": "Case Ids", "type": "array" },
+          "contract": {
+            "const": "pulse-runtime-api-draft",
+            "default": "pulse-runtime-api-draft",
+            "title": "Contract",
+            "type": "string"
+          },
+          "data_ids": { "items": { "type": "string" }, "title": "Data Ids", "type": "array" },
+          "default_strategy": { "$ref": "#/components/schemas/Strategy" },
+          "entry_cases": { "items": { "type": "string" }, "title": "Entry Cases", "type": "array" },
+          "flow_ids": { "items": { "type": "string" }, "title": "Flow Ids", "type": "array" },
+          "manifest": { "additionalProperties": true, "title": "Manifest", "type": "object" },
+          "name": { "title": "Name", "type": "string" },
+          "platforms": { "items": { "type": "string" }, "title": "Platforms", "type": "array" },
+          "profile_ids": { "items": { "type": "string" }, "title": "Profile Ids", "type": "array" },
+          "project_id": { "title": "Project Id", "type": "string" },
+          "required_capabilities": {
+            "items": { "type": "string" },
+            "title": "Required Capabilities",
+            "type": "array"
+          },
+          "revision": { "title": "Revision", "type": "string" },
+          "root": { "title": "Root", "type": "string" }
+        },
+        "required": [
+          "root",
+          "project_id",
+          "name",
+          "revision",
+          "entry_cases",
+          "case_ids",
+          "flow_ids",
+          "data_ids",
+          "profile_ids",
+          "platforms",
+          "default_strategy",
+          "required_capabilities",
+          "allowed_apps",
+          "manifest"
+        ],
+        "title": "ProjectDetail",
+        "type": "object"
+      },
+      "ProjectList": {
+        "properties": {
+          "projects": {
+            "items": { "$ref": "#/components/schemas/ProjectSummary" },
+            "title": "Projects",
+            "type": "array"
+          }
+        },
+        "required": ["projects"],
+        "title": "ProjectList",
+        "type": "object"
+      },
+      "ProjectOpenRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "path": { "maxLength": 4096, "minLength": 1, "title": "Path", "type": "string" }
+        },
+        "required": ["path"],
+        "title": "ProjectOpenRequest",
+        "type": "object"
+      },
+      "ProjectSummary": {
+        "properties": {
+          "allowed_apps": {
+            "items": { "type": "string" },
+            "title": "Allowed Apps",
+            "type": "array"
+          },
+          "case_ids": { "items": { "type": "string" }, "title": "Case Ids", "type": "array" },
+          "contract": {
+            "const": "pulse-runtime-api-draft",
+            "default": "pulse-runtime-api-draft",
+            "title": "Contract",
+            "type": "string"
+          },
+          "data_ids": { "items": { "type": "string" }, "title": "Data Ids", "type": "array" },
+          "default_strategy": { "$ref": "#/components/schemas/Strategy" },
+          "entry_cases": { "items": { "type": "string" }, "title": "Entry Cases", "type": "array" },
+          "flow_ids": { "items": { "type": "string" }, "title": "Flow Ids", "type": "array" },
+          "name": { "title": "Name", "type": "string" },
+          "platforms": { "items": { "type": "string" }, "title": "Platforms", "type": "array" },
+          "profile_ids": { "items": { "type": "string" }, "title": "Profile Ids", "type": "array" },
+          "project_id": { "title": "Project Id", "type": "string" },
+          "required_capabilities": {
+            "items": { "type": "string" },
+            "title": "Required Capabilities",
+            "type": "array"
+          },
+          "revision": { "title": "Revision", "type": "string" },
+          "root": { "title": "Root", "type": "string" }
+        },
+        "required": [
+          "root",
+          "project_id",
+          "name",
+          "revision",
+          "entry_cases",
+          "case_ids",
+          "flow_ids",
+          "data_ids",
+          "profile_ids",
+          "platforms",
+          "default_strategy",
+          "required_capabilities",
+          "allowed_apps"
+        ],
+        "title": "ProjectSummary",
+        "type": "object"
+      },
+      "RecordedAction": {
+        "properties": {
+          "action_completed": { "title": "Action Completed", "type": "boolean" },
+          "action_id": { "title": "Action Id", "type": "string" },
+          "kind": { "title": "Kind", "type": "string" },
+          "operation_id": { "title": "Operation Id", "type": "string" },
+          "params": { "additionalProperties": true, "title": "Params", "type": "object" },
+          "post_observation_id": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Post Observation Id"
+          },
+          "recorded_at_ms": { "title": "Recorded At Ms", "type": "integer" },
+          "source": { "const": "recorder", "title": "Source", "type": "string" },
+          "status": { "title": "Status", "type": "string" },
+          "target_observation_id": { "title": "Target Observation Id", "type": "string" },
+          "target_source": { "title": "Target Source", "type": "string" }
+        },
+        "required": [
+          "action_id",
+          "operation_id",
+          "kind",
+          "source",
+          "target_source",
+          "target_observation_id",
+          "params",
+          "status",
+          "action_completed",
+          "recorded_at_ms"
+        ],
+        "title": "RecordedAction",
+        "type": "object"
+      },
+      "RecordingDetail": {
+        "properties": {
+          "contract": {
+            "const": "pulse-recording-draft",
+            "default": "pulse-recording-draft",
+            "title": "Contract",
+            "type": "string"
+          },
+          "created_at_ms": { "title": "Created At Ms", "type": "integer" },
+          "draft": {
+            "anyOf": [{ "additionalProperties": true, "type": "object" }, { "type": "null" }],
+            "title": "Draft"
+          },
+          "event_count": { "default": 0, "title": "Event Count", "type": "integer" },
+          "events": {
+            "items": { "$ref": "#/components/schemas/RecordedAction" },
+            "title": "Events",
+            "type": "array"
+          },
+          "recording_id": { "title": "Recording Id", "type": "string" },
+          "serial": { "title": "Serial", "type": "string" },
+          "session_id": { "title": "Session Id", "type": "string" },
+          "state": {
+            "enum": ["recording", "paused", "stopped"],
+            "title": "State",
+            "type": "string"
+          },
+          "updated_at_ms": { "title": "Updated At Ms", "type": "integer" }
+        },
+        "required": [
+          "recording_id",
+          "serial",
+          "session_id",
+          "state",
+          "created_at_ms",
+          "updated_at_ms"
+        ],
+        "title": "RecordingDetail",
+        "type": "object"
+      },
+      "RecordingList": {
+        "properties": {
+          "recordings": {
+            "items": { "$ref": "#/components/schemas/RecordingSummary" },
+            "title": "Recordings",
+            "type": "array"
+          }
+        },
+        "required": ["recordings"],
+        "title": "RecordingList",
+        "type": "object"
+      },
+      "RecordingStartRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "serial": { "pattern": "^[A-Za-z0-9._:-]{1,64}$", "title": "Serial", "type": "string" },
+          "session_id": {
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "title": "Session Id",
+            "type": "string"
+          }
+        },
+        "required": ["serial", "session_id"],
+        "title": "RecordingStartRequest",
+        "type": "object"
+      },
+      "RecordingSummary": {
+        "properties": {
+          "contract": {
+            "const": "pulse-recording-draft",
+            "default": "pulse-recording-draft",
+            "title": "Contract",
+            "type": "string"
+          },
+          "created_at_ms": { "title": "Created At Ms", "type": "integer" },
+          "event_count": { "default": 0, "title": "Event Count", "type": "integer" },
+          "recording_id": { "title": "Recording Id", "type": "string" },
+          "serial": { "title": "Serial", "type": "string" },
+          "session_id": { "title": "Session Id", "type": "string" },
+          "state": {
+            "enum": ["recording", "paused", "stopped"],
+            "title": "State",
+            "type": "string"
+          },
+          "updated_at_ms": { "title": "Updated At Ms", "type": "integer" }
+        },
+        "required": [
+          "recording_id",
+          "serial",
+          "session_id",
+          "state",
+          "created_at_ms",
+          "updated_at_ms"
+        ],
+        "title": "RecordingSummary",
+        "type": "object"
+      },
+      "RelayBody": {
+        "properties": {
+          "bit_rate": {
+            "default": 4000000,
+            "maximum": 100000000,
+            "minimum": 100000,
+            "title": "Bit Rate",
+            "type": "integer"
+          },
+          "channel": {
+            "pattern": "^[A-Za-z0-9._:-]{1,128}$",
+            "title": "Channel",
+            "type": "string"
+          },
+          "max_fps": {
+            "default": 60,
+            "maximum": 240,
+            "minimum": 0,
+            "title": "Max Fps",
+            "type": "integer"
+          },
+          "max_size": {
+            "default": 1080,
+            "maximum": 8192,
+            "minimum": 0,
+            "title": "Max Size",
+            "type": "integer"
+          },
+          "relay_url": { "pattern": "^wss?://[^\\s]+$", "title": "Relay Url", "type": "string" },
+          "token": { "maxLength": 512, "minLength": 1, "title": "Token", "type": "string" }
+        },
+        "required": ["relay_url", "channel", "token"],
+        "title": "RelayBody",
+        "type": "object"
+      },
+      "RelayKeepalive": {
+        "properties": {
+          "publisher_id": {
+            "maxLength": 64,
+            "minLength": 1,
+            "title": "Publisher Id",
+            "type": "string"
+          }
+        },
+        "required": ["publisher_id"],
+        "title": "RelayKeepalive",
+        "type": "object"
+      },
+      "RunCurrent": {
+        "properties": {
+          "id": { "title": "Id", "type": "string" },
+          "kind": { "enum": ["step", "check"], "title": "Kind", "type": "string" },
+          "type": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Type" }
+        },
+        "required": ["kind", "id"],
+        "title": "RunCurrent",
+        "type": "object"
+      },
+      "RunDetail": {
+        "properties": {
+          "business_success": {
+            "anyOf": [{ "type": "boolean" }, { "type": "null" }],
+            "title": "Business Success"
+          },
+          "case_id": { "title": "Case Id", "type": "string" },
+          "contract": {
+            "const": "pulse-runtime-api-draft",
+            "default": "pulse-runtime-api-draft",
+            "title": "Contract",
+            "type": "string"
+          },
+          "created_at_ms": { "title": "Created At Ms", "type": "integer" },
+          "debug": { "$ref": "#/components/schemas/DebugState" },
+          "device": { "title": "Device", "type": "string" },
+          "elapsed_ms": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Elapsed Ms"
+          },
+          "error": { "anyOf": [{ "$ref": "#/components/schemas/RunError" }, { "type": "null" }] },
+          "evidence": { "$ref": "#/components/schemas/EvidenceSummary" },
+          "finished_at_ms": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Finished At Ms"
+          },
+          "profile_id": { "title": "Profile Id", "type": "string" },
+          "project_id": { "title": "Project Id", "type": "string" },
+          "reason": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Reason" },
+          "result": {
+            "anyOf": [{ "additionalProperties": true, "type": "object" }, { "type": "null" }],
+            "title": "Result"
+          },
+          "run_id": { "title": "Run Id", "type": "string" },
+          "session_id": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Session Id"
+          },
+          "started_at_ms": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Started At Ms"
+          },
+          "state": {
+            "enum": [
+              "queued",
+              "preparing",
+              "running",
+              "paused",
+              "stopping",
+              "passed",
+              "failed",
+              "blocked",
+              "canceled",
+              "interrupted"
+            ],
+            "title": "State",
+            "type": "string"
+          },
+          "strategy": { "$ref": "#/components/schemas/Strategy" }
+        },
+        "required": [
+          "run_id",
+          "project_id",
+          "case_id",
+          "profile_id",
+          "device",
+          "strategy",
+          "state",
+          "created_at_ms"
+        ],
+        "title": "RunDetail",
+        "type": "object"
+      },
+      "RunError": {
+        "properties": {
+          "code": { "title": "Code", "type": "string" },
+          "message": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Message" }
+        },
+        "required": ["code"],
+        "title": "RunError",
+        "type": "object"
+      },
+      "RunList": {
+        "properties": {
+          "runs": {
+            "items": { "$ref": "#/components/schemas/RunSummary" },
+            "title": "Runs",
+            "type": "array"
+          }
+        },
+        "required": ["runs"],
+        "title": "RunList",
+        "type": "object"
+      },
+      "RunRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "activities": {
+            "additionalProperties": { "type": "string" },
+            "title": "Activities",
+            "type": "object"
+          },
+          "allow_clear": { "default": false, "title": "Allow Clear", "type": "boolean" },
+          "auto_connect": { "default": true, "title": "Auto Connect", "type": "boolean" },
+          "breakpoints": {
+            "items": { "type": "string" },
+            "maxItems": 256,
+            "title": "Breakpoints",
+            "type": "array"
+          },
+          "case_id": {
+            "pattern": "^[A-Za-z_][A-Za-z0-9_.:-]{0,127}$",
+            "title": "Case Id",
+            "type": "string"
+          },
+          "connect_timeout_ms": {
+            "default": 30000,
+            "maximum": 120000,
+            "minimum": 1000,
+            "title": "Connect Timeout Ms",
+            "type": "integer"
+          },
+          "device": { "pattern": "^[A-Za-z0-9._:-]{1,64}$", "title": "Device", "type": "string" },
+          "include_screenshot": {
+            "default": true,
+            "title": "Include Screenshot",
+            "type": "boolean"
+          },
+          "inputs": { "additionalProperties": true, "title": "Inputs", "type": "object" },
+          "profile_id": {
+            "anyOf": [
+              { "pattern": "^[A-Za-z_][A-Za-z0-9_.:-]{0,127}$", "type": "string" },
+              { "type": "null" }
+            ],
+            "title": "Profile Id"
+          },
+          "project_id": {
+            "pattern": "^[A-Za-z_][A-Za-z0-9_.:-]{0,127}$",
+            "title": "Project Id",
+            "type": "string"
+          },
+          "strategy": { "anyOf": [{ "$ref": "#/components/schemas/Strategy" }, { "type": "null" }] }
+        },
+        "required": ["project_id", "case_id", "device"],
+        "title": "RunRequest",
+        "type": "object"
+      },
+      "RunResultResponse": {
+        "properties": {
+          "result": {
+            "anyOf": [{ "additionalProperties": true, "type": "object" }, { "type": "null" }],
+            "title": "Result"
+          },
+          "run_id": { "title": "Run Id", "type": "string" },
+          "state": {
+            "enum": [
+              "queued",
+              "preparing",
+              "running",
+              "paused",
+              "stopping",
+              "passed",
+              "failed",
+              "blocked",
+              "canceled",
+              "interrupted"
+            ],
+            "title": "State",
+            "type": "string"
+          }
+        },
+        "required": ["run_id", "state"],
+        "title": "RunResultResponse",
+        "type": "object"
+      },
+      "RunSummary": {
+        "properties": {
+          "business_success": {
+            "anyOf": [{ "type": "boolean" }, { "type": "null" }],
+            "title": "Business Success"
+          },
+          "case_id": { "title": "Case Id", "type": "string" },
+          "contract": {
+            "const": "pulse-runtime-api-draft",
+            "default": "pulse-runtime-api-draft",
+            "title": "Contract",
+            "type": "string"
+          },
+          "created_at_ms": { "title": "Created At Ms", "type": "integer" },
+          "debug": { "$ref": "#/components/schemas/DebugState" },
+          "device": { "title": "Device", "type": "string" },
+          "elapsed_ms": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Elapsed Ms"
+          },
+          "error": { "anyOf": [{ "$ref": "#/components/schemas/RunError" }, { "type": "null" }] },
+          "evidence": { "$ref": "#/components/schemas/EvidenceSummary" },
+          "finished_at_ms": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Finished At Ms"
+          },
+          "profile_id": { "title": "Profile Id", "type": "string" },
+          "project_id": { "title": "Project Id", "type": "string" },
+          "reason": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Reason" },
+          "run_id": { "title": "Run Id", "type": "string" },
+          "started_at_ms": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Started At Ms"
+          },
+          "state": {
+            "enum": [
+              "queued",
+              "preparing",
+              "running",
+              "paused",
+              "stopping",
+              "passed",
+              "failed",
+              "blocked",
+              "canceled",
+              "interrupted"
+            ],
+            "title": "State",
+            "type": "string"
+          },
+          "strategy": { "$ref": "#/components/schemas/Strategy" }
+        },
+        "required": [
+          "run_id",
+          "project_id",
+          "case_id",
+          "profile_id",
+          "device",
+          "strategy",
+          "state",
+          "created_at_ms"
+        ],
+        "title": "RunSummary",
+        "type": "object"
+      },
+      "Strategy": { "enum": ["rule_only", "ai_on_locator_failure", "ai_led"], "type": "string" },
+      "Target": {
+        "anyOf": [
+          { "$ref": "#/components/schemas/LocatorRef" },
+          { "$ref": "#/components/schemas/InlineLocator" }
+        ]
+      },
+      "TargetAppDiagnostic": {
+        "additionalProperties": false,
+        "properties": {
+          "code": { "title": "Code", "type": "string" },
+          "guidance": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Guidance" }
+        },
+        "required": ["code", "guidance"],
+        "title": "TargetAppDiagnostic",
+        "type": "object"
+      },
+      "TargetAppResponse": {
+        "additionalProperties": false,
+        "description": "Installation evidence only, not Agent readiness or target-case/build verification.",
+        "properties": {
+          "diagnostic": { "$ref": "#/components/schemas/TargetAppDiagnostic" },
+          "observed_at_ms": {
+            "anyOf": [{ "minimum": 0, "type": "integer" }, { "type": "null" }],
+            "title": "Observed At Ms"
+          },
+          "package": { "const": "com.pulse.target", "title": "Package", "type": "string" },
+          "serial": { "pattern": "^[A-Za-z0-9._:-]{1,64}$", "title": "Serial", "type": "string" },
+          "status": {
+            "enum": ["installed", "missing", "unavailable", "failed"],
+            "title": "Status",
+            "type": "string"
+          },
+          "version_code": {
+            "anyOf": [
+              { "maximum": 9223372036854776000, "minimum": 0, "type": "integer" },
+              { "type": "null" }
+            ],
+            "title": "Version Code"
+          },
+          "version_name": {
+            "anyOf": [{ "maxLength": 128, "type": "string" }, { "type": "null" }],
+            "title": "Version Name"
+          }
+        },
+        "required": [
+          "serial",
+          "package",
+          "status",
+          "version_name",
+          "version_code",
+          "observed_at_ms",
+          "diagnostic"
+        ],
+        "title": "TargetAppResponse",
+        "type": "object"
+      },
+      "Text": { "minLength": 1, "pattern": "\\S", "type": "string" },
+      "TriggerBody": {
+        "description": "Debug-only visible change for latency measurement (no general control channel: P5).",
+        "properties": {
+          "code": {
+            "default": 0,
+            "maximum": 400,
+            "minimum": 0,
+            "title": "Code",
+            "type": "integer"
+          },
+          "kind": { "pattern": "^(tap|keyevent)$", "title": "Kind", "type": "string" },
+          "x": { "default": 0, "maximum": 10000, "minimum": 0, "title": "X", "type": "integer" },
+          "y": { "default": 0, "maximum": 10000, "minimum": 0, "title": "Y", "type": "integer" }
+        },
+        "required": ["kind"],
+        "title": "TriggerBody",
+        "type": "object"
+      },
+      "ValidationError": {
+        "properties": {
+          "ctx": { "title": "Context", "type": "object" },
+          "input": { "title": "Input" },
+          "loc": {
+            "items": { "anyOf": [{ "type": "string" }, { "type": "integer" }] },
+            "title": "Location",
+            "type": "array"
+          },
+          "msg": { "title": "Message", "type": "string" },
+          "type": { "title": "Error Type", "type": "string" }
+        },
+        "required": ["loc", "msg", "type"],
+        "title": "ValidationError",
+        "type": "object"
+      }
+    }
+  },
+  "info": { "title": "Pulse Runtime", "version": "0.0.0" },
+  "openapi": "3.1.0",
+  "paths": {
+    "/debug/stream": {
+      "get": {
+        "operationId": "getStreamDebug",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Getstreamdebug",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Stream Status"
+      }
+    },
+    "/debug/stream/{serial}/relay": {
+      "delete": {
+        "operationId": "stopRelay",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "serial",
+            "required": true,
+            "schema": { "title": "Serial", "type": "string" }
+          },
+          {
+            "in": "query",
+            "name": "publisher_id",
+            "required": true,
+            "schema": { "title": "Publisher Id", "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Stoprelay",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Stop Relay"
+      },
+      "post": {
+        "operationId": "startRelay",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "serial",
+            "required": true,
+            "schema": { "title": "Serial", "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/RelayBody" } }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Startrelay",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Start Relay"
+      }
+    },
+    "/debug/stream/{serial}/relay/keepalive": {
+      "post": {
+        "operationId": "renewRelay",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "serial",
+            "required": true,
+            "schema": { "title": "Serial", "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/RelayKeepalive" } }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Renewrelay",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Renew Relay"
+      }
+    },
+    "/debug/stream/{serial}/trigger": {
+      "post": {
+        "operationId": "triggerStream",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "serial",
+            "required": true,
+            "schema": { "title": "Serial", "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/TriggerBody" } }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Triggerstream",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Trigger"
+      }
+    },
+    "/devices": {
+      "get": {
+        "operationId": "listDevices",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Listdevices",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Devices"
+      }
+    },
+    "/devices/{serial}": {
+      "get": {
+        "operationId": "getDevice",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "serial",
+            "required": true,
+            "schema": { "title": "Serial", "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Getdevice",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Device Status"
+      }
+    },
+    "/devices/{serial}/agent/action": {
+      "post": {
+        "operationId": "performAction",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "serial",
+            "required": true,
+            "schema": { "title": "Serial", "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": { "application/json": { "schema": {} } },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Action Agent"
+      }
+    },
+    "/devices/{serial}/agent/action/cancel": {
+      "post": {
+        "operationId": "cancelAction",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "serial",
+            "required": true,
+            "schema": { "title": "Serial", "type": "string" }
+          },
+          {
+            "in": "query",
+            "name": "session_id",
+            "required": true,
+            "schema": { "title": "Session Id", "type": "string" }
+          },
+          {
+            "in": "query",
+            "name": "request_id",
+            "required": true,
+            "schema": { "title": "Request Id", "type": "string" }
+          },
+          {
+            "in": "query",
+            "name": "operation_id",
+            "required": true,
+            "schema": { "title": "Operation Id", "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Cancelaction",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Cancel Action"
+      }
+    },
+    "/devices/{serial}/agent/cancel": {
+      "post": {
+        "operationId": "cancelConnection",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "serial",
+            "required": true,
+            "schema": { "title": "Serial", "type": "string" }
+          },
+          {
+            "in": "query",
+            "name": "operation_id",
+            "required": true,
+            "schema": { "title": "Operation Id", "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Cancelconnection",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Cancel Connection"
+      }
+    },
+    "/devices/{serial}/agent/capabilities": {
+      "get": {
+        "operationId": "getAgentCapabilities",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "serial",
+            "required": true,
+            "schema": { "title": "Serial", "type": "string" }
+          },
+          {
+            "in": "query",
+            "name": "session_id",
+            "required": true,
+            "schema": { "title": "Session Id", "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Getagentcapabilities",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Agent Capabilities"
+      }
+    },
+    "/devices/{serial}/agent/connect": {
+      "post": {
+        "operationId": "connectAgent",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "serial",
+            "required": true,
+            "schema": { "title": "Serial", "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/AgentConnectBody" } }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Connectagent",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Connect Agent"
+      }
+    },
+    "/devices/{serial}/agent/connection": {
+      "delete": {
+        "operationId": "disconnectAgent",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "serial",
+            "required": true,
+            "schema": { "title": "Serial", "type": "string" }
+          },
+          {
+            "in": "query",
+            "name": "session_id",
+            "required": true,
+            "schema": { "title": "Session Id", "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Disconnectagent",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Disconnect Agent"
+      }
+    },
+    "/devices/{serial}/agent/control": {
+      "get": {
+        "operationId": "getControl",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "serial",
+            "required": true,
+            "schema": { "title": "Serial", "type": "string" }
+          },
+          {
+            "in": "query",
+            "name": "session_id",
+            "required": false,
+            "schema": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Session Id" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Getcontrol",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Control Status"
+      }
+    },
+    "/devices/{serial}/agent/control/acquire": {
+      "post": {
+        "operationId": "acquireControl",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "serial",
+            "required": true,
+            "schema": { "title": "Serial", "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/ControlAcquireBody" } }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Acquirecontrol",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Acquire Control"
+      }
+    },
+    "/devices/{serial}/agent/control/recovery": {
+      "post": {
+        "operationId": "acknowledgeRecovery",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "serial",
+            "required": true,
+            "schema": { "title": "Serial", "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/ControlRecoveryBody" } }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Acknowledgerecovery",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Recovery Control"
+      }
+    },
+    "/devices/{serial}/agent/control/release": {
+      "post": {
+        "operationId": "releaseControl",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "serial",
+            "required": true,
+            "schema": { "title": "Serial", "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/ControlReleaseBody" } }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Releasecontrol",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Release Control"
+      }
+    },
+    "/devices/{serial}/agent/control/takeover": {
+      "post": {
+        "operationId": "takeOverControl",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "serial",
+            "required": true,
+            "schema": { "title": "Serial", "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/ControlTakeoverBody" } }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Takeovercontrol",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Takeover Control"
+      }
+    },
+    "/devices/{serial}/agent/geometry": {
+      "get": {
+        "operationId": "getAgentGeometry",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "serial",
+            "required": true,
+            "schema": { "title": "Serial", "type": "string" }
+          },
+          {
+            "in": "query",
+            "name": "session_id",
+            "required": true,
+            "schema": { "title": "Session Id", "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Getagentgeometry",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Agent Geometry"
+      }
+    },
+    "/devices/{serial}/agent/health": {
+      "get": {
+        "operationId": "getAgentHealth",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "serial",
+            "required": true,
+            "schema": { "title": "Serial", "type": "string" }
+          },
+          {
+            "in": "query",
+            "name": "session_id",
+            "required": true,
+            "schema": { "title": "Session Id", "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Getagenthealth",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Agent Health"
+      }
+    },
+    "/devices/{serial}/agent/ledger": {
+      "get": {
+        "operationId": "listLedgerActions",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "serial",
+            "required": true,
+            "schema": { "title": "Serial", "type": "string" }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 50,
+              "maximum": 200,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Listledgeractions",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Ledger Actions"
+      }
+    },
+    "/devices/{serial}/agent/locate": {
+      "post": {
+        "operationId": "locate",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "serial",
+            "required": true,
+            "schema": { "title": "Serial", "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/LocateRequest" } }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/LocateResult" } }
+            },
+            "description": "Successful Response"
+          },
+          "400": {
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/LocateHttpError" } }
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/LocateHttpError" } }
+            },
+            "description": "Unauthorized"
+          },
+          "409": {
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/LocateHttpError" } }
+            },
+            "description": "Conflict"
+          },
+          "413": {
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/LocateRejected" } }
+            },
+            "description": "Request Entity Too Large"
+          },
+          "422": {
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/LocateRejected" } }
+            },
+            "description": "Unprocessable Entity"
+          }
+        },
+        "summary": "Locate Agent"
+      }
+    },
+    "/devices/{serial}/agent/locate/cancel": {
+      "post": {
+        "operationId": "cancelLocate",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "serial",
+            "required": true,
+            "schema": { "title": "Serial", "type": "string" }
+          },
+          {
+            "in": "query",
+            "name": "session_id",
+            "required": true,
+            "schema": { "title": "Session Id", "type": "string" }
+          },
+          {
+            "in": "query",
+            "name": "request_id",
+            "required": true,
+            "schema": { "title": "Request Id", "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Cancellocate",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Cancel Locate"
+      }
+    },
+    "/devices/{serial}/agent/observe": {
+      "post": {
+        "operationId": "observeAgent",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "serial",
+            "required": true,
+            "schema": { "title": "Serial", "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/AgentObserveBody" } }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Observeagent",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Observe Agent"
+      }
+    },
+    "/devices/{serial}/agent/observe/cancel": {
+      "post": {
+        "operationId": "cancelObservation",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "serial",
+            "required": true,
+            "schema": { "title": "Serial", "type": "string" }
+          },
+          {
+            "in": "query",
+            "name": "session_id",
+            "required": true,
+            "schema": { "title": "Session Id", "type": "string" }
+          },
+          {
+            "in": "query",
+            "name": "request_id",
+            "required": true,
+            "schema": { "title": "Request Id", "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Cancelobservation",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Cancel Observe"
+      }
+    },
+    "/devices/{serial}/agent/prepare": {
+      "post": {
+        "operationId": "prepareAgent",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "serial",
+            "required": true,
+            "schema": { "title": "Serial", "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/AgentPrepareBody" } }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Prepareagent",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Prepare Agent"
+      }
+    },
+    "/devices/{serial}/target-app": {
+      "get": {
+        "operationId": "getTargetApp",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "serial",
+            "required": true,
+            "schema": { "title": "Serial", "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/TargetAppResponse" } }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Target App"
+      }
+    },
+    "/events": {
+      "get": {
+        "operationId": "getEvents",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "since",
+            "required": false,
+            "schema": { "default": 0, "minimum": 0, "title": "Since", "type": "integer" }
+          },
+          {
+            "in": "query",
+            "name": "run_id",
+            "required": false,
+            "schema": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Run Id" }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 500,
+              "maximum": 2000,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/EventPage" } }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get Events"
+      }
+    },
+    "/health": {
+      "get": {
+        "operationId": "getHealth",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/HealthResponse" } }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Health"
+      }
+    },
+    "/projects": {
+      "get": {
+        "operationId": "listProjects",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/ProjectList" } }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "List Projects"
+      },
+      "post": {
+        "operationId": "openProject",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/ProjectOpenRequest" } }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/ProjectDetail" } }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Open Project"
+      }
+    },
+    "/projects/{project_id}": {
+      "delete": {
+        "operationId": "closeProject",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "project_id",
+            "required": true,
+            "schema": { "title": "Project Id", "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Closeproject",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Close Project"
+      },
+      "get": {
+        "operationId": "getProject",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "project_id",
+            "required": true,
+            "schema": { "title": "Project Id", "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/ProjectDetail" } }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get Project"
+      }
+    },
+    "/projects/{project_id}/cases": {
+      "get": {
+        "operationId": "listCases",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "project_id",
+            "required": true,
+            "schema": { "title": "Project Id", "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Listcases",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "List Cases"
+      }
+    },
+    "/projects/{project_id}/cases/{case_id}": {
+      "get": {
+        "operationId": "getCase",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "project_id",
+            "required": true,
+            "schema": { "title": "Project Id", "type": "string" }
+          },
+          {
+            "in": "path",
+            "name": "case_id",
+            "required": true,
+            "schema": { "title": "Case Id", "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Getcase",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get Case"
+      }
+    },
+    "/projects/{project_id}/data/{data_id}": {
+      "get": {
+        "operationId": "getDataSet",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "project_id",
+            "required": true,
+            "schema": { "title": "Project Id", "type": "string" }
+          },
+          {
+            "in": "path",
+            "name": "data_id",
+            "required": true,
+            "schema": { "title": "Data Id", "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Getdataset",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get Data"
+      }
+    },
+    "/projects/{project_id}/flows/{flow_id}": {
+      "get": {
+        "operationId": "getFlow",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "project_id",
+            "required": true,
+            "schema": { "title": "Project Id", "type": "string" }
+          },
+          {
+            "in": "path",
+            "name": "flow_id",
+            "required": true,
+            "schema": { "title": "Flow Id", "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Getflow",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get Flow"
+      }
+    },
+    "/projects/{project_id}/preflight": {
+      "post": {
+        "operationId": "runPreflight",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "project_id",
+            "required": true,
+            "schema": { "title": "Project Id", "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/PreflightRequest" } }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/PreflightResponse" } }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Preflight Project"
+      }
+    },
+    "/projects/{project_id}/profiles/{profile_id}": {
+      "get": {
+        "operationId": "getProfile",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "project_id",
+            "required": true,
+            "schema": { "title": "Project Id", "type": "string" }
+          },
+          {
+            "in": "path",
+            "name": "profile_id",
+            "required": true,
+            "schema": { "title": "Profile Id", "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Getprofile",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get Profile"
+      }
+    },
+    "/recordings": {
+      "get": {
+        "operationId": "listRecordings",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/RecordingList" } }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "List Recordings"
+      },
+      "post": {
+        "operationId": "startRecording",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/RecordingStartRequest" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/RecordingSummary" } }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Start Recording"
+      }
+    },
+    "/recordings/{recording_id}": {
+      "get": {
+        "operationId": "getRecording",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "recording_id",
+            "required": true,
+            "schema": { "title": "Recording Id", "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/RecordingDetail" } }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get Recording"
+      }
+    },
+    "/recordings/{recording_id}/pause": {
+      "post": {
+        "operationId": "pauseRecording",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "recording_id",
+            "required": true,
+            "schema": { "title": "Recording Id", "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/RecordingSummary" } }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Pause Recording"
+      }
+    },
+    "/recordings/{recording_id}/resume": {
+      "post": {
+        "operationId": "resumeRecording",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "recording_id",
+            "required": true,
+            "schema": { "title": "Recording Id", "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/RecordingSummary" } }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Resume Recording"
+      }
+    },
+    "/recordings/{recording_id}/stop": {
+      "post": {
+        "operationId": "stopRecording",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "recording_id",
+            "required": true,
+            "schema": { "title": "Recording Id", "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/RecordingDetail" } }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Stop Recording"
+      }
+    },
+    "/runs": {
+      "get": {
+        "operationId": "listRuns",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/RunList" } }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "List Runs"
+      },
+      "post": {
+        "operationId": "startRun",
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/RunRequest" } }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/RunSummary" } }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Start Run"
+      }
+    },
+    "/runs/{run_id}": {
+      "get": {
+        "operationId": "getRun",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "run_id",
+            "required": true,
+            "schema": { "title": "Run Id", "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/RunDetail" } }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get Run"
+      }
+    },
+    "/runs/{run_id}/debug": {
+      "get": {
+        "operationId": "getDebug",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "run_id",
+            "required": true,
+            "schema": { "title": "Run Id", "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/DebugSnapshot" } }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get Debug"
+      }
+    },
+    "/runs/{run_id}/debug/breakpoints": {
+      "put": {
+        "operationId": "setBreakpoints",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "run_id",
+            "required": true,
+            "schema": { "title": "Run Id", "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/DebugBreakpointsRequest" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/DebugSnapshot" } }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Set Breakpoints"
+      }
+    },
+    "/runs/{run_id}/debug/pause": {
+      "post": {
+        "operationId": "pauseRun",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "run_id",
+            "required": true,
+            "schema": { "title": "Run Id", "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/DebugSnapshot" } }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Pause Run"
+      }
+    },
+    "/runs/{run_id}/debug/resume": {
+      "post": {
+        "operationId": "resumeRun",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "run_id",
+            "required": true,
+            "schema": { "title": "Run Id", "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/DebugSnapshot" } }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Resume Run"
+      }
+    },
+    "/runs/{run_id}/debug/step": {
+      "post": {
+        "operationId": "stepRun",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "run_id",
+            "required": true,
+            "schema": { "title": "Run Id", "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/DebugSnapshot" } }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Step Run"
+      }
+    },
+    "/runs/{run_id}/events": {
+      "get": {
+        "operationId": "getRunEvents",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "run_id",
+            "required": true,
+            "schema": { "title": "Run Id", "type": "string" }
+          },
+          {
+            "in": "query",
+            "name": "since",
+            "required": false,
+            "schema": { "default": 0, "minimum": 0, "title": "Since", "type": "integer" }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 500,
+              "maximum": 2000,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/EventPage" } }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get Run Events"
+      }
+    },
+    "/runs/{run_id}/report": {
+      "get": {
+        "operationId": "getRunReport",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "run_id",
+            "required": true,
+            "schema": { "title": "Run Id", "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Getrunreport",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get Run Report"
+      }
+    },
+    "/runs/{run_id}/report/html": {
+      "get": {
+        "operationId": "getRunReportHtml",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "run_id",
+            "required": true,
+            "schema": { "title": "Run Id", "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": { "text/html": { "schema": { "type": "string" } } },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get Run Report Html"
+      }
+    },
+    "/runs/{run_id}/result": {
+      "get": {
+        "operationId": "getRunResult",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "run_id",
+            "required": true,
+            "schema": { "title": "Run Id", "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/RunResultResponse" } }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get Run Result"
+      }
+    },
+    "/runs/{run_id}/stop": {
+      "post": {
+        "operationId": "stopRun",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "run_id",
+            "required": true,
+            "schema": { "title": "Run Id", "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/RunSummary" } }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Stop Run"
+      }
+    }
+  }
+}

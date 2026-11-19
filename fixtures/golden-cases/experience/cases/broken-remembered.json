@@ -1,0 +1,49 @@
+{
+  "$schema": "urn:pulse:schema:1-draft:case",
+  "case_id": "broken-remembered",
+  "name": "Collection fails while resolving the remembered candidate",
+  "goal": "An unverifiable observation stays blocked; a cache never turns into a verdict",
+  "parameters": {},
+  "profile_refs": ["fake-android"],
+  "inputs": {},
+  "locators": {},
+  "preconditions": [
+    {
+      "id": "page-ready",
+      "required": true,
+      "condition": {
+        "operator": "exists",
+        "target": {
+          "locator_ref": "page"
+        },
+        "source": "native"
+      }
+    }
+  ],
+  "steps": [
+    {
+      "type": "wait",
+      "id": "page-open",
+      "condition": {
+        "operator": "exists",
+        "target": {
+          "locator_ref": "page"
+        },
+        "source": "native"
+      }
+    }
+  ],
+  "checks": [
+    {
+      "id": "search-visible",
+      "required": true,
+      "condition": {
+        "operator": "exists",
+        "target": {
+          "locator_ref": "optional-search"
+        },
+        "source": "native"
+      }
+    }
+  ]
+}

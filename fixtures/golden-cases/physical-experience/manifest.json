@@ -1,0 +1,29 @@
+{
+  "$schema": "urn:pulse:schema:1-draft:manifest",
+  "project_id": "physical-experience",
+  "name": "P1.11 physical local experience on FormActivity",
+  "revision": "physical-1",
+  "cases": {
+    "experience-read": "cases/experience-read.json"
+  },
+  "flows": {},
+  "data": {},
+  "profiles": {
+    "target-form": "profiles/target-form.json"
+  },
+  "entry_cases": ["experience-read"],
+  "default_strategy": "rule_only",
+  "platforms": ["android"],
+  "required_capabilities": ["observe"],
+  "constraints": {
+    "allowed_apps": ["com.pulse.target"],
+    "forbidden_actions": ["clear"]
+  },
+  "dependencies": [],
+  "resources": {},
+  "secret_refs": [],
+  "budgets": {
+    "case_timeout_ms": 900000,
+    "suite_timeout_ms": 1800000
+  }
+}

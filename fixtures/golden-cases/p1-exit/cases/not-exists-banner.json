@@ -1,0 +1,82 @@
+{
+  "$schema": "urn:pulse:schema:1-draft:case",
+  "case_id": "not-exists-banner",
+  "name": "列表中不存在首页弹窗",
+  "goal": "进入列表后确认首页弹窗节点不在当前窗口",
+  "parameters": {},
+  "profile_refs": ["target-exit"],
+  "inputs": {},
+  "locators": {},
+  "preconditions": [
+    {
+      "id": "home-visible",
+      "required": true,
+      "condition": {
+        "operator": "exists",
+        "target": {
+          "locator_ref": "home-title"
+        },
+        "source": "native",
+        "timeout_ms": 30000
+      }
+    }
+  ],
+  "steps": [
+    {
+      "type": "wait",
+      "id": "home-ready",
+      "timeout_ms": 60000,
+      "condition": {
+        "operator": "exists",
+        "target": {
+          "locator_ref": "home-title"
+        },
+        "source": "native",
+        "timeout_ms": 30000
+      }
+    },
+    {
+      "type": "action",
+      "id": "open-list",
+      "action": {
+        "kind": "tap",
+        "target": {
+          "locator_ref": "open-list"
+        }
+      },
+      "timeout_ms": 120000
+    },
+    {
+      "type": "wait",
+      "id": "list-ready",
+      "timeout_ms": 60000,
+      "condition": {
+        "operator": "exists",
+        "target": {
+          "locator_ref": "list-count"
+        },
+        "source": "native",
+        "timeout_ms": 30000
+      }
+    }
+  ],
+  "checks": [
+    {
+      "id": "no-open-dialog-button",
+      "required": true,
+      "condition": {
+        "operator": "not_exists",
+        "target": {
+          "locator_ref": "open-dialog"
+        },
+        "source": "native",
+        "observation_window_ms": 1000,
+        "poll_interval_ms": 500,
+        "scope": {
+          "locator_ref": "list-count"
+        },
+        "timeout_ms": 120000
+      }
+    }
+  ]
+}

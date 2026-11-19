@@ -1,0 +1,49 @@
+{
+  "purpose": "Expected results for local experience v0. The page offers only the second declared candidate, so the first run must fall back to it, remember it, and reorder it first on the next run; a hit is speed only, never a verdict.",
+  "cases": {
+    "search": {
+      "status": "passed",
+      "reason": null,
+      "world": {
+        "candidates": ["search"],
+        "rows": 0
+      },
+      "remembers": {
+        "first": "search"
+      }
+    },
+    "drifted": {
+      "status": "passed",
+      "reason": null,
+      "world": {
+        "candidates": ["search"],
+        "rows": 0
+      },
+      "remembers": {
+        "first": "search"
+      }
+    },
+    "ambiguous": {
+      "status": "blocked",
+      "reason": "action_bounds_unavailable",
+      "world": {
+        "candidates": ["search"],
+        "rows": 3
+      },
+      "remembers": {
+        "first": "search"
+      }
+    },
+    "broken-remembered": {
+      "status": "blocked",
+      "reason": "observation_unavailable",
+      "world": {
+        "candidates": ["search"],
+        "broken": true
+      },
+      "remembers": {
+        "first": "search"
+      }
+    }
+  }
+}

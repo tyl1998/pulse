@@ -1,0 +1,25 @@
+{
+  "$schema": "urn:pulse:schema:1-draft:manifest",
+  "project_id": "offline-contract",
+  "name": "Offline contract examples (not executed)",
+  "revision": "fixture-1",
+  "cases": {
+    "control-flow": "cases/control-flow.json",
+    "operators": "cases/operators.json",
+    "ai": "cases/ai.json"
+  },
+  "flows": { "fill-search": "flows/fill-search.json" },
+  "data": { "cart": "data/cart.json" },
+  "profiles": { "android-fixture": "profiles/android-fixture.json" },
+  "entry_cases": ["control-flow", "operators", "ai"],
+  "default_strategy": "rule_only",
+  "platforms": ["android"],
+  "required_capabilities": ["observe"],
+  "constraints": {
+    "allowed_apps": ["com.pulse.target"],
+    "forbidden_actions": ["submit-order", "pay", "clear"]
+  },
+  "dependencies": [],
+  "resources": { "marker": "resources/marker.svg" },
+  "secret_refs": ["qa_account"]
+}

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Stable resource-ids for locator tests. Names are part of the golden-case contract. -->
+<resources>
+    <item name="tv_home_title" type="id" />
+    <item name="tv_active_faults" type="id" />
+    <item name="btn_open_list" type="id" />
+    <item name="btn_open_form" type="id" />
+    <item name="btn_open_cart" type="id" />
+    <item name="btn_open_webview" type="id" />
+    <item name="btn_open_dialog" type="id" />
+    <item name="btn_open_delayed" type="id" />
+    <item name="btn_open_flutter" type="id" />
+
+    <item name="lv_items" type="id" />
+    <item name="tv_list_count" type="id" />
+    <item name="tv_list_selected" type="id" />
+
+    <item name="tv_form_title" type="id" />
+    <item name="et_name" type="id" />
+    <item name="et_password" type="id" />
+    <item name="rg_size" type="id" />
+    <item name="rb_small" type="id" />
+    <item name="rb_large" type="id" />
+    <item name="sw_notify" type="id" />
+    <item name="cb_agree" type="id" />
+    <item name="btn_submit" type="id" />
+    <item name="tv_form_result" type="id" />
+
+    <item name="tv_cart_title" type="id" />
+    <item name="cart_row_1" type="id" />
+    <item name="cart_row_2" type="id" />
+    <item name="cart_row_3" type="id" />
+    <item name="tv_cart_name_1" type="id" />
+    <item name="tv_cart_name_2" type="id" />
+    <item name="tv_cart_name_3" type="id" />
+    <item name="tv_cart_price_1" type="id" />
+    <item name="tv_cart_price_2" type="id" />
+    <item name="tv_cart_price_3" type="id" />
+    <item name="tv_cart_qty_1" type="id" />
+    <item name="tv_cart_qty_2" type="id" />
+    <item name="tv_cart_qty_3" type="id" />
+    <item name="btn_cart_minus_1" type="id" />
+    <item name="btn_cart_minus_2" type="id" />
+    <item name="btn_cart_minus_3" type="id" />
+    <item name="btn_cart_plus_1" type="id" />
+    <item name="btn_cart_plus_2" type="id" />
+    <item name="btn_cart_plus_3" type="id" />
+    <item name="tv_cart_total" type="id" />
+    <item name="btn_checkout" type="id" />
+    <item name="tv_checkout_result" type="id" />
+
+    <item name="wv_content" type="id" />
+
+    <item name="tv_dialog_result" type="id" />
+    <item name="btn_show_alert" type="id" />
+    <item name="btn_show_toast" type="id" />
+
+    <item name="tv_delayed_hint" type="id" />
+    <item name="pb_loading" type="id" />
+    <item name="tv_delayed_content" type="id" />
+    <item name="btn_delayed_action" type="id" />
+</resources>

@@ -1,0 +1,187 @@
+{
+  "$schema": "urn:pulse:schema:1-draft:case",
+  "case_id": "all-fail",
+  "name": "Every non-semantic operator has a negative sample",
+  "goal": "A fixed expectation that the observed cart contradicts fails the run, never passes it",
+  "parameters": {},
+  "profile_refs": ["fake-android"],
+  "inputs": {},
+  "locators": {},
+  "preconditions": [],
+  "steps": [
+    {
+      "type": "wait",
+      "id": "ready",
+      "condition": {
+        "operator": "exists",
+        "target": {
+          "locator_ref": "page"
+        },
+        "source": "native"
+      }
+    }
+  ],
+  "checks": [
+    {
+      "id": "exists",
+      "required": true,
+      "condition": {
+        "operator": "exists",
+        "target": {
+          "locator_ref": "banner"
+        },
+        "source": "native"
+      }
+    },
+    {
+      "id": "not_exists",
+      "required": true,
+      "condition": {
+        "operator": "not_exists",
+        "target": {
+          "locator_ref": "price"
+        },
+        "source": "native",
+        "scope": {
+          "locator_ref": "page"
+        },
+        "observation_window_ms": 300,
+        "poll_interval_ms": 100
+      }
+    },
+    {
+      "id": "visible",
+      "required": true,
+      "condition": {
+        "operator": "visible",
+        "target": {
+          "locator_ref": "price"
+        },
+        "source": "native",
+        "expected": false
+      }
+    },
+    {
+      "id": "enabled",
+      "required": true,
+      "condition": {
+        "operator": "enabled",
+        "target": {
+          "locator_ref": "confirm"
+        },
+        "source": "native",
+        "expected": false
+      }
+    },
+    {
+      "id": "checked",
+      "required": true,
+      "condition": {
+        "operator": "checked",
+        "target": {
+          "locator_ref": "confirm"
+        },
+        "source": "native",
+        "expected": true
+      }
+    },
+    {
+      "id": "text_equals",
+      "required": true,
+      "condition": {
+        "operator": "text_equals",
+        "target": {
+          "locator_ref": "title"
+        },
+        "source": "native",
+        "expected": "Total: ¥13.50"
+      }
+    },
+    {
+      "id": "contains",
+      "required": true,
+      "condition": {
+        "operator": "contains",
+        "target": {
+          "locator_ref": "title"
+        },
+        "source": "native",
+        "expected": "¥13.5"
+      }
+    },
+    {
+      "id": "regex",
+      "required": true,
+      "condition": {
+        "operator": "regex",
+        "target": {
+          "locator_ref": "title"
+        },
+        "source": "native",
+        "expected": "^Subtotal:"
+      }
+    },
+    {
+      "id": "count_eq",
+      "required": true,
+      "condition": {
+        "operator": "count_eq",
+        "target": {
+          "locator_ref": "items"
+        },
+        "source": "native",
+        "expected": 2
+      }
+    },
+    {
+      "id": "count_gt",
+      "required": true,
+      "condition": {
+        "operator": "count_gt",
+        "target": {
+          "locator_ref": "items"
+        },
+        "source": "native",
+        "expected": 1
+      }
+    },
+    {
+      "id": "count_lt",
+      "required": true,
+      "condition": {
+        "operator": "count_lt",
+        "target": {
+          "locator_ref": "items"
+        },
+        "source": "native",
+        "expected": 1
+      }
+    },
+    {
+      "id": "number_cmp",
+      "required": true,
+      "condition": {
+        "operator": "number_cmp",
+        "target": {
+          "locator_ref": "price"
+        },
+        "source": "native",
+        "comparison": "lt",
+        "expected": 12.5,
+        "unit": "CNY",
+        "precision": 2
+      }
+    },
+    {
+      "id": "page_is",
+      "required": true,
+      "condition": {
+        "operator": "page_is",
+        "target": {
+          "locator_ref": "banner"
+        },
+        "source": "native"
+      }
+    }
+  ]
+}

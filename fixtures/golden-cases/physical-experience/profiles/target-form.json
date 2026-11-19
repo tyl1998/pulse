@@ -1,0 +1,102 @@
+{
+  "$schema": "urn:pulse:schema:1-draft:profile",
+  "profile_id": "target-form",
+  "platform": "android",
+  "environment": "vivo-v2364a-form",
+  "app_id": "com.pulse.target",
+  "capabilities": ["observe"],
+  "locators": {
+    "page": {
+      "candidates": [
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/tv_form_title"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": true
+      }
+    },
+    "name": {
+      "candidates": [
+        {
+          "by": "text",
+          "value": "Name_Legacy_Label"
+        },
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/et_name"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": true
+      }
+    },
+    "submit": {
+      "candidates": [
+        {
+          "by": "desc",
+          "value": "Submit_Old_Description"
+        },
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/btn_submit"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": true
+      }
+    },
+    "large": {
+      "candidates": [
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/rb_large"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": true
+      }
+    },
+    "notify": {
+      "candidates": [
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/sw_notify"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": true
+      }
+    },
+    "agree": {
+      "candidates": [
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/cb_agree"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": true
+      }
+    },
+    "result": {
+      "candidates": [
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/tv_form_result"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": true
+      }
+    }
+  }
+}

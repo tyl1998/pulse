@@ -1,0 +1,414 @@
+{
+  "$schema": "urn:pulse:schema:1-draft:profile",
+  "profile_id": "target-exit",
+  "platform": "android",
+  "environment": "vivo-v2364a-exit",
+  "app_id": "com.pulse.target",
+  "capabilities": ["observe"],
+  "locators": {
+    "home-title": {
+      "candidates": [
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/tv_home_title"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": true
+      }
+    },
+    "open-list": {
+      "candidates": [
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/btn_open_list"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": true
+      }
+    },
+    "open-form": {
+      "candidates": [
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/btn_open_form"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": true
+      }
+    },
+    "open-cart": {
+      "candidates": [
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/btn_open_cart"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": true
+      }
+    },
+    "open-webview": {
+      "candidates": [
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/btn_open_webview"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": true
+      }
+    },
+    "open-dialog": {
+      "candidates": [
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/btn_open_dialog"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": true
+      }
+    },
+    "open-delayed": {
+      "candidates": [
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/btn_open_delayed"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": true
+      }
+    },
+    "list-count": {
+      "candidates": [
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/tv_list_count"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": true
+      }
+    },
+    "list-selected": {
+      "candidates": [
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/tv_list_selected"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": false
+      }
+    },
+    "form-title": {
+      "candidates": [
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/tv_form_title"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": true
+      }
+    },
+    "name": {
+      "candidates": [
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/et_name"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": true
+      }
+    },
+    "large": {
+      "candidates": [
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/rb_large"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": true
+      }
+    },
+    "notify": {
+      "candidates": [
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/sw_notify"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": true
+      }
+    },
+    "agree": {
+      "candidates": [
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/cb_agree"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": true
+      }
+    },
+    "submit": {
+      "candidates": [
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/btn_submit"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": true
+      }
+    },
+    "form-result": {
+      "candidates": [
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/tv_form_result"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": true
+      }
+    },
+    "cart-title": {
+      "candidates": [
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/tv_cart_title"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": true
+      }
+    },
+    "cart-name-1": {
+      "candidates": [
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/tv_cart_name_1"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": true
+      }
+    },
+    "cart-qty-1": {
+      "candidates": [
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/tv_cart_qty_1"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": true
+      }
+    },
+    "cart-plus-1": {
+      "candidates": [
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/btn_cart_plus_1"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": true
+      }
+    },
+    "cart-minus-1": {
+      "candidates": [
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/btn_cart_minus_1"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": true
+      }
+    },
+    "cart-qty-2": {
+      "candidates": [
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/tv_cart_qty_2"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": true
+      }
+    },
+    "cart-total": {
+      "candidates": [
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/tv_cart_total"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": true
+      }
+    },
+    "checkout": {
+      "candidates": [
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/btn_checkout"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": true
+      }
+    },
+    "checkout-result": {
+      "candidates": [
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/tv_checkout_result"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": true
+      }
+    },
+    "dialog-result": {
+      "candidates": [
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/tv_dialog_result"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": true
+      }
+    },
+    "show-alert": {
+      "candidates": [
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/btn_show_alert"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": true
+      }
+    },
+    "delayed-hint": {
+      "candidates": [
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/tv_delayed_hint"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": true
+      }
+    },
+    "delayed-content": {
+      "candidates": [
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/tv_delayed_content"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": true
+      }
+    },
+    "delayed-action": {
+      "candidates": [
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/btn_delayed_action"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": true
+      }
+    },
+    "fault-banner": {
+      "candidates": [
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/tv_active_faults"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": true
+      }
+    },
+    "dialog-cancel": {
+      "candidates": [
+        {
+          "by": "text",
+          "value": "取消"
+        },
+        {
+          "by": "res_id",
+          "value": "android:id/button2"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": true
+      }
+    },
+    "confirm-dialog-cancel": {
+      "candidates": [
+        {
+          "by": "text",
+          "value": "取消"
+        },
+        {
+          "by": "res_id",
+          "value": "android:id/button2"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": true
+      }
+    }
+  }
+}

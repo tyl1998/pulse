@@ -1,0 +1,63 @@
+[project]
+name = "pulse-workspace"
+version = "0.0.0"
+description = "Pulse Python workspace root (runtime, server, relay)"
+requires-python = ">=3.12,<3.13"
+dependencies = []
+
+[tool.uv]
+package = false
+
+[tool.uv.workspace]
+members = ["runtime", "apps/server", "apps/relay", "packages/observability", "packages/schema"]
+
+[dependency-groups]
+dev = [
+  "mypy>=1.13",
+  "pytest>=8.3",
+  "pytest-asyncio>=0.24",
+  "ruff>=0.8",
+  "pulse-runtime",
+  "pulse-server",
+  "pulse-relay",
+  "pulse-schema",
+  "types-jsonschema>=4.25",
+  "httpx2>=2.16.0",
+]
+package = [
+    "pyinstaller>=6.11",
+]
+
+[tool.uv.sources]
+pulse-runtime = { workspace = true }
+pulse-server = { workspace = true }
+pulse-relay = { workspace = true }
+pulse-observability = { workspace = true }
+pulse-schema = { workspace = true }
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+extend-exclude = ["node_modules", "docs"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM", "ASYNC", "RUF", "S"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["pulse_runtime", "pulse_server", "pulse_relay", "pulse_observability", "pulse_schema"]
+
+[tool.ruff.lint.per-file-ignores]
+"**/tests/**" = ["S101", "S105", "S106"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+packages = ["pulse_runtime", "pulse_server", "pulse_relay", "pulse_observability", "pulse_schema"]
+mypy_path = ["runtime", "apps/server", "apps/relay", "packages/observability", "packages/schema"]
+explicit_package_bases = true
+
+[tool.pytest.ini_options]
+testpaths = ["runtime/tests", "apps/server/tests", "apps/relay/tests", "packages/observability/tests", "packages/schema/tests"]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+addopts = "--import-mode=importlib"

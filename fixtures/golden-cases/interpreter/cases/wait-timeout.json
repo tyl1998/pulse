@@ -1,0 +1,27 @@
+{
+  "$schema": "urn:pulse:schema:1-draft:case",
+  "case_id": "wait-timeout",
+  "name": "Wait deadline expires while the condition is false",
+  "goal": "A definite false condition at the deadline is failed",
+  "parameters": {},
+  "profile_refs": ["fake-android"],
+  "inputs": {},
+  "locators": {},
+  "preconditions": [],
+  "steps": [
+    {
+      "type": "wait",
+      "id": "wait-product",
+      "timeout_ms": 120,
+      "condition": {
+        "operator": "exists",
+        "target": {
+          "locator_ref": "product"
+        },
+        "source": "native",
+        "timeout_ms": 120
+      }
+    }
+  ],
+  "checks": []
+}

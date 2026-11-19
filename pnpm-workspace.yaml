@@ -1,0 +1,12 @@
+packages:
+  - apps/desktop
+  - packages/*
+
+# Electron Forge packaging requires a flat node_modules layout.
+nodeLinker: hoisted
+
+allowBuilds:
+  electron: true
+  esbuild: true
+  electron-winstaller: true
+  unrs-resolver: false

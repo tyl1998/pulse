@@ -1,0 +1,46 @@
+{
+  "$schema": "urn:pulse:schema:1-draft:flow",
+  "flow_id": "fill-name",
+  "name": "Fill and read back the name",
+  "parameters": {
+    "value": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "locators": {},
+  "steps": [
+    {
+      "type": "action",
+      "id": "flow-type",
+      "action": {
+        "kind": "input",
+        "target": {
+          "locator_ref": "name"
+        },
+        "text": {
+          "param_ref": "value"
+        },
+        "mode": "replace"
+      }
+    },
+    {
+      "type": "extract",
+      "id": "flow-read",
+      "target": {
+        "locator_ref": "name"
+      },
+      "source": "native",
+      "attribute": "text",
+      "as": "echo"
+    }
+  ],
+  "returns": {
+    "echo": {
+      "type": "string",
+      "value": {
+        "var_ref": "echo"
+      }
+    }
+  }
+}

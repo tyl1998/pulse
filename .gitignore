@@ -1,0 +1,27 @@
+node_modules/
+dist/
+out/
+.vite/
+coverage/
+storybook-static/
+.cache/
+storybook.log
+build-storybook.log
+*.tsbuildinfo
+.DS_Store
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+build/
+*.egg-info/
+
+# Local runtime data / secrets
+.env
+.env.*
+!.env.example
+*.token

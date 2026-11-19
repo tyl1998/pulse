@@ -1,0 +1,30 @@
+{
+  "$schema": "urn:pulse:schema:1-draft:manifest",
+  "project_id": "assertion-golden",
+  "name": "Assertion golden cases (synthetic device)",
+  "revision": "fixture-1",
+  "cases": {
+    "all-pass": "cases/all-pass.json",
+    "all-fail": "cases/all-fail.json",
+    "collection-failure": "cases/collection-failure.json",
+    "amount-normalization": "cases/amount-normalization.json"
+  },
+  "flows": {},
+  "data": {
+    "order": "data/order.json"
+  },
+  "profiles": {
+    "fake-android": "profiles/fake-android.json"
+  },
+  "entry_cases": ["all-pass", "all-fail", "collection-failure", "amount-normalization"],
+  "default_strategy": "rule_only",
+  "platforms": ["android"],
+  "required_capabilities": ["observe"],
+  "constraints": {
+    "allowed_apps": ["com.pulse.target"],
+    "forbidden_actions": ["clear"]
+  },
+  "dependencies": [],
+  "resources": {},
+  "secret_refs": []
+}

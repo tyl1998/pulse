@@ -1,0 +1,82 @@
+{
+  "$schema": "urn:pulse:schema:1-draft:profile",
+  "profile_id": "fake-android",
+  "platform": "android",
+  "environment": "synthetic-interpreter",
+  "app_id": "com.pulse.target",
+  "capabilities": ["observe"],
+  "locators": {
+    "page": {
+      "candidates": [
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/page"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": true
+      }
+    },
+    "product": {
+      "candidates": [
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/product"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": true
+      }
+    },
+    "items": {
+      "candidates": [
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/item"
+        }
+      ],
+      "expect": {
+        "unique": false,
+        "visible": false
+      }
+    },
+    "search": {
+      "candidates": [
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/search"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": true
+      }
+    },
+    "confirm": {
+      "candidates": [
+        {
+          "by": "desc",
+          "value": "Confirm selection"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": true
+      }
+    },
+    "banner": {
+      "candidates": [
+        {
+          "by": "text",
+          "value": "Example banner"
+        }
+      ],
+      "expect": {
+        "unique": false,
+        "visible": true
+      }
+    }
+  }
+}

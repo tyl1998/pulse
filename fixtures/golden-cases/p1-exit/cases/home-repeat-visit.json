@@ -1,0 +1,145 @@
+{
+  "$schema": "urn:pulse:schema:1-draft:case",
+  "case_id": "home-repeat-visit",
+  "name": "首页多次往返",
+  "goal": "两次进入购物车并返回首页",
+  "parameters": {},
+  "profile_refs": ["target-exit"],
+  "inputs": {},
+  "locators": {},
+  "preconditions": [
+    {
+      "id": "home-visible",
+      "required": true,
+      "condition": {
+        "operator": "exists",
+        "target": {
+          "locator_ref": "home-title"
+        },
+        "source": "native",
+        "timeout_ms": 30000
+      }
+    }
+  ],
+  "steps": [
+    {
+      "type": "wait",
+      "id": "home-ready",
+      "timeout_ms": 60000,
+      "condition": {
+        "operator": "exists",
+        "target": {
+          "locator_ref": "home-title"
+        },
+        "source": "native",
+        "timeout_ms": 30000
+      }
+    },
+    {
+      "type": "action",
+      "id": "open-cart",
+      "action": {
+        "kind": "tap",
+        "target": {
+          "locator_ref": "open-cart"
+        }
+      },
+      "timeout_ms": 120000
+    },
+    {
+      "type": "wait",
+      "id": "cart-ready",
+      "timeout_ms": 60000,
+      "condition": {
+        "operator": "exists",
+        "target": {
+          "locator_ref": "cart-title"
+        },
+        "source": "native",
+        "timeout_ms": 30000
+      }
+    },
+    {
+      "type": "action",
+      "id": "back-1",
+      "action": {
+        "kind": "key",
+        "key": "BACK"
+      },
+      "timeout_ms": 120000
+    },
+    {
+      "type": "wait",
+      "id": "home-1",
+      "timeout_ms": 60000,
+      "condition": {
+        "operator": "exists",
+        "target": {
+          "locator_ref": "home-title"
+        },
+        "source": "native",
+        "timeout_ms": 30000
+      }
+    },
+    {
+      "type": "action",
+      "id": "open-cart-2",
+      "action": {
+        "kind": "tap",
+        "target": {
+          "locator_ref": "open-cart"
+        }
+      },
+      "timeout_ms": 120000
+    },
+    {
+      "type": "wait",
+      "id": "cart-ready-2",
+      "timeout_ms": 60000,
+      "condition": {
+        "operator": "exists",
+        "target": {
+          "locator_ref": "cart-title"
+        },
+        "source": "native",
+        "timeout_ms": 30000
+      }
+    },
+    {
+      "type": "action",
+      "id": "back-2",
+      "action": {
+        "kind": "key",
+        "key": "BACK"
+      },
+      "timeout_ms": 120000
+    },
+    {
+      "type": "wait",
+      "id": "home-2",
+      "timeout_ms": 60000,
+      "condition": {
+        "operator": "exists",
+        "target": {
+          "locator_ref": "home-title"
+        },
+        "source": "native",
+        "timeout_ms": 30000
+      }
+    }
+  ],
+  "checks": [
+    {
+      "id": "home-final",
+      "required": true,
+      "condition": {
+        "operator": "exists",
+        "target": {
+          "locator_ref": "home-title"
+        },
+        "source": "native",
+        "timeout_ms": 30000
+      }
+    }
+  ]
+}

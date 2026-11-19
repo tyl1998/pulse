@@ -1,0 +1,86 @@
+{
+  "$schema": "urn:pulse:schema:1-draft:profile",
+  "profile_id": "fake-android",
+  "platform": "android",
+  "environment": "synthetic-experience",
+  "app_id": "com.pulse.target",
+  "capabilities": ["observe"],
+  "locators": {
+    "page": {
+      "candidates": [
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/page"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": true
+      }
+    },
+    "search": {
+      "candidates": [
+        {
+          "by": "text",
+          "value": "Search"
+        },
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/search"
+        },
+        {
+          "by": "desc",
+          "value": "Search field"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": true
+      }
+    },
+    "row": {
+      "candidates": [
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/search"
+        },
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/row"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": true
+      }
+    },
+    "ambiguous-row": {
+      "candidates": [
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/row"
+        }
+      ],
+      "expect": {
+        "unique": false,
+        "visible": false
+      }
+    },
+    "optional-search": {
+      "candidates": [
+        {
+          "by": "text",
+          "value": "Search"
+        },
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/search"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": true
+      }
+    }
+  }
+}

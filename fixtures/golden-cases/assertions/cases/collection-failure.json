@@ -1,0 +1,116 @@
+{
+  "$schema": "urn:pulse:schema:1-draft:case",
+  "case_id": "collection-failure",
+  "name": "Collection failure is blocked, never passed",
+  "goal": "When the page cannot be collected, no operator may report a verdict",
+  "parameters": {},
+  "profile_refs": ["fake-android"],
+  "inputs": {},
+  "locators": {},
+  "preconditions": [
+    {
+      "id": "page-collected",
+      "required": true,
+      "condition": {
+        "operator": "exists",
+        "target": {
+          "locator_ref": "page"
+        },
+        "source": "native"
+      }
+    }
+  ],
+  "steps": [
+    {
+      "type": "wait",
+      "id": "ready",
+      "condition": {
+        "operator": "exists",
+        "target": {
+          "locator_ref": "page"
+        },
+        "source": "native"
+      }
+    }
+  ],
+  "checks": [
+    {
+      "id": "exists",
+      "required": true,
+      "condition": {
+        "operator": "exists",
+        "target": {
+          "locator_ref": "price"
+        },
+        "source": "native"
+      }
+    },
+    {
+      "id": "count_eq",
+      "required": true,
+      "condition": {
+        "operator": "count_eq",
+        "target": {
+          "locator_ref": "items"
+        },
+        "source": "native",
+        "expected": 1
+      }
+    },
+    {
+      "id": "number_cmp",
+      "required": true,
+      "condition": {
+        "operator": "number_cmp",
+        "target": {
+          "locator_ref": "price"
+        },
+        "source": "native",
+        "comparison": "eq",
+        "expected": 12.5,
+        "unit": "CNY",
+        "precision": 2
+      }
+    },
+    {
+      "id": "not_exists",
+      "required": true,
+      "condition": {
+        "operator": "not_exists",
+        "target": {
+          "locator_ref": "banner"
+        },
+        "source": "native",
+        "scope": {
+          "locator_ref": "page"
+        },
+        "observation_window_ms": 300,
+        "poll_interval_ms": 100
+      }
+    },
+    {
+      "id": "text_equals",
+      "required": true,
+      "condition": {
+        "operator": "text_equals",
+        "target": {
+          "locator_ref": "title"
+        },
+        "source": "native",
+        "expected": "Total: ¥12.50"
+      }
+    },
+    {
+      "id": "visible",
+      "required": true,
+      "condition": {
+        "operator": "visible",
+        "target": {
+          "locator_ref": "price"
+        },
+        "source": "native",
+        "expected": true
+      }
+    }
+  ]
+}

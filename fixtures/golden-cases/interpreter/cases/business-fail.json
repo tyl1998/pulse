@@ -1,0 +1,39 @@
+{
+  "$schema": "urn:pulse:schema:1-draft:case",
+  "case_id": "business-fail",
+  "name": "Fixed expectation differs from observed value",
+  "goal": "Business mismatch is failed, never converted to passed",
+  "parameters": {},
+  "profile_refs": ["fake-android"],
+  "inputs": {},
+  "locators": {},
+  "preconditions": [],
+  "steps": [
+    {
+      "type": "wait",
+      "id": "ready",
+      "timeout_ms": 1000,
+      "condition": {
+        "operator": "exists",
+        "target": {
+          "locator_ref": "page"
+        },
+        "source": "native"
+      }
+    }
+  ],
+  "checks": [
+    {
+      "id": "product-name",
+      "required": true,
+      "condition": {
+        "operator": "text_equals",
+        "target": {
+          "locator_ref": "product"
+        },
+        "source": "native",
+        "expected": "Tea"
+      }
+    }
+  ]
+}

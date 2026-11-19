@@ -1,0 +1,48 @@
+{
+  "$schema": "urn:pulse:schema:1-draft:profile",
+  "profile_id": "android-fixture",
+  "platform": "android",
+  "environment": "offline-fixture",
+  "app_id": "com.pulse.target",
+  "capabilities": ["observe"],
+  "locators": {
+    "page": {
+      "candidates": [
+        { "by": "res_id", "value": "com.pulse.target:id/cart" },
+        { "by": "text", "value": "Cart" },
+        { "by": "desc", "value": "Cart page" },
+        { "by": "xpath", "value": "//android.view.View[@content-desc='Cart page']" }
+      ],
+      "expect": { "unique": true, "visible": true }
+    },
+    "product": {
+      "candidates": [
+        { "by": "res_id", "value": "com.pulse.target:id/product", "scope": "page" },
+        { "by": "ocr_text", "value": "Coffee", "scope": "page" },
+        { "by": "image", "value": "marker", "scope": "page" },
+        {
+          "by": "point",
+          "value": { "x": 100, "y": 200, "width": 1080, "height": 2400 },
+          "scope": "page"
+        }
+      ],
+      "expect": { "unique": true, "visible": true }
+    },
+    "items": {
+      "candidates": [{ "by": "res_id", "value": "com.pulse.target:id/item", "scope": "page" }],
+      "expect": { "unique": false, "visible": false }
+    },
+    "search": {
+      "candidates": [{ "by": "res_id", "value": "com.pulse.target:id/search" }],
+      "expect": { "unique": true, "visible": true }
+    },
+    "confirm": {
+      "candidates": [{ "by": "desc", "value": "Confirm selection" }],
+      "expect": { "unique": true, "visible": true }
+    },
+    "banner": {
+      "candidates": [{ "by": "text", "value": "Example banner" }],
+      "expect": { "unique": true, "visible": true }
+    }
+  }
+}

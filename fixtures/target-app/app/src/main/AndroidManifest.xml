@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Fixture app: only INTERNET for the WebView page (local assets, no remote content). -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="false"
+        android:label="Pulse 靶场"
+        android:supportsRtl="true"
+        android:theme="@android:style/Theme.Material.Light.NoActionBar">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ListActivity" android:exported="true" android:label="原生列表" />
+        <activity android:name=".FormActivity" android:exported="true" android:label="表单" />
+        <activity android:name=".CartActivity" android:exported="true" android:label="购物车" />
+        <activity android:name=".WebViewActivity" android:exported="true" android:label="WebView" />
+        <activity android:name=".DialogActivity" android:exported="true" android:label="弹窗" />
+        <activity android:name=".DelayedActivity" android:exported="true" android:label="延迟加载" />
+        <activity android:name=".FlutterPageActivity" android:exported="true" android:label="Flutter 积分兑换" />
+        <activity
+            android:name="io.flutter.embedding.android.FlutterActivity"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+            android:exported="false"
+            android:hardwareAccelerated="true"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Fault switch for adb: am broadcast -n com.pulse.target/.FaultReceiver ... -->
+        <receiver
+            android:name=".FaultReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.pulse.target.SET_FAULTS" />
+            </intent-filter>
+        </receiver>
+    </application>
+</manifest>

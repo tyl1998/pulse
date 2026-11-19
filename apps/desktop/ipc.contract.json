@@ -1,0 +1,69 @@
+{
+  "version": 1,
+  "channels": [
+    {
+      "key": "appInfo",
+      "channel": "pulse:app-info",
+      "domain": "app",
+      "method": "getInfo",
+      "params": [],
+      "result": "AppInfo"
+    },
+    {
+      "key": "runtimeConnection",
+      "channel": "pulse:runtime-connection",
+      "domain": "runtime",
+      "method": "getConnection",
+      "params": [],
+      "result": "RuntimeConnection | null"
+    },
+    {
+      "key": "runtimeStatus",
+      "channel": "pulse:runtime-status",
+      "domain": "runtime",
+      "method": "getStatus",
+      "params": [],
+      "result": "RuntimeStatus"
+    },
+    {
+      "key": "runtimeEnsure",
+      "channel": "pulse:runtime-ensure",
+      "domain": "runtime",
+      "method": "ensureRunning",
+      "params": [],
+      "result": "RuntimeStatus"
+    },
+    {
+      "key": "projectPickDirectory",
+      "channel": "pulse:project-pick-directory",
+      "domain": "projects",
+      "method": "pickDirectory",
+      "params": [{ "name": "title", "type": "string" }],
+      "result": "string | null"
+    },
+    {
+      "key": "projectCreate",
+      "channel": "pulse:project-create",
+      "domain": "projects",
+      "method": "createProject",
+      "params": [{ "name": "request", "type": "ProjectCreateRequest" }],
+      "result": "ProjectWorkspace"
+    },
+    {
+      "key": "projectImport",
+      "channel": "pulse:project-import",
+      "domain": "projects",
+      "method": "importProject",
+      "params": [],
+      "result": "ProjectWorkspace | null"
+    },
+    {
+      "key": "projectExport",
+      "channel": "pulse:project-export",
+      "domain": "projects",
+      "method": "exportProject",
+      "params": [{ "name": "root", "type": "string" }],
+      "result": "ProjectExportResult | null"
+    }
+  ]
+}

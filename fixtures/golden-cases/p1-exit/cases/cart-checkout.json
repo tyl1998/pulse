@@ -1,0 +1,102 @@
+{
+  "$schema": "urn:pulse:schema:1-draft:case",
+  "case_id": "cart-checkout",
+  "name": "购物车结算",
+  "goal": "点击去结算并核对下单结果文本",
+  "parameters": {},
+  "profile_refs": ["target-exit"],
+  "inputs": {},
+  "locators": {},
+  "preconditions": [
+    {
+      "id": "home-visible",
+      "required": true,
+      "condition": {
+        "operator": "exists",
+        "target": {
+          "locator_ref": "home-title"
+        },
+        "source": "native",
+        "timeout_ms": 30000
+      }
+    }
+  ],
+  "steps": [
+    {
+      "type": "wait",
+      "id": "home-ready",
+      "timeout_ms": 60000,
+      "condition": {
+        "operator": "exists",
+        "target": {
+          "locator_ref": "home-title"
+        },
+        "source": "native",
+        "timeout_ms": 30000
+      }
+    },
+    {
+      "type": "action",
+      "id": "open-cart",
+      "action": {
+        "kind": "tap",
+        "target": {
+          "locator_ref": "open-cart"
+        }
+      },
+      "timeout_ms": 120000
+    },
+    {
+      "type": "wait",
+      "id": "cart-ready",
+      "timeout_ms": 60000,
+      "condition": {
+        "operator": "exists",
+        "target": {
+          "locator_ref": "cart-title"
+        },
+        "source": "native",
+        "timeout_ms": 30000
+      }
+    },
+    {
+      "type": "action",
+      "id": "checkout",
+      "action": {
+        "kind": "tap",
+        "target": {
+          "locator_ref": "checkout"
+        }
+      },
+      "timeout_ms": 120000
+    },
+    {
+      "type": "wait",
+      "id": "result-ready",
+      "timeout_ms": 60000,
+      "condition": {
+        "operator": "exists",
+        "target": {
+          "locator_ref": "checkout-result"
+        },
+        "source": "native",
+        "timeout_ms": 30000
+      }
+    }
+  ],
+  "checks": [
+    {
+      "id": "checkout-result",
+      "required": true,
+      "condition": {
+        "operator": "text_equals",
+        "target": {
+          "locator_ref": "checkout-result"
+        },
+        "source": "native",
+        "expected": "下单成功，实付 ¥107.00",
+        "timeout_ms": 30000
+      }
+    }
+  ]
+}

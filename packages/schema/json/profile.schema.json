@@ -1,0 +1,948 @@
+{
+  "$comment": "Generated offline v1 candidate. Draft, not a frozen execution DSL.",
+  "$defs": {
+    "AbsenceCondition": {
+      "additionalProperties": false,
+      "properties": {
+        "observation_window_ms": { "$ref": "#/$defs/PositiveInt" },
+        "operator": { "const": "not_exists", "title": "Operator", "type": "string" },
+        "poll_interval_ms": { "$ref": "#/$defs/PositiveInt", "default": 500 },
+        "scope": { "$ref": "#/$defs/Target" },
+        "source": { "$ref": "#/$defs/ObservationSource" },
+        "target": { "$ref": "#/$defs/Target" },
+        "timeout_ms": { "$ref": "#/$defs/PositiveInt", "default": 10000 }
+      },
+      "required": ["target", "source", "operator", "scope", "observation_window_ms"],
+      "title": "AbsenceCondition",
+      "type": "object"
+    },
+    "Action": {
+      "discriminator": {
+        "mapping": {
+          "clear": "#/$defs/AppAction",
+          "input": "#/$defs/InputAction",
+          "key": "#/$defs/KeyAction",
+          "launch": "#/$defs/AppAction",
+          "long": "#/$defs/LongAction",
+          "stop": "#/$defs/AppAction",
+          "swipe": "#/$defs/SwipeAction",
+          "tap": "#/$defs/TapAction"
+        },
+        "propertyName": "kind"
+      },
+      "oneOf": [
+        { "$ref": "#/$defs/TapAction" },
+        { "$ref": "#/$defs/LongAction" },
+        { "$ref": "#/$defs/InputAction" },
+        { "$ref": "#/$defs/SwipeAction" },
+        { "$ref": "#/$defs/KeyAction" },
+        { "$ref": "#/$defs/AppAction" }
+      ]
+    },
+    "ActionStep": {
+      "additionalProperties": false,
+      "properties": {
+        "action": { "$ref": "#/$defs/Action" },
+        "id": { "$ref": "#/$defs/Identifier" },
+        "timeout_ms": { "$ref": "#/$defs/PositiveInt", "default": 30000 },
+        "type": { "const": "action", "title": "Type", "type": "string" }
+      },
+      "required": ["id", "type", "action"],
+      "title": "ActionStep",
+      "type": "object"
+    },
+    "AiStep": {
+      "additionalProperties": false,
+      "properties": {
+        "checks": {
+          "items": { "$ref": "#/$defs/Checkpoint" },
+          "minItems": 1,
+          "title": "Checks",
+          "type": "array"
+        },
+        "goal": { "$ref": "#/$defs/Text" },
+        "id": { "$ref": "#/$defs/Identifier" },
+        "timeout_ms": { "$ref": "#/$defs/PositiveInt" },
+        "type": { "const": "ai_step", "title": "Type", "type": "string" }
+      },
+      "required": ["id", "timeout_ms", "type", "goal", "checks"],
+      "title": "AiStep",
+      "type": "object"
+    },
+    "AppAction": {
+      "additionalProperties": false,
+      "properties": {
+        "app_id": { "$ref": "#/$defs/Text" },
+        "kind": { "enum": ["launch", "stop", "clear"], "title": "Kind", "type": "string" }
+      },
+      "required": ["kind", "app_id"],
+      "title": "AppAction",
+      "type": "object"
+    },
+    "Budgets": {
+      "additionalProperties": false,
+      "properties": {
+        "ai_case_model_calls": { "$ref": "#/$defs/PositiveInt", "default": 20 },
+        "authorization_timeout_ms": { "$ref": "#/$defs/PositiveInt", "default": 600000 },
+        "case_timeout_ms": { "$ref": "#/$defs/PositiveInt", "default": 600000 },
+        "model_request_timeout_ms": { "$ref": "#/$defs/PositiveInt", "default": 45000 },
+        "recovery_actions": { "$ref": "#/$defs/PositiveInt", "default": 3 },
+        "recovery_model_calls": { "$ref": "#/$defs/PositiveInt", "default": 2 },
+        "recovery_timeout_ms": { "$ref": "#/$defs/PositiveInt", "default": 60000 },
+        "stop_timeout_ms": { "$ref": "#/$defs/PositiveInt", "default": 30000 },
+        "suite_timeout_ms": { "$ref": "#/$defs/PositiveInt", "default": 3600000 }
+      },
+      "title": "Budgets",
+      "type": "object"
+    },
+    "Case": {
+      "additionalProperties": false,
+      "properties": {
+        "$schema": {
+          "const": "urn:pulse:schema:1-draft:case",
+          "title": "$Schema",
+          "type": "string"
+        },
+        "case_id": { "$ref": "#/$defs/Identifier" },
+        "checks": { "items": { "$ref": "#/$defs/Checkpoint" }, "title": "Checks", "type": "array" },
+        "goal": { "$ref": "#/$defs/Text" },
+        "inputs": {
+          "additionalProperties": { "$ref": "#/$defs/Value" },
+          "propertyNames": { "$ref": "#/$defs/Identifier" },
+          "title": "Inputs",
+          "type": "object"
+        },
+        "locators": {
+          "additionalProperties": { "$ref": "#/$defs/Locator" },
+          "propertyNames": { "$ref": "#/$defs/Identifier" },
+          "title": "Locators",
+          "type": "object"
+        },
+        "name": { "$ref": "#/$defs/Text" },
+        "original_text": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "default": null,
+          "title": "Original Text"
+        },
+        "parameters": {
+          "additionalProperties": { "$ref": "#/$defs/Parameter" },
+          "propertyNames": { "$ref": "#/$defs/Identifier" },
+          "title": "Parameters",
+          "type": "object"
+        },
+        "preconditions": {
+          "items": { "$ref": "#/$defs/Checkpoint" },
+          "title": "Preconditions",
+          "type": "array"
+        },
+        "profile_refs": {
+          "items": { "$ref": "#/$defs/Identifier" },
+          "minItems": 1,
+          "title": "Profile Refs",
+          "type": "array"
+        },
+        "source": { "anyOf": [{ "$ref": "#/$defs/Text" }, { "type": "null" }], "default": null },
+        "steps": {
+          "items": { "$ref": "#/$defs/Step" },
+          "minItems": 1,
+          "title": "Steps",
+          "type": "array"
+        }
+      },
+      "required": [
+        "name",
+        "parameters",
+        "locators",
+        "steps",
+        "$schema",
+        "case_id",
+        "goal",
+        "profile_refs",
+        "inputs",
+        "preconditions",
+        "checks"
+      ],
+      "title": "Case",
+      "type": "object"
+    },
+    "CasePath": {
+      "pattern": "^cases/(?:[A-Za-z0-9_-]+/)*[A-Za-z0-9_-]+\\.json$(?![\\s\\S])",
+      "type": "string"
+    },
+    "CheckStep": {
+      "additionalProperties": false,
+      "properties": {
+        "checkpoint": { "$ref": "#/$defs/Checkpoint" },
+        "id": { "$ref": "#/$defs/Identifier" },
+        "timeout_ms": { "$ref": "#/$defs/PositiveInt", "default": 30000 },
+        "type": { "const": "check", "title": "Type", "type": "string" }
+      },
+      "required": ["id", "type", "checkpoint"],
+      "title": "CheckStep",
+      "type": "object"
+    },
+    "Checkpoint": {
+      "additionalProperties": false,
+      "properties": {
+        "condition": { "$ref": "#/$defs/Predicate" },
+        "id": { "$ref": "#/$defs/Identifier" },
+        "required": { "title": "Required", "type": "boolean" }
+      },
+      "required": ["id", "required", "condition"],
+      "title": "Checkpoint",
+      "type": "object"
+    },
+    "Constraints": {
+      "additionalProperties": false,
+      "properties": {
+        "allowed_apps": {
+          "items": { "$ref": "#/$defs/Text" },
+          "minItems": 1,
+          "title": "Allowed Apps",
+          "type": "array"
+        },
+        "forbidden_actions": {
+          "items": { "$ref": "#/$defs/Identifier" },
+          "title": "Forbidden Actions",
+          "type": "array"
+        }
+      },
+      "required": ["allowed_apps", "forbidden_actions"],
+      "title": "Constraints",
+      "type": "object"
+    },
+    "CountCondition": {
+      "additionalProperties": false,
+      "properties": {
+        "expected": { "$ref": "#/$defs/CountExpected" },
+        "operator": {
+          "enum": ["count_eq", "count_gt", "count_lt"],
+          "title": "Operator",
+          "type": "string"
+        },
+        "source": { "$ref": "#/$defs/ObservationSource" },
+        "target": { "$ref": "#/$defs/Target" },
+        "timeout_ms": { "$ref": "#/$defs/PositiveInt", "default": 10000 }
+      },
+      "required": ["target", "source", "operator", "expected"],
+      "title": "CountCondition",
+      "type": "object"
+    },
+    "CountExpected": {
+      "anyOf": [
+        { "$ref": "#/$defs/NonNegativeInt" },
+        { "$ref": "#/$defs/ParameterRef" },
+        { "$ref": "#/$defs/DataRef" }
+      ]
+    },
+    "DataPath": {
+      "pattern": "^data/(?:[A-Za-z0-9_-]+/)*[A-Za-z0-9_-]+\\.json$(?![\\s\\S])",
+      "type": "string"
+    },
+    "DataRef": {
+      "additionalProperties": false,
+      "properties": {
+        "data_ref": { "$ref": "#/$defs/Identifier" },
+        "key": { "$ref": "#/$defs/Identifier" }
+      },
+      "required": ["data_ref", "key"],
+      "title": "DataRef",
+      "type": "object"
+    },
+    "DataSet": {
+      "additionalProperties": false,
+      "properties": {
+        "$schema": {
+          "const": "urn:pulse:schema:1-draft:data",
+          "title": "$Schema",
+          "type": "string"
+        },
+        "data_id": { "$ref": "#/$defs/Identifier" },
+        "values": {
+          "additionalProperties": {
+            "anyOf": [{ "$ref": "#/$defs/Scalar" }, { "$ref": "#/$defs/SecretRef" }]
+          },
+          "propertyNames": { "$ref": "#/$defs/Identifier" },
+          "title": "Values",
+          "type": "object"
+        }
+      },
+      "required": ["$schema", "data_id", "values"],
+      "title": "DataSet",
+      "type": "object"
+    },
+    "Dependency": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": ["runtime", "protocol", "driver", "model", "network", "data"],
+          "title": "Kind",
+          "type": "string"
+        },
+        "ref": { "$ref": "#/$defs/Identifier" },
+        "version": { "anyOf": [{ "$ref": "#/$defs/Text" }, { "type": "null" }], "default": null }
+      },
+      "required": ["kind", "ref"],
+      "title": "Dependency",
+      "type": "object"
+    },
+    "ExtractStep": {
+      "additionalProperties": false,
+      "properties": {
+        "as": { "$ref": "#/$defs/Identifier" },
+        "attribute": {
+          "enum": ["text", "count", "enabled", "checked"],
+          "title": "Attribute",
+          "type": "string"
+        },
+        "id": { "$ref": "#/$defs/Identifier" },
+        "source": { "$ref": "#/$defs/ObservationSource" },
+        "target": { "$ref": "#/$defs/Target" },
+        "timeout_ms": { "$ref": "#/$defs/PositiveInt", "default": 30000 },
+        "type": { "const": "extract", "title": "Type", "type": "string" }
+      },
+      "required": ["id", "type", "target", "source", "attribute", "as"],
+      "title": "ExtractStep",
+      "type": "object"
+    },
+    "Flow": {
+      "additionalProperties": false,
+      "properties": {
+        "$schema": {
+          "const": "urn:pulse:schema:1-draft:flow",
+          "title": "$Schema",
+          "type": "string"
+        },
+        "flow_id": { "$ref": "#/$defs/Identifier" },
+        "locators": {
+          "additionalProperties": { "$ref": "#/$defs/Locator" },
+          "propertyNames": { "$ref": "#/$defs/Identifier" },
+          "title": "Locators",
+          "type": "object"
+        },
+        "name": { "$ref": "#/$defs/Text" },
+        "parameters": {
+          "additionalProperties": { "$ref": "#/$defs/Parameter" },
+          "propertyNames": { "$ref": "#/$defs/Identifier" },
+          "title": "Parameters",
+          "type": "object"
+        },
+        "returns": {
+          "additionalProperties": { "$ref": "#/$defs/ReturnValue" },
+          "propertyNames": { "$ref": "#/$defs/Identifier" },
+          "title": "Returns",
+          "type": "object"
+        },
+        "steps": {
+          "items": { "$ref": "#/$defs/Step" },
+          "minItems": 1,
+          "title": "Steps",
+          "type": "array"
+        }
+      },
+      "required": ["name", "parameters", "locators", "steps", "$schema", "flow_id", "returns"],
+      "title": "Flow",
+      "type": "object"
+    },
+    "FlowPath": {
+      "pattern": "^flows/(?:[A-Za-z0-9_-]+/)*[A-Za-z0-9_-]+\\.json$(?![\\s\\S])",
+      "type": "string"
+    },
+    "FlowStep": {
+      "additionalProperties": false,
+      "properties": {
+        "arguments": {
+          "additionalProperties": { "$ref": "#/$defs/Value" },
+          "propertyNames": { "$ref": "#/$defs/Identifier" },
+          "title": "Arguments",
+          "type": "object"
+        },
+        "bind": {
+          "additionalProperties": { "$ref": "#/$defs/Identifier" },
+          "propertyNames": { "$ref": "#/$defs/Identifier" },
+          "title": "Bind",
+          "type": "object"
+        },
+        "flow_ref": { "$ref": "#/$defs/Identifier" },
+        "id": { "$ref": "#/$defs/Identifier" },
+        "timeout_ms": { "$ref": "#/$defs/PositiveInt", "default": 30000 },
+        "type": { "const": "flow", "title": "Type", "type": "string" }
+      },
+      "required": ["id", "type", "flow_ref"],
+      "title": "FlowStep",
+      "type": "object"
+    },
+    "Identifier": { "pattern": "^[A-Za-z_][A-Za-z0-9_-]*$(?![\\s\\S])", "type": "string" },
+    "IfStep": {
+      "additionalProperties": false,
+      "properties": {
+        "condition": { "$ref": "#/$defs/Predicate" },
+        "else": { "items": { "$ref": "#/$defs/Step" }, "title": "Else", "type": "array" },
+        "id": { "$ref": "#/$defs/Identifier" },
+        "then": {
+          "items": { "$ref": "#/$defs/Step" },
+          "minItems": 1,
+          "title": "Then",
+          "type": "array"
+        },
+        "timeout_ms": { "$ref": "#/$defs/PositiveInt", "default": 30000 },
+        "type": { "const": "if", "title": "Type", "type": "string" }
+      },
+      "required": ["id", "type", "condition", "then"],
+      "title": "IfStep",
+      "type": "object"
+    },
+    "InlineLocator": {
+      "additionalProperties": false,
+      "properties": { "locator": { "$ref": "#/$defs/Locator" } },
+      "required": ["locator"],
+      "title": "InlineLocator",
+      "type": "object"
+    },
+    "InputAction": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": { "const": "input", "title": "Kind", "type": "string" },
+        "mode": { "enum": ["replace", "append"], "title": "Mode", "type": "string" },
+        "target": { "$ref": "#/$defs/Target" },
+        "text": { "$ref": "#/$defs/TextValue" }
+      },
+      "required": ["kind", "target", "text", "mode"],
+      "title": "InputAction",
+      "type": "object"
+    },
+    "Integer": { "maximum": 9007199254740991, "minimum": -9007199254740991, "type": "integer" },
+    "KeyAction": {
+      "additionalProperties": false,
+      "properties": {
+        "key": { "$ref": "#/$defs/Text" },
+        "kind": { "const": "key", "title": "Kind", "type": "string" }
+      },
+      "required": ["kind", "key"],
+      "title": "KeyAction",
+      "type": "object"
+    },
+    "Locator": {
+      "additionalProperties": false,
+      "properties": {
+        "candidates": {
+          "items": {
+            "discriminator": {
+              "mapping": {
+                "desc": "#/$defs/LocatorCandidate",
+                "image": "#/$defs/LocatorCandidate",
+                "ocr_text": "#/$defs/LocatorCandidate",
+                "point": "#/$defs/PointCandidate",
+                "res_id": "#/$defs/LocatorCandidate",
+                "text": "#/$defs/LocatorCandidate",
+                "xpath": "#/$defs/LocatorCandidate"
+              },
+              "propertyName": "by"
+            },
+            "oneOf": [{ "$ref": "#/$defs/LocatorCandidate" }, { "$ref": "#/$defs/PointCandidate" }]
+          },
+          "minItems": 1,
+          "title": "Candidates",
+          "type": "array"
+        },
+        "expect": { "$ref": "#/$defs/LocatorExpect" }
+      },
+      "required": ["candidates", "expect"],
+      "title": "Locator",
+      "type": "object"
+    },
+    "LocatorCandidate": {
+      "additionalProperties": false,
+      "properties": {
+        "by": {
+          "enum": ["res_id", "text", "desc", "xpath", "ocr_text", "image"],
+          "title": "By",
+          "type": "string"
+        },
+        "scope": {
+          "anyOf": [{ "$ref": "#/$defs/Identifier" }, { "type": "null" }],
+          "default": null
+        },
+        "value": { "$ref": "#/$defs/Text" }
+      },
+      "required": ["by", "value"],
+      "title": "LocatorCandidate",
+      "type": "object"
+    },
+    "LocatorExpect": {
+      "additionalProperties": false,
+      "properties": {
+        "unique": { "title": "Unique", "type": "boolean" },
+        "visible": { "title": "Visible", "type": "boolean" }
+      },
+      "required": ["unique", "visible"],
+      "title": "LocatorExpect",
+      "type": "object"
+    },
+    "LocatorRef": {
+      "additionalProperties": false,
+      "properties": { "locator_ref": { "$ref": "#/$defs/Identifier" } },
+      "required": ["locator_ref"],
+      "title": "LocatorRef",
+      "type": "object"
+    },
+    "LongAction": {
+      "additionalProperties": false,
+      "properties": {
+        "duration_ms": { "$ref": "#/$defs/PositiveInt" },
+        "kind": { "const": "long", "title": "Kind", "type": "string" },
+        "target": { "$ref": "#/$defs/Target" }
+      },
+      "required": ["kind", "target", "duration_ms"],
+      "title": "LongAction",
+      "type": "object"
+    },
+    "LoopStep": {
+      "additionalProperties": false,
+      "properties": {
+        "condition": {
+          "anyOf": [{ "$ref": "#/$defs/Predicate" }, { "type": "null" }],
+          "default": null
+        },
+        "id": { "$ref": "#/$defs/Identifier" },
+        "max_iterations": { "$ref": "#/$defs/PositiveInt" },
+        "steps": {
+          "items": { "$ref": "#/$defs/Step" },
+          "minItems": 1,
+          "title": "Steps",
+          "type": "array"
+        },
+        "timeout_ms": { "$ref": "#/$defs/PositiveInt", "default": 30000 },
+        "type": { "const": "loop", "title": "Type", "type": "string" }
+      },
+      "required": ["id", "type", "max_iterations", "steps"],
+      "title": "LoopStep",
+      "type": "object"
+    },
+    "Manifest": {
+      "additionalProperties": false,
+      "properties": {
+        "$schema": {
+          "const": "urn:pulse:schema:1-draft:manifest",
+          "title": "$Schema",
+          "type": "string"
+        },
+        "budgets": { "$ref": "#/$defs/Budgets" },
+        "cases": {
+          "additionalProperties": { "$ref": "#/$defs/CasePath" },
+          "propertyNames": { "$ref": "#/$defs/Identifier" },
+          "title": "Cases",
+          "type": "object"
+        },
+        "constraints": { "$ref": "#/$defs/Constraints" },
+        "data": {
+          "additionalProperties": { "$ref": "#/$defs/DataPath" },
+          "propertyNames": { "$ref": "#/$defs/Identifier" },
+          "title": "Data",
+          "type": "object"
+        },
+        "default_strategy": { "$ref": "#/$defs/Strategy" },
+        "dependencies": {
+          "items": { "$ref": "#/$defs/Dependency" },
+          "title": "Dependencies",
+          "type": "array"
+        },
+        "entry_cases": {
+          "items": { "$ref": "#/$defs/Identifier" },
+          "minItems": 1,
+          "title": "Entry Cases",
+          "type": "array"
+        },
+        "flows": {
+          "additionalProperties": { "$ref": "#/$defs/FlowPath" },
+          "propertyNames": { "$ref": "#/$defs/Identifier" },
+          "title": "Flows",
+          "type": "object"
+        },
+        "name": { "$ref": "#/$defs/Text" },
+        "platforms": {
+          "items": { "$ref": "#/$defs/Platform" },
+          "minItems": 1,
+          "title": "Platforms",
+          "type": "array"
+        },
+        "profiles": {
+          "additionalProperties": { "$ref": "#/$defs/ProfilePath" },
+          "propertyNames": { "$ref": "#/$defs/Identifier" },
+          "title": "Profiles",
+          "type": "object"
+        },
+        "project_id": { "$ref": "#/$defs/Identifier" },
+        "required_capabilities": {
+          "items": { "$ref": "#/$defs/Text" },
+          "title": "Required Capabilities",
+          "type": "array"
+        },
+        "resources": {
+          "additionalProperties": { "$ref": "#/$defs/ResourcePath" },
+          "propertyNames": { "$ref": "#/$defs/Identifier" },
+          "title": "Resources",
+          "type": "object"
+        },
+        "revision": { "$ref": "#/$defs/Text" },
+        "secret_refs": {
+          "items": { "$ref": "#/$defs/Identifier" },
+          "title": "Secret Refs",
+          "type": "array"
+        }
+      },
+      "required": [
+        "$schema",
+        "project_id",
+        "name",
+        "revision",
+        "cases",
+        "flows",
+        "data",
+        "profiles",
+        "entry_cases",
+        "default_strategy",
+        "platforms",
+        "required_capabilities",
+        "constraints",
+        "dependencies"
+      ],
+      "title": "Manifest",
+      "type": "object"
+    },
+    "NonNegativeInt": { "maximum": 9007199254740991, "minimum": 0, "type": "integer" },
+    "Number": {
+      "maximum": 1.7976931348623157e308,
+      "minimum": -1.7976931348623157e308,
+      "type": "number"
+    },
+    "NumberCondition": {
+      "additionalProperties": false,
+      "properties": {
+        "comparison": {
+          "enum": ["eq", "ne", "gt", "gte", "lt", "lte"],
+          "title": "Comparison",
+          "type": "string"
+        },
+        "expected": { "$ref": "#/$defs/NumberExpected" },
+        "operator": { "const": "number_cmp", "title": "Operator", "type": "string" },
+        "precision": { "$ref": "#/$defs/NonNegativeInt" },
+        "source": { "$ref": "#/$defs/ObservationSource" },
+        "target": { "$ref": "#/$defs/Target" },
+        "timeout_ms": { "$ref": "#/$defs/PositiveInt", "default": 10000 },
+        "unit": { "$ref": "#/$defs/Text" }
+      },
+      "required": ["target", "source", "operator", "comparison", "expected", "unit", "precision"],
+      "title": "NumberCondition",
+      "type": "object"
+    },
+    "NumberExpected": {
+      "anyOf": [
+        { "$ref": "#/$defs/Number" },
+        { "$ref": "#/$defs/ParameterRef" },
+        { "$ref": "#/$defs/DataRef" }
+      ]
+    },
+    "ObservationSource": { "enum": ["native", "webview", "ocr", "vision"], "type": "string" },
+    "Parameter": {
+      "additionalProperties": false,
+      "properties": {
+        "default": { "anyOf": [{ "$ref": "#/$defs/Scalar" }, { "type": "null" }], "default": null },
+        "required": { "title": "Required", "type": "boolean" },
+        "type": { "$ref": "#/$defs/ScalarType" }
+      },
+      "required": ["type", "required"],
+      "title": "Parameter",
+      "type": "object"
+    },
+    "ParameterRef": {
+      "additionalProperties": false,
+      "properties": { "param_ref": { "$ref": "#/$defs/Identifier" } },
+      "required": ["param_ref"],
+      "title": "ParameterRef",
+      "type": "object"
+    },
+    "Platform": { "enum": ["android", "ios"], "type": "string" },
+    "Point": {
+      "additionalProperties": false,
+      "properties": {
+        "height": { "$ref": "#/$defs/PositiveInt" },
+        "width": { "$ref": "#/$defs/PositiveInt" },
+        "x": { "$ref": "#/$defs/NonNegativeInt" },
+        "y": { "$ref": "#/$defs/NonNegativeInt" }
+      },
+      "required": ["x", "y", "width", "height"],
+      "title": "Point",
+      "type": "object"
+    },
+    "PointCandidate": {
+      "additionalProperties": false,
+      "properties": {
+        "by": { "const": "point", "title": "By", "type": "string" },
+        "scope": {
+          "anyOf": [{ "$ref": "#/$defs/Identifier" }, { "type": "null" }],
+          "default": null
+        },
+        "value": { "$ref": "#/$defs/Point" }
+      },
+      "required": ["by", "value"],
+      "title": "PointCandidate",
+      "type": "object"
+    },
+    "PositiveInt": { "exclusiveMinimum": 0, "maximum": 9007199254740991, "type": "integer" },
+    "Predicate": {
+      "discriminator": {
+        "mapping": {
+          "checked": "#/$defs/StateCondition",
+          "contains": "#/$defs/TextCondition",
+          "count_eq": "#/$defs/CountCondition",
+          "count_gt": "#/$defs/CountCondition",
+          "count_lt": "#/$defs/CountCondition",
+          "enabled": "#/$defs/StateCondition",
+          "exists": "#/$defs/PresenceCondition",
+          "not_exists": "#/$defs/AbsenceCondition",
+          "number_cmp": "#/$defs/NumberCondition",
+          "page_is": "#/$defs/PresenceCondition",
+          "regex": "#/$defs/TextCondition",
+          "semantic": "#/$defs/SemanticCondition",
+          "text_equals": "#/$defs/TextCondition",
+          "visible": "#/$defs/StateCondition"
+        },
+        "propertyName": "operator"
+      },
+      "oneOf": [
+        { "$ref": "#/$defs/PresenceCondition" },
+        { "$ref": "#/$defs/AbsenceCondition" },
+        { "$ref": "#/$defs/StateCondition" },
+        { "$ref": "#/$defs/TextCondition" },
+        { "$ref": "#/$defs/SemanticCondition" },
+        { "$ref": "#/$defs/CountCondition" },
+        { "$ref": "#/$defs/NumberCondition" }
+      ]
+    },
+    "PresenceCondition": {
+      "additionalProperties": false,
+      "properties": {
+        "operator": { "enum": ["exists", "page_is"], "title": "Operator", "type": "string" },
+        "source": { "$ref": "#/$defs/ObservationSource" },
+        "target": { "$ref": "#/$defs/Target" },
+        "timeout_ms": { "$ref": "#/$defs/PositiveInt", "default": 10000 }
+      },
+      "required": ["target", "source", "operator"],
+      "title": "PresenceCondition",
+      "type": "object"
+    },
+    "Profile": {
+      "additionalProperties": false,
+      "properties": {
+        "$schema": {
+          "const": "urn:pulse:schema:1-draft:profile",
+          "title": "$Schema",
+          "type": "string"
+        },
+        "app_id": { "$ref": "#/$defs/Text" },
+        "capabilities": {
+          "items": { "$ref": "#/$defs/Text" },
+          "title": "Capabilities",
+          "type": "array"
+        },
+        "environment": { "$ref": "#/$defs/Identifier" },
+        "locators": {
+          "additionalProperties": { "$ref": "#/$defs/Locator" },
+          "propertyNames": { "$ref": "#/$defs/Identifier" },
+          "title": "Locators",
+          "type": "object"
+        },
+        "platform": { "$ref": "#/$defs/Platform" },
+        "profile_id": { "$ref": "#/$defs/Identifier" }
+      },
+      "required": [
+        "$schema",
+        "profile_id",
+        "platform",
+        "environment",
+        "app_id",
+        "capabilities",
+        "locators"
+      ],
+      "title": "Profile",
+      "type": "object"
+    },
+    "ProfilePath": {
+      "pattern": "^profiles/(?:[A-Za-z0-9_-]+/)*[A-Za-z0-9_-]+\\.json$(?![\\s\\S])",
+      "type": "string"
+    },
+    "ResourcePath": {
+      "pattern": "^resources/(?:[A-Za-z0-9_-]+/)*[A-Za-z0-9_-]+\\.[A-Za-z0-9]+$(?![\\s\\S])",
+      "type": "string"
+    },
+    "ReturnValue": {
+      "additionalProperties": false,
+      "properties": {
+        "type": { "$ref": "#/$defs/ScalarType" },
+        "value": { "$ref": "#/$defs/Value" }
+      },
+      "required": ["type", "value"],
+      "title": "ReturnValue",
+      "type": "object"
+    },
+    "Scalar": {
+      "anyOf": [
+        { "type": "string" },
+        { "$ref": "#/$defs/Integer" },
+        { "$ref": "#/$defs/Number" },
+        { "type": "boolean" }
+      ]
+    },
+    "ScalarType": { "enum": ["string", "integer", "number", "boolean"], "type": "string" },
+    "SecretRef": {
+      "additionalProperties": false,
+      "properties": { "secret_ref": { "$ref": "#/$defs/Identifier" } },
+      "required": ["secret_ref"],
+      "title": "SecretRef",
+      "type": "object"
+    },
+    "SemanticCondition": {
+      "additionalProperties": false,
+      "properties": {
+        "expected": { "$ref": "#/$defs/TextExpected" },
+        "operator": { "const": "semantic", "title": "Operator", "type": "string" },
+        "source": { "$ref": "#/$defs/ObservationSource" },
+        "target": { "$ref": "#/$defs/Target" },
+        "timeout_ms": { "$ref": "#/$defs/PositiveInt" }
+      },
+      "required": ["target", "source", "timeout_ms", "operator", "expected"],
+      "title": "SemanticCondition",
+      "type": "object"
+    },
+    "StateCondition": {
+      "additionalProperties": false,
+      "properties": {
+        "expected": { "title": "Expected", "type": "boolean" },
+        "operator": {
+          "enum": ["visible", "enabled", "checked"],
+          "title": "Operator",
+          "type": "string"
+        },
+        "source": { "$ref": "#/$defs/ObservationSource" },
+        "target": { "$ref": "#/$defs/Target" },
+        "timeout_ms": { "$ref": "#/$defs/PositiveInt", "default": 10000 }
+      },
+      "required": ["target", "source", "operator", "expected"],
+      "title": "StateCondition",
+      "type": "object"
+    },
+    "Step": {
+      "discriminator": {
+        "mapping": {
+          "action": "#/$defs/ActionStep",
+          "ai_step": "#/$defs/AiStep",
+          "check": "#/$defs/CheckStep",
+          "extract": "#/$defs/ExtractStep",
+          "flow": "#/$defs/FlowStep",
+          "if": "#/$defs/IfStep",
+          "loop": "#/$defs/LoopStep",
+          "wait": "#/$defs/WaitStep"
+        },
+        "propertyName": "type"
+      },
+      "oneOf": [
+        { "$ref": "#/$defs/ActionStep" },
+        { "$ref": "#/$defs/FlowStep" },
+        { "$ref": "#/$defs/WaitStep" },
+        { "$ref": "#/$defs/CheckStep" },
+        { "$ref": "#/$defs/ExtractStep" },
+        { "$ref": "#/$defs/IfStep" },
+        { "$ref": "#/$defs/LoopStep" },
+        { "$ref": "#/$defs/AiStep" }
+      ]
+    },
+    "Strategy": { "enum": ["rule_only", "ai_on_locator_failure", "ai_led"], "type": "string" },
+    "SwipeAction": {
+      "additionalProperties": false,
+      "properties": {
+        "duration_ms": { "$ref": "#/$defs/PositiveInt" },
+        "end": { "$ref": "#/$defs/Point" },
+        "kind": { "const": "swipe", "title": "Kind", "type": "string" },
+        "start": { "$ref": "#/$defs/Point" }
+      },
+      "required": ["kind", "start", "end", "duration_ms"],
+      "title": "SwipeAction",
+      "type": "object"
+    },
+    "TapAction": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": { "const": "tap", "title": "Kind", "type": "string" },
+        "target": { "$ref": "#/$defs/Target" }
+      },
+      "required": ["kind", "target"],
+      "title": "TapAction",
+      "type": "object"
+    },
+    "Target": { "anyOf": [{ "$ref": "#/$defs/LocatorRef" }, { "$ref": "#/$defs/InlineLocator" }] },
+    "Text": { "minLength": 1, "pattern": "\\S", "type": "string" },
+    "TextCondition": {
+      "additionalProperties": false,
+      "properties": {
+        "expected": { "$ref": "#/$defs/TextExpected" },
+        "operator": {
+          "enum": ["text_equals", "contains", "regex"],
+          "title": "Operator",
+          "type": "string"
+        },
+        "source": { "$ref": "#/$defs/ObservationSource" },
+        "target": { "$ref": "#/$defs/Target" },
+        "timeout_ms": { "$ref": "#/$defs/PositiveInt", "default": 10000 }
+      },
+      "required": ["target", "source", "operator", "expected"],
+      "title": "TextCondition",
+      "type": "object"
+    },
+    "TextExpected": {
+      "anyOf": [
+        { "type": "string" },
+        { "$ref": "#/$defs/ParameterRef" },
+        { "$ref": "#/$defs/DataRef" }
+      ]
+    },
+    "TextValue": {
+      "anyOf": [
+        { "$ref": "#/$defs/TextExpected" },
+        { "$ref": "#/$defs/VariableRef" },
+        { "$ref": "#/$defs/SecretRef" }
+      ]
+    },
+    "Value": {
+      "anyOf": [
+        { "$ref": "#/$defs/Scalar" },
+        { "$ref": "#/$defs/ParameterRef" },
+        { "$ref": "#/$defs/VariableRef" },
+        { "$ref": "#/$defs/DataRef" },
+        { "$ref": "#/$defs/SecretRef" }
+      ]
+    },
+    "VariableRef": {
+      "additionalProperties": false,
+      "properties": { "var_ref": { "$ref": "#/$defs/Identifier" } },
+      "required": ["var_ref"],
+      "title": "VariableRef",
+      "type": "object"
+    },
+    "WaitStep": {
+      "additionalProperties": false,
+      "properties": {
+        "condition": { "$ref": "#/$defs/Predicate" },
+        "id": { "$ref": "#/$defs/Identifier" },
+        "timeout_ms": { "$ref": "#/$defs/PositiveInt", "default": 30000 },
+        "type": { "const": "wait", "title": "Type", "type": "string" }
+      },
+      "required": ["id", "type", "condition"],
+      "title": "WaitStep",
+      "type": "object"
+    }
+  },
+  "$id": "urn:pulse:schema:1-draft:profile",
+  "$ref": "#/$defs/Profile",
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

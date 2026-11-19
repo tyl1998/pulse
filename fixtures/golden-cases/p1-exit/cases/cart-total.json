@@ -1,0 +1,146 @@
+{
+  "$schema": "urn:pulse:schema:1-draft:case",
+  "case_id": "cart-total",
+  "name": "购物车加购并核对合计",
+  "goal": "把拿铁数量从 1 加到 2 并核对显示合计",
+  "parameters": {},
+  "profile_refs": ["target-exit"],
+  "inputs": {},
+  "locators": {},
+  "preconditions": [
+    {
+      "id": "home-visible",
+      "required": true,
+      "condition": {
+        "operator": "exists",
+        "target": {
+          "locator_ref": "home-title"
+        },
+        "source": "native",
+        "timeout_ms": 30000
+      }
+    }
+  ],
+  "steps": [
+    {
+      "type": "wait",
+      "id": "home-ready",
+      "timeout_ms": 60000,
+      "condition": {
+        "operator": "exists",
+        "target": {
+          "locator_ref": "home-title"
+        },
+        "source": "native",
+        "timeout_ms": 30000
+      }
+    },
+    {
+      "type": "action",
+      "id": "open-cart",
+      "action": {
+        "kind": "tap",
+        "target": {
+          "locator_ref": "open-cart"
+        }
+      },
+      "timeout_ms": 120000
+    },
+    {
+      "type": "wait",
+      "id": "cart-ready",
+      "timeout_ms": 60000,
+      "condition": {
+        "operator": "exists",
+        "target": {
+          "locator_ref": "cart-title"
+        },
+        "source": "native",
+        "timeout_ms": 30000
+      }
+    },
+    {
+      "type": "if",
+      "id": "ensure-qty-two",
+      "timeout_ms": 240000,
+      "condition": {
+        "operator": "text_equals",
+        "target": {
+          "locator_ref": "cart-qty-1"
+        },
+        "source": "native",
+        "expected": "1",
+        "timeout_ms": 30000
+      },
+      "then": [
+        {
+          "type": "action",
+          "id": "tap-plus",
+          "action": {
+            "kind": "tap",
+            "target": {
+              "locator_ref": "cart-plus-1"
+            }
+          },
+          "timeout_ms": 120000
+        }
+      ],
+      "else": [
+        {
+          "type": "wait",
+          "id": "qty-already",
+          "timeout_ms": 60000,
+          "condition": {
+            "operator": "exists",
+            "target": {
+              "locator_ref": "cart-title"
+            },
+            "source": "native",
+            "timeout_ms": 30000
+          }
+        }
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "id": "qty-one",
+      "required": true,
+      "condition": {
+        "operator": "text_equals",
+        "target": {
+          "locator_ref": "cart-qty-1"
+        },
+        "source": "native",
+        "expected": "2",
+        "timeout_ms": 30000
+      }
+    },
+    {
+      "id": "qty-two",
+      "required": true,
+      "condition": {
+        "operator": "text_equals",
+        "target": {
+          "locator_ref": "cart-qty-2"
+        },
+        "source": "native",
+        "expected": "2",
+        "timeout_ms": 30000
+      }
+    },
+    {
+      "id": "total",
+      "required": true,
+      "condition": {
+        "operator": "text_equals",
+        "target": {
+          "locator_ref": "cart-total"
+        },
+        "source": "native",
+        "expected": "合计：¥139.00",
+        "timeout_ms": 30000
+      }
+    }
+  ]
+}

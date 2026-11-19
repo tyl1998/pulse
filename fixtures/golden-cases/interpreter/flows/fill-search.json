@@ -1,0 +1,46 @@
+{
+  "$schema": "urn:pulse:schema:1-draft:flow",
+  "flow_id": "fill-search",
+  "name": "Fill the declared query and return the observed label",
+  "parameters": {
+    "query": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "locators": {},
+  "steps": [
+    {
+      "type": "action",
+      "id": "type-query",
+      "action": {
+        "kind": "input",
+        "target": {
+          "locator_ref": "search"
+        },
+        "text": {
+          "param_ref": "query"
+        },
+        "mode": "replace"
+      }
+    },
+    {
+      "type": "extract",
+      "id": "read-label",
+      "target": {
+        "locator_ref": "product"
+      },
+      "source": "native",
+      "attribute": "text",
+      "as": "label"
+    }
+  ],
+  "returns": {
+    "label": {
+      "type": "string",
+      "value": {
+        "var_ref": "label"
+      }
+    }
+  }
+}

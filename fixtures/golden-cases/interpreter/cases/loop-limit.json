@@ -1,0 +1,39 @@
+{
+  "$schema": "urn:pulse:schema:1-draft:case",
+  "case_id": "loop-limit",
+  "name": "Conditional loop reaches its declared limit",
+  "goal": "Reaching max_iterations with the condition still true is blocked",
+  "parameters": {},
+  "profile_refs": ["fake-android"],
+  "inputs": {},
+  "locators": {},
+  "preconditions": [],
+  "steps": [
+    {
+      "type": "loop",
+      "id": "never-done",
+      "max_iterations": 2,
+      "condition": {
+        "operator": "count_lt",
+        "target": {
+          "locator_ref": "items"
+        },
+        "source": "native",
+        "expected": 100
+      },
+      "steps": [
+        {
+          "type": "action",
+          "id": "tap-product",
+          "action": {
+            "kind": "tap",
+            "target": {
+              "locator_ref": "product"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "checks": []
+}

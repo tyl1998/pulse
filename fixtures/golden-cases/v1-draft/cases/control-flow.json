@@ -1,0 +1,146 @@
+{
+  "$schema": "urn:pulse:schema:1-draft:case",
+  "case_id": "control-flow",
+  "name": "Typed flow, lexical variables and bounded control flow",
+  "goal": "Describe deterministic control flow without executing it",
+  "parameters": {
+    "product": { "type": "string", "required": true },
+    "quantity": { "type": "integer", "required": false, "default": 1 }
+  },
+  "profile_refs": ["android-fixture"],
+  "inputs": { "product": { "data_ref": "cart", "key": "product" } },
+  "locators": {},
+  "preconditions": [
+    {
+      "id": "page-ready",
+      "required": true,
+      "condition": { "operator": "exists", "target": { "locator_ref": "page" }, "source": "native" }
+    }
+  ],
+  "steps": [
+    {
+      "type": "action",
+      "id": "launch",
+      "action": { "kind": "launch", "app_id": "com.pulse.target" }
+    },
+    {
+      "type": "flow",
+      "id": "search-product",
+      "flow_ref": "fill-search",
+      "arguments": { "query": { "param_ref": "product" } },
+      "bind": { "label": "label" }
+    },
+    {
+      "type": "action",
+      "id": "use-return",
+      "action": {
+        "kind": "input",
+        "target": { "locator_ref": "search" },
+        "text": { "var_ref": "label" },
+        "mode": "replace"
+      }
+    },
+    {
+      "type": "if",
+      "id": "banner-branch",
+      "condition": {
+        "operator": "exists",
+        "target": { "locator_ref": "banner" },
+        "source": "native"
+      },
+      "then": [
+        {
+          "type": "action",
+          "id": "tap-banner",
+          "action": { "kind": "tap", "target": { "locator_ref": "banner" } }
+        }
+      ],
+      "else": [
+        {
+          "type": "wait",
+          "id": "wait-page",
+          "condition": {
+            "operator": "page_is",
+            "target": { "locator_ref": "page" },
+            "source": "native"
+          }
+        }
+      ]
+    },
+    {
+      "type": "loop",
+      "id": "bounded-observation",
+      "max_iterations": 2,
+      "condition": {
+        "operator": "count_lt",
+        "target": { "locator_ref": "items" },
+        "source": "native",
+        "expected": 3
+      },
+      "steps": [
+        {
+          "type": "extract",
+          "id": "iteration-label",
+          "target": { "locator_ref": "product" },
+          "source": "native",
+          "attribute": "text",
+          "as": "iteration_label"
+        },
+        {
+          "type": "action",
+          "id": "long-product",
+          "action": { "kind": "long", "target": { "locator_ref": "product" }, "duration_ms": 400 }
+        }
+      ]
+    },
+    {
+      "type": "action",
+      "id": "swipe",
+      "action": {
+        "kind": "swipe",
+        "start": { "x": 500, "y": 1500, "width": 1080, "height": 2400 },
+        "end": { "x": 500, "y": 800, "width": 1080, "height": 2400 },
+        "duration_ms": 300
+      }
+    },
+    { "type": "action", "id": "back", "action": { "kind": "key", "key": "BACK" } },
+    {
+      "type": "check",
+      "id": "confirm-check",
+      "checkpoint": {
+        "id": "selection-checked",
+        "required": true,
+        "condition": {
+          "operator": "checked",
+          "target": { "locator_ref": "confirm" },
+          "source": "native",
+          "expected": true
+        }
+      }
+    }
+  ],
+  "checks": [
+    {
+      "id": "product-name",
+      "required": true,
+      "condition": {
+        "operator": "text_equals",
+        "target": { "locator_ref": "product" },
+        "source": "native",
+        "expected": { "param_ref": "product" }
+      }
+    },
+    {
+      "id": "quantity",
+      "required": true,
+      "condition": {
+        "operator": "count_eq",
+        "target": { "locator_ref": "items" },
+        "source": "native",
+        "expected": { "param_ref": "quantity" }
+      }
+    }
+  ],
+  "source": "hand-authored offline fixture",
+  "original_text": "A count of two when one is expected is a business failure, not invalid JSON."
+}

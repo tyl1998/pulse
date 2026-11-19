@@ -1,0 +1,33 @@
+{
+  "$schema": "urn:pulse:schema:1-draft:case",
+  "case_id": "ai",
+  "name": "AI-dependent description only",
+  "goal": "Demonstrate preflight blocking without calling a model",
+  "parameters": {},
+  "profile_refs": ["android-fixture"],
+  "inputs": {},
+  "locators": {},
+  "preconditions": [],
+  "steps": [
+    {
+      "type": "ai_step",
+      "id": "inspect-summary",
+      "timeout_ms": 30000,
+      "goal": "Inspect the declared cart summary without submitting or paying.",
+      "checks": [
+        {
+          "id": "summary",
+          "required": true,
+          "condition": {
+            "operator": "semantic",
+            "timeout_ms": 10000,
+            "target": { "locator_ref": "page" },
+            "source": "vision",
+            "expected": "The summary contains a product name, a quantity, and an amount."
+          }
+        }
+      ]
+    }
+  ],
+  "checks": []
+}

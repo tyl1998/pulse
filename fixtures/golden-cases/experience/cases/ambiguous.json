@@ -1,0 +1,50 @@
+{
+  "$schema": "urn:pulse:schema:1-draft:case",
+  "case_id": "ambiguous",
+  "name": "A remembered candidate that matches several elements",
+  "goal": "Uniqueness is re-checked live; a hit is never trusted over the declared expect",
+  "parameters": {},
+  "profile_refs": ["fake-android"],
+  "inputs": {},
+  "locators": {},
+  "preconditions": [
+    {
+      "id": "page-ready",
+      "required": true,
+      "condition": {
+        "operator": "exists",
+        "target": {
+          "locator_ref": "page"
+        },
+        "source": "native"
+      }
+    }
+  ],
+  "steps": [
+    {
+      "type": "action",
+      "id": "type-row",
+      "action": {
+        "kind": "input",
+        "target": {
+          "locator_ref": "ambiguous-row"
+        },
+        "text": "Pulse",
+        "mode": "replace"
+      }
+    }
+  ],
+  "checks": [
+    {
+      "id": "row-visible",
+      "required": true,
+      "condition": {
+        "operator": "exists",
+        "target": {
+          "locator_ref": "ambiguous-row"
+        },
+        "source": "native"
+      }
+    }
+  ]
+}

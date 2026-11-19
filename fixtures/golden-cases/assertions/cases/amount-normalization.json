@@ -1,0 +1,101 @@
+{
+  "$schema": "urn:pulse:schema:1-draft:case",
+  "case_id": "amount-normalization",
+  "name": "Amount and unit normalization",
+  "goal": "Only exact half-up normalization of a declared unit yields a verdict",
+  "parameters": {},
+  "profile_refs": ["fake-android"],
+  "inputs": {},
+  "locators": {},
+  "preconditions": [],
+  "steps": [
+    {
+      "type": "wait",
+      "id": "ready",
+      "condition": {
+        "operator": "exists",
+        "target": {
+          "locator_ref": "page"
+        },
+        "source": "native"
+      }
+    }
+  ],
+  "checks": [
+    {
+      "id": "cny-symbol",
+      "required": true,
+      "condition": {
+        "operator": "number_cmp",
+        "target": {
+          "locator_ref": "price"
+        },
+        "source": "native",
+        "comparison": "eq",
+        "expected": 12.5,
+        "unit": "CNY",
+        "precision": 2
+      }
+    },
+    {
+      "id": "half-up",
+      "required": true,
+      "condition": {
+        "operator": "number_cmp",
+        "target": {
+          "locator_ref": "subtotal"
+        },
+        "source": "native",
+        "comparison": "eq",
+        "expected": 0.3,
+        "unit": "CNY",
+        "precision": 2
+      }
+    },
+    {
+      "id": "percent",
+      "required": true,
+      "condition": {
+        "operator": "number_cmp",
+        "target": {
+          "locator_ref": "discount"
+        },
+        "source": "native",
+        "comparison": "gte",
+        "expected": 85,
+        "unit": "%",
+        "precision": 0
+      }
+    },
+    {
+      "id": "gt",
+      "required": true,
+      "condition": {
+        "operator": "number_cmp",
+        "target": {
+          "locator_ref": "subtotal"
+        },
+        "source": "native",
+        "comparison": "gt",
+        "expected": 0.29,
+        "unit": "CNY",
+        "precision": 2
+      }
+    },
+    {
+      "id": "foreign-currency",
+      "required": false,
+      "condition": {
+        "operator": "number_cmp",
+        "target": {
+          "locator_ref": "dollars"
+        },
+        "source": "native",
+        "comparison": "eq",
+        "expected": 12.5,
+        "unit": "CNY",
+        "precision": 2
+      }
+    }
+  ]
+}

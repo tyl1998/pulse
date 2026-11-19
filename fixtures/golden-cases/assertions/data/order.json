@@ -1,0 +1,8 @@
+{
+  "$schema": "urn:pulse:schema:1-draft:data",
+  "data_id": "order",
+  "values": {
+    "total": 12.5,
+    "count": 1
+  }
+}

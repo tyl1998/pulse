@@ -1,0 +1,65 @@
+{
+  "$schema": "urn:pulse:schema:1-draft:case",
+  "case_id": "experience-read",
+  "name": "Read the form title through a locator whose first candidate is stale",
+  "goal": "Prove local experience is speed only: the stale first candidate changes nothing but attempts",
+  "parameters": {},
+  "profile_refs": ["target-form"],
+  "inputs": {},
+  "locators": {},
+  "preconditions": [
+    {
+      "id": "page-visible",
+      "required": true,
+      "condition": {
+        "operator": "exists",
+        "target": {
+          "locator_ref": "page"
+        },
+        "source": "native",
+        "timeout_ms": 30000
+      }
+    }
+  ],
+  "steps": [
+    {
+      "type": "wait",
+      "id": "page-ready",
+      "condition": {
+        "operator": "exists",
+        "target": {
+          "locator_ref": "page"
+        },
+        "source": "native",
+        "timeout_ms": 30000
+      },
+      "timeout_ms": 60000
+    }
+  ],
+  "checks": [
+    {
+      "id": "page-exists",
+      "required": true,
+      "condition": {
+        "operator": "exists",
+        "target": {
+          "locator_ref": "page"
+        },
+        "source": "native",
+        "timeout_ms": 30000
+      }
+    },
+    {
+      "id": "result-exists",
+      "required": true,
+      "condition": {
+        "operator": "exists",
+        "target": {
+          "locator_ref": "result"
+        },
+        "source": "native",
+        "timeout_ms": 30000
+      }
+    }
+  ]
+}

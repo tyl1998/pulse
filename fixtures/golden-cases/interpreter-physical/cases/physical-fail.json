@@ -1,0 +1,54 @@
+{
+  "$schema": "urn:pulse:schema:1-draft:case",
+  "case_id": "physical-fail",
+  "name": "Physical wrong expectation",
+  "goal": "Prove a real mismatch is failed",
+  "parameters": {},
+  "profile_refs": ["target-form"],
+  "inputs": {},
+  "locators": {},
+  "preconditions": [
+    {
+      "id": "result-visible",
+      "required": true,
+      "condition": {
+        "operator": "exists",
+        "target": {
+          "locator_ref": "result"
+        },
+        "source": "native",
+        "timeout_ms": 30000
+      }
+    }
+  ],
+  "steps": [
+    {
+      "type": "wait",
+      "id": "result-ready",
+      "condition": {
+        "operator": "exists",
+        "target": {
+          "locator_ref": "result"
+        },
+        "source": "native",
+        "timeout_ms": 30000
+      },
+      "timeout_ms": 60000
+    }
+  ],
+  "checks": [
+    {
+      "id": "wrong-result",
+      "required": true,
+      "condition": {
+        "operator": "text_equals",
+        "target": {
+          "locator_ref": "result"
+        },
+        "source": "native",
+        "expected": "提交成功：Pulse / 大杯 / 通知关",
+        "timeout_ms": 30000
+      }
+    }
+  ]
+}

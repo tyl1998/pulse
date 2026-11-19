@@ -1,0 +1,35 @@
+{
+  "$schema": "urn:pulse:schema:1-draft:case",
+  "case_id": "ai-blocked",
+  "name": "AI step under rule_only",
+  "goal": "Preflight blocks before any device operation",
+  "parameters": {},
+  "profile_refs": ["fake-android"],
+  "inputs": {},
+  "locators": {},
+  "preconditions": [],
+  "steps": [
+    {
+      "type": "ai_step",
+      "id": "inspect",
+      "timeout_ms": 30000,
+      "goal": "Inspect the page without submitting.",
+      "checks": [
+        {
+          "id": "summary",
+          "required": true,
+          "condition": {
+            "operator": "semantic",
+            "timeout_ms": 10000,
+            "target": {
+              "locator_ref": "page"
+            },
+            "source": "vision",
+            "expected": "The page contains a product."
+          }
+        }
+      ]
+    }
+  ],
+  "checks": []
+}

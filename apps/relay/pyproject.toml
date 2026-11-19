@@ -1,0 +1,19 @@
+[project]
+name = "pulse-relay"
+version = "0.0.0"
+description = "pulse-relay: WS control/event/media relay (P0.7 spike: byte relay by channel)"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "pulse-observability",
+    "websockets>=13",
+]
+
+[project.scripts]
+pulse-relay = "pulse_relay.app:main"
+
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["pulse_relay"]

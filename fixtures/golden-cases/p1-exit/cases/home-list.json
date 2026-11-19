@@ -1,0 +1,91 @@
+{
+  "$schema": "urn:pulse:schema:1-draft:case",
+  "case_id": "home-list",
+  "name": "首页进入原生列表",
+  "goal": "从首页进入列表页并确认列表计数文本",
+  "parameters": {},
+  "profile_refs": ["target-exit"],
+  "inputs": {},
+  "locators": {},
+  "preconditions": [
+    {
+      "id": "home-visible",
+      "required": true,
+      "condition": {
+        "operator": "exists",
+        "target": {
+          "locator_ref": "home-title"
+        },
+        "source": "native",
+        "timeout_ms": 30000
+      }
+    }
+  ],
+  "steps": [
+    {
+      "type": "wait",
+      "id": "home-ready",
+      "timeout_ms": 60000,
+      "condition": {
+        "operator": "exists",
+        "target": {
+          "locator_ref": "home-title"
+        },
+        "source": "native",
+        "timeout_ms": 30000
+      }
+    },
+    {
+      "type": "action",
+      "id": "open-list",
+      "action": {
+        "kind": "tap",
+        "target": {
+          "locator_ref": "open-list"
+        }
+      },
+      "timeout_ms": 120000
+    },
+    {
+      "type": "wait",
+      "id": "list-ready",
+      "timeout_ms": 60000,
+      "condition": {
+        "operator": "exists",
+        "target": {
+          "locator_ref": "list-count"
+        },
+        "source": "native",
+        "timeout_ms": 30000
+      }
+    }
+  ],
+  "checks": [
+    {
+      "id": "list-title",
+      "required": true,
+      "condition": {
+        "operator": "text_equals",
+        "target": {
+          "locator_ref": "list-count"
+        },
+        "source": "native",
+        "expected": "共 60 项",
+        "timeout_ms": 30000
+      }
+    },
+    {
+      "id": "nothing-selected",
+      "required": true,
+      "condition": {
+        "operator": "text_equals",
+        "target": {
+          "locator_ref": "list-selected"
+        },
+        "source": "native",
+        "expected": "未选择",
+        "timeout_ms": 30000
+      }
+    }
+  ]
+}

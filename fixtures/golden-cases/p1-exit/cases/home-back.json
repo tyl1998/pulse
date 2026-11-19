@@ -1,0 +1,100 @@
+{
+  "$schema": "urn:pulse:schema:1-draft:case",
+  "case_id": "home-back",
+  "name": "返回键回到首页",
+  "goal": "从表单页按返回键回首页",
+  "parameters": {},
+  "profile_refs": ["target-exit"],
+  "inputs": {},
+  "locators": {},
+  "preconditions": [
+    {
+      "id": "home-visible",
+      "required": true,
+      "condition": {
+        "operator": "exists",
+        "target": {
+          "locator_ref": "home-title"
+        },
+        "source": "native",
+        "timeout_ms": 30000
+      }
+    }
+  ],
+  "steps": [
+    {
+      "type": "wait",
+      "id": "home-ready",
+      "timeout_ms": 60000,
+      "condition": {
+        "operator": "exists",
+        "target": {
+          "locator_ref": "home-title"
+        },
+        "source": "native",
+        "timeout_ms": 30000
+      }
+    },
+    {
+      "type": "action",
+      "id": "open-form",
+      "action": {
+        "kind": "tap",
+        "target": {
+          "locator_ref": "open-form"
+        }
+      },
+      "timeout_ms": 120000
+    },
+    {
+      "type": "wait",
+      "id": "form-ready",
+      "timeout_ms": 60000,
+      "condition": {
+        "operator": "exists",
+        "target": {
+          "locator_ref": "form-title"
+        },
+        "source": "native",
+        "timeout_ms": 30000
+      }
+    },
+    {
+      "type": "action",
+      "id": "go-back",
+      "action": {
+        "kind": "key",
+        "key": "BACK"
+      },
+      "timeout_ms": 120000
+    },
+    {
+      "type": "wait",
+      "id": "home-again",
+      "timeout_ms": 60000,
+      "condition": {
+        "operator": "exists",
+        "target": {
+          "locator_ref": "home-title"
+        },
+        "source": "native",
+        "timeout_ms": 30000
+      }
+    }
+  ],
+  "checks": [
+    {
+      "id": "home-title",
+      "required": true,
+      "condition": {
+        "operator": "text_equals",
+        "target": {
+          "locator_ref": "home-title"
+        },
+        "source": "native",
+        "expected": "Pulse 靶场 v1",
+        "timeout_ms": 30000
+      }
+    }
+  ]
+}

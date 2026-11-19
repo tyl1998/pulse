@@ -1,0 +1,144 @@
+{
+  "$schema": "urn:pulse:schema:1-draft:case",
+  "case_id": "dialog-accept",
+  "name": "弹窗确认删除",
+  "goal": "打开确认弹窗并接受；弹窗内容不参与定位",
+  "parameters": {},
+  "profile_refs": ["target-exit"],
+  "inputs": {},
+  "locators": {},
+  "preconditions": [
+    {
+      "id": "home-visible",
+      "required": true,
+      "condition": {
+        "operator": "exists",
+        "target": {
+          "locator_ref": "home-title"
+        },
+        "source": "native",
+        "timeout_ms": 30000
+      }
+    }
+  ],
+  "steps": [
+    {
+      "type": "wait",
+      "id": "home-ready",
+      "timeout_ms": 60000,
+      "condition": {
+        "operator": "exists",
+        "target": {
+          "locator_ref": "home-title"
+        },
+        "source": "native",
+        "timeout_ms": 30000
+      }
+    },
+    {
+      "type": "action",
+      "id": "open-dialog",
+      "timeout_ms": 120000,
+      "action": {
+        "kind": "tap",
+        "target": {
+          "locator_ref": "open-dialog"
+        }
+      }
+    },
+    {
+      "type": "wait",
+      "id": "dialog-ready",
+      "timeout_ms": 60000,
+      "condition": {
+        "operator": "exists",
+        "target": {
+          "locator_ref": "show-alert"
+        },
+        "source": "native",
+        "timeout_ms": 30000
+      }
+    },
+    {
+      "type": "action",
+      "id": "show-alert",
+      "timeout_ms": 120000,
+      "action": {
+        "kind": "tap",
+        "target": {
+          "locator_ref": "show-alert"
+        }
+      }
+    },
+    {
+      "type": "wait",
+      "id": "alert-ready",
+      "timeout_ms": 60000,
+      "condition": {
+        "operator": "exists",
+        "target": {
+          "locator_ref": "dialog-cancel"
+        },
+        "source": "native",
+        "timeout_ms": 30000
+      }
+    },
+    {
+      "type": "action",
+      "id": "cancel-alert",
+      "timeout_ms": 120000,
+      "action": {
+        "kind": "tap",
+        "target": {
+          "locator_ref": "dialog-cancel"
+        }
+      }
+    },
+    {
+      "type": "wait",
+      "id": "dialog-back",
+      "timeout_ms": 60000,
+      "condition": {
+        "operator": "text_equals",
+        "target": {
+          "locator_ref": "dialog-result"
+        },
+        "source": "native",
+        "expected": "未操作",
+        "timeout_ms": 30000
+      }
+    }
+  ],
+  "checks": [
+    {
+      "id": "dialog-result-unchanged",
+      "required": true,
+      "condition": {
+        "operator": "text_equals",
+        "target": {
+          "locator_ref": "dialog-result"
+        },
+        "source": "native",
+        "expected": "未操作",
+        "timeout_ms": 30000
+      }
+    },
+    {
+      "id": "alert-closed",
+      "required": true,
+      "condition": {
+        "operator": "not_exists",
+        "target": {
+          "locator_ref": "confirm-dialog-cancel"
+        },
+        "source": "native",
+        "observation_window_ms": 1000,
+        "poll_interval_ms": 500,
+        "timeout_ms": 120000,
+        "scope": {
+          "locator_ref": "dialog-result"
+        }
+      }
+    }
+  ]
+}

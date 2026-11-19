@@ -1,0 +1,50 @@
+{
+  "$schema": "urn:pulse:schema:1-draft:case",
+  "case_id": "drifted",
+  "name": "The first declared candidate no longer exists on the page",
+  "goal": "A stale remembered candidate falls back to the full declared order",
+  "parameters": {},
+  "profile_refs": ["fake-android"],
+  "inputs": {},
+  "locators": {},
+  "preconditions": [
+    {
+      "id": "page-ready",
+      "required": true,
+      "condition": {
+        "operator": "exists",
+        "target": {
+          "locator_ref": "page"
+        },
+        "source": "native"
+      }
+    }
+  ],
+  "steps": [
+    {
+      "type": "action",
+      "id": "type-search",
+      "action": {
+        "kind": "input",
+        "target": {
+          "locator_ref": "search"
+        },
+        "text": "Pulse",
+        "mode": "replace"
+      }
+    }
+  ],
+  "checks": [
+    {
+      "id": "search-visible",
+      "required": true,
+      "condition": {
+        "operator": "exists",
+        "target": {
+          "locator_ref": "search"
+        },
+        "source": "native"
+      }
+    }
+  ]
+}

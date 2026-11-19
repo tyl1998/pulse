@@ -1,0 +1,16 @@
+node_modules/
+dist/
+out/
+.vite/
+coverage/
+storybook-static/
+.cache/
+.venv/
+pnpm-lock.yaml
+uv.lock
+fixtures/target-app/.gradle/
+fixtures/target-app/**/build/
+fixtures/target-app/flutter_module/.dart_tool/
+fixtures/target-app/flutter_module/.android/
+fixtures/target-app/flutter_module/.ios/
+fixtures/target-app/flutter_module/pubspec.lock

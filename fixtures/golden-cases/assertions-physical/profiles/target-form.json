@@ -1,0 +1,142 @@
+{
+  "$schema": "urn:pulse:schema:1-draft:profile",
+  "profile_id": "target-form",
+  "platform": "android",
+  "environment": "vivo-v2364a-form-assertions",
+  "app_id": "com.pulse.target",
+  "capabilities": ["observe"],
+  "locators": {
+    "title": {
+      "candidates": [
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/tv_form_title"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": true
+      }
+    },
+    "name": {
+      "candidates": [
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/et_name"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": true
+      }
+    },
+    "password": {
+      "candidates": [
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/et_password"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": true
+      }
+    },
+    "small": {
+      "candidates": [
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/rb_small"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": true
+      }
+    },
+    "large": {
+      "candidates": [
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/rb_large"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": true
+      }
+    },
+    "notify": {
+      "candidates": [
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/sw_notify"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": true
+      }
+    },
+    "agree": {
+      "candidates": [
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/cb_agree"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": true
+      }
+    },
+    "submit": {
+      "candidates": [
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/btn_submit"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": true
+      }
+    },
+    "result": {
+      "candidates": [
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/tv_form_result"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": true
+      }
+    },
+    "items": {
+      "candidates": [
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/et_name"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": true
+      }
+    },
+    "dialogs": {
+      "candidates": [
+        {
+          "by": "text",
+          "value": "提交成功"
+        }
+      ],
+      "expect": {
+        "unique": false,
+        "visible": true
+      }
+    }
+  }
+}

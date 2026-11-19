@@ -1,0 +1,28 @@
+{
+  "$schema": "urn:pulse:schema:1-draft:manifest",
+  "project_id": "experience-golden",
+  "name": "Local experience golden cases (synthetic device)",
+  "revision": "fixture-1",
+  "cases": {
+    "search": "cases/search.json",
+    "drifted": "cases/drifted.json",
+    "ambiguous": "cases/ambiguous.json",
+    "broken-remembered": "cases/broken-remembered.json"
+  },
+  "flows": {},
+  "data": {},
+  "profiles": {
+    "fake-android": "profiles/fake-android.json"
+  },
+  "entry_cases": ["search", "drifted", "ambiguous", "broken-remembered"],
+  "default_strategy": "rule_only",
+  "platforms": ["android"],
+  "required_capabilities": ["observe"],
+  "constraints": {
+    "allowed_apps": ["com.pulse.target"],
+    "forbidden_actions": ["clear"]
+  },
+  "dependencies": [],
+  "resources": {},
+  "secret_refs": []
+}

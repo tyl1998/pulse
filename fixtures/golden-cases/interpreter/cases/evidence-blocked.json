@@ -1,0 +1,38 @@
+{
+  "$schema": "urn:pulse:schema:1-draft:case",
+  "case_id": "evidence-blocked",
+  "name": "Unknown collection cannot prove absence or mismatch",
+  "goal": "Unverified evidence blocks the case",
+  "parameters": {},
+  "profile_refs": ["fake-android"],
+  "inputs": {},
+  "locators": {},
+  "preconditions": [],
+  "steps": [
+    {
+      "type": "wait",
+      "id": "ready",
+      "timeout_ms": 1000,
+      "condition": {
+        "operator": "exists",
+        "target": {
+          "locator_ref": "page"
+        },
+        "source": "native"
+      }
+    }
+  ],
+  "checks": [
+    {
+      "id": "product-exists",
+      "required": true,
+      "condition": {
+        "operator": "exists",
+        "target": {
+          "locator_ref": "product"
+        },
+        "source": "native"
+      }
+    }
+  ]
+}

@@ -1,0 +1,207 @@
+{
+  "$schema": "urn:pulse:schema:1-draft:case",
+  "case_id": "form-submit",
+  "name": "表单提交成功",
+  "goal": "输入姓名、选大杯、同意协议、提交并核对结果",
+  "parameters": {
+    "who": {
+      "type": "string",
+      "required": false,
+      "default": "Pulse"
+    }
+  },
+  "profile_refs": ["target-exit"],
+  "inputs": {},
+  "locators": {},
+  "preconditions": [
+    {
+      "id": "home-visible",
+      "required": true,
+      "condition": {
+        "operator": "exists",
+        "target": {
+          "locator_ref": "home-title"
+        },
+        "source": "native",
+        "timeout_ms": 30000
+      }
+    }
+  ],
+  "steps": [
+    {
+      "type": "wait",
+      "id": "home-ready",
+      "timeout_ms": 60000,
+      "condition": {
+        "operator": "exists",
+        "target": {
+          "locator_ref": "home-title"
+        },
+        "source": "native",
+        "timeout_ms": 30000
+      }
+    },
+    {
+      "type": "action",
+      "id": "open-form",
+      "action": {
+        "kind": "tap",
+        "target": {
+          "locator_ref": "open-form"
+        }
+      },
+      "timeout_ms": 120000
+    },
+    {
+      "type": "wait",
+      "id": "form-ready",
+      "timeout_ms": 60000,
+      "condition": {
+        "operator": "exists",
+        "target": {
+          "locator_ref": "form-title"
+        },
+        "source": "native",
+        "timeout_ms": 30000
+      }
+    },
+    {
+      "type": "action",
+      "id": "type-name",
+      "timeout_ms": 120000,
+      "action": {
+        "kind": "input",
+        "target": {
+          "locator_ref": "name"
+        },
+        "text": {
+          "param_ref": "who"
+        },
+        "mode": "replace"
+      }
+    },
+    {
+      "type": "if",
+      "id": "ensure-large",
+      "timeout_ms": 180000,
+      "condition": {
+        "operator": "checked",
+        "target": {
+          "locator_ref": "large"
+        },
+        "source": "native",
+        "expected": true,
+        "timeout_ms": 30000
+      },
+      "then": [
+        {
+          "type": "wait",
+          "id": "large-already",
+          "timeout_ms": 60000,
+          "condition": {
+            "operator": "exists",
+            "target": {
+              "locator_ref": "form-title"
+            },
+            "source": "native",
+            "timeout_ms": 30000
+          }
+        }
+      ],
+      "else": [
+        {
+          "type": "action",
+          "id": "tap-large",
+          "action": {
+            "kind": "tap",
+            "target": {
+              "locator_ref": "large"
+            }
+          },
+          "timeout_ms": 120000
+        }
+      ]
+    },
+    {
+      "type": "if",
+      "id": "ensure-agree",
+      "timeout_ms": 180000,
+      "condition": {
+        "operator": "checked",
+        "target": {
+          "locator_ref": "agree"
+        },
+        "source": "native",
+        "expected": true,
+        "timeout_ms": 30000
+      },
+      "then": [
+        {
+          "type": "wait",
+          "id": "agree-already",
+          "timeout_ms": 60000,
+          "condition": {
+            "operator": "exists",
+            "target": {
+              "locator_ref": "form-title"
+            },
+            "source": "native",
+            "timeout_ms": 30000
+          }
+        }
+      ],
+      "else": [
+        {
+          "type": "action",
+          "id": "tap-agree",
+          "action": {
+            "kind": "tap",
+            "target": {
+              "locator_ref": "agree"
+            }
+          },
+          "timeout_ms": 120000
+        }
+      ]
+    },
+    {
+      "type": "action",
+      "id": "submit",
+      "action": {
+        "kind": "tap",
+        "target": {
+          "locator_ref": "submit"
+        }
+      },
+      "timeout_ms": 120000
+    },
+    {
+      "type": "wait",
+      "id": "result-ready",
+      "timeout_ms": 60000,
+      "condition": {
+        "operator": "exists",
+        "target": {
+          "locator_ref": "form-result"
+        },
+        "source": "native",
+        "timeout_ms": 30000
+      }
+    }
+  ],
+  "checks": [
+    {
+      "id": "form-result",
+      "required": true,
+      "condition": {
+        "operator": "contains",
+        "target": {
+          "locator_ref": "form-result"
+        },
+        "source": "native",
+        "expected": "提交成功：Pulse / 大杯 /",
+        "timeout_ms": 30000
+      }
+    }
+  ]
+}

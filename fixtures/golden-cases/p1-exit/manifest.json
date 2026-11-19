@@ -1,0 +1,49 @@
+{
+  "$schema": "urn:pulse:schema:1-draft:manifest",
+  "project_id": "p1-exit",
+  "name": "P1 exit target flows (Android target app)",
+  "revision": "exit-1",
+  "cases": {
+    "home-list": "cases/home-list.json",
+    "cart-total": "cases/cart-total.json",
+    "cart-checkout": "cases/cart-checkout.json",
+    "form-submit": "cases/form-submit.json",
+    "dialog-accept": "cases/dialog-accept.json",
+    "delayed-load": "cases/delayed-load.json",
+    "not-exists-banner": "cases/not-exists-banner.json",
+    "home-back": "cases/home-back.json",
+    "home-repeat-visit": "cases/home-repeat-visit.json",
+    "home-fault-banner": "cases/home-fault-banner.json"
+  },
+  "flows": {},
+  "data": {},
+  "profiles": {
+    "target-exit": "profiles/target-exit.json"
+  },
+  "entry_cases": [
+    "home-list",
+    "cart-total",
+    "cart-checkout",
+    "form-submit",
+    "dialog-accept",
+    "delayed-load",
+    "not-exists-banner",
+    "home-back",
+    "home-repeat-visit",
+    "home-fault-banner"
+  ],
+  "default_strategy": "rule_only",
+  "platforms": ["android"],
+  "required_capabilities": ["observe"],
+  "constraints": {
+    "allowed_apps": ["com.pulse.target"],
+    "forbidden_actions": ["clear"]
+  },
+  "dependencies": [],
+  "resources": {},
+  "secret_refs": [],
+  "budgets": {
+    "case_timeout_ms": 900000,
+    "suite_timeout_ms": 7200000
+  }
+}

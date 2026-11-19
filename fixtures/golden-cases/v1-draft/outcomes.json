@@ -1,0 +1,164 @@
+{
+  "purpose": "Hypothetical evidence for future interpreter/assertion tests. NOT device results, NOT part of the case contract, and NOT evaluated by P1.1.",
+  "case_ref": "operators",
+  "scenarios": [
+    {
+      "checkpoint_ref": "exists",
+      "observation": { "complete": true, "found": true },
+      "expected_outcome": "passed"
+    },
+    {
+      "checkpoint_ref": "exists",
+      "observation": { "complete": true, "found": false },
+      "expected_outcome": "failed"
+    },
+    {
+      "checkpoint_ref": "not_exists",
+      "observation": {
+        "complete": true,
+        "sample_times_ms": [0, 500, 1000],
+        "found": [false, false, false]
+      },
+      "expected_outcome": "passed"
+    },
+    {
+      "checkpoint_ref": "not_exists",
+      "observation": {
+        "complete": true,
+        "sample_times_ms": [0, 500, 1000],
+        "found": [false, true, false]
+      },
+      "expected_outcome": "failed"
+    },
+    {
+      "checkpoint_ref": "not_exists",
+      "observation": { "complete": false, "error": "collection failed" },
+      "expected_outcome": "blocked"
+    },
+    {
+      "checkpoint_ref": "visible",
+      "observation": { "complete": true, "visible": true },
+      "expected_outcome": "passed"
+    },
+    {
+      "checkpoint_ref": "visible",
+      "observation": { "complete": true, "visible": false },
+      "expected_outcome": "failed"
+    },
+    {
+      "checkpoint_ref": "enabled",
+      "observation": { "complete": true, "enabled": true },
+      "expected_outcome": "passed"
+    },
+    {
+      "checkpoint_ref": "enabled",
+      "observation": { "complete": true, "enabled": false },
+      "expected_outcome": "failed"
+    },
+    {
+      "checkpoint_ref": "checked",
+      "observation": { "complete": true, "checked": true },
+      "expected_outcome": "passed"
+    },
+    {
+      "checkpoint_ref": "checked",
+      "observation": { "complete": true, "checked": false },
+      "expected_outcome": "failed"
+    },
+    {
+      "checkpoint_ref": "text_equals",
+      "observation": { "complete": true, "text": "Coffee" },
+      "expected_outcome": "passed"
+    },
+    {
+      "checkpoint_ref": "text_equals",
+      "observation": { "complete": true, "text": "Tea" },
+      "expected_outcome": "failed"
+    },
+    {
+      "checkpoint_ref": "contains",
+      "observation": { "complete": true, "text": "Coffee" },
+      "expected_outcome": "passed"
+    },
+    {
+      "checkpoint_ref": "contains",
+      "observation": { "complete": true, "text": "Tea" },
+      "expected_outcome": "failed"
+    },
+    {
+      "checkpoint_ref": "regex",
+      "observation": { "complete": true, "text": "Coffee" },
+      "expected_outcome": "passed"
+    },
+    {
+      "checkpoint_ref": "regex",
+      "observation": { "complete": true, "text": "Coffee with milk" },
+      "expected_outcome": "failed"
+    },
+    {
+      "checkpoint_ref": "count_eq",
+      "observation": { "complete": true, "count": 1 },
+      "expected_outcome": "passed"
+    },
+    {
+      "checkpoint_ref": "count_eq",
+      "observation": { "complete": true, "count": 2 },
+      "expected_outcome": "failed"
+    },
+    {
+      "checkpoint_ref": "count_gt",
+      "observation": { "complete": true, "count": 1 },
+      "expected_outcome": "passed"
+    },
+    {
+      "checkpoint_ref": "count_gt",
+      "observation": { "complete": true, "count": 0 },
+      "expected_outcome": "failed"
+    },
+    {
+      "checkpoint_ref": "count_lt",
+      "observation": { "complete": true, "count": 1 },
+      "expected_outcome": "passed"
+    },
+    {
+      "checkpoint_ref": "count_lt",
+      "observation": { "complete": true, "count": 2 },
+      "expected_outcome": "failed"
+    },
+    {
+      "checkpoint_ref": "number_cmp",
+      "observation": { "complete": true, "number": 12.5, "unit": "CNY" },
+      "expected_outcome": "passed"
+    },
+    {
+      "checkpoint_ref": "number_cmp",
+      "observation": { "complete": true, "number": 13.5, "unit": "CNY" },
+      "expected_outcome": "failed"
+    },
+    {
+      "checkpoint_ref": "page_is",
+      "observation": { "complete": true, "page": "page" },
+      "expected_outcome": "passed"
+    },
+    {
+      "checkpoint_ref": "page_is",
+      "observation": { "complete": true, "page": "unrelated-page" },
+      "expected_outcome": "failed"
+    },
+    {
+      "checkpoint_ref": "semantic",
+      "observation": { "complete": true, "criterion_met": true, "model_available": true },
+      "expected_outcome": "passed"
+    },
+    {
+      "checkpoint_ref": "semantic",
+      "observation": { "complete": true, "criterion_met": false, "model_available": true },
+      "expected_outcome": "failed"
+    },
+    {
+      "checkpoint_ref": "semantic",
+      "observation": { "complete": true, "model_available": false },
+      "expected_outcome": "blocked"
+    }
+  ]
+}

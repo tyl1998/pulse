@@ -1,0 +1,13 @@
+[project]
+name = "pulse-observability"
+version = "0.0.0"
+description = "Shared structured logging and bounded in-memory metrics for Pulse services"
+requires-python = ">=3.12,<3.13"
+dependencies = []
+
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["pulse_observability"]

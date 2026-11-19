@@ -1,0 +1,118 @@
+{
+  "$schema": "urn:pulse:schema:1-draft:profile",
+  "profile_id": "fake-android",
+  "platform": "android",
+  "environment": "synthetic-assertions",
+  "app_id": "com.pulse.target",
+  "capabilities": ["observe"],
+  "locators": {
+    "page": {
+      "candidates": [
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/page"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": true
+      }
+    },
+    "price": {
+      "candidates": [
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/price"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": true
+      }
+    },
+    "title": {
+      "candidates": [
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/title"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": true
+      }
+    },
+    "confirm": {
+      "candidates": [
+        {
+          "by": "desc",
+          "value": "Confirm order"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": true
+      }
+    },
+    "items": {
+      "candidates": [
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/item"
+        }
+      ],
+      "expect": {
+        "unique": false,
+        "visible": false
+      }
+    },
+    "banner": {
+      "candidates": [
+        {
+          "by": "text",
+          "value": "Limited offer"
+        }
+      ],
+      "expect": {
+        "unique": false,
+        "visible": true
+      }
+    },
+    "subtotal": {
+      "candidates": [
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/subtotal"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": true
+      }
+    },
+    "discount": {
+      "candidates": [
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/discount"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": true
+      }
+    },
+    "dollars": {
+      "candidates": [
+        {
+          "by": "res_id",
+          "value": "com.pulse.target:id/dollars"
+        }
+      ],
+      "expect": {
+        "unique": true,
+        "visible": true
+      }
+    }
+  }
+}

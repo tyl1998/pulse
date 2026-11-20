@@ -1,4 +1,5 @@
 .case-draft-panel {
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   gap: var(--ui-space-3);
@@ -82,4 +83,401 @@
 .case-draft-goal,
 .case-draft-error {
   overflow-wrap: anywhere;
+}
+
+.case-draft-content,
+.case-editor-fields {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ui-space-3);
+  min-width: 0;
+}
+
+.case-draft-type-icon {
+  width: var(--ui-icon-size);
+  height: var(--ui-icon-size);
+  flex-shrink: 0;
+  color: var(--ui-text-muted);
+}
+
+.case-draft-step-tools,
+.case-draft-add-step,
+.case-editor-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--ui-space-2);
+  min-width: 0;
+}
+
+.case-draft-step-tools {
+  margin-left: auto;
+}
+
+.case-draft-drag-handle {
+  touch-action: none;
+  cursor: grab;
+}
+
+.case-draft-drag-handle:active {
+  cursor: grabbing;
+}
+
+.case-draft-step[data-dragging='true'] {
+  position: relative;
+  z-index: 1;
+  background: var(--ui-info-bg);
+  box-shadow: var(--ui-shadow-sm);
+}
+
+.case-draft-add-step {
+  padding: var(--ui-space-2) 0;
+}
+
+.case-draft-add-step > .ui-select-trigger {
+  width: 7rem;
+}
+
+.case-draft-branch-block {
+  margin-top: var(--ui-space-2);
+  padding-left: var(--ui-space-2);
+  border-left: 2px solid var(--ui-info-border);
+}
+
+.case-draft-branch-block > .case-draft-add-step {
+  padding-left: var(--ui-space-2);
+}
+
+.case-draft-block-label {
+  padding-top: var(--ui-space-2);
+  color: var(--ui-info-fg);
+  font-family: var(--ui-font-mono);
+  font-size: var(--ui-text-xs);
+}
+
+.case-draft-checkpoints {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ui-space-2);
+  padding: var(--ui-space-3) 0;
+  border-top: 1px solid var(--ui-divider);
+}
+
+.case-draft-checkpoint-summary {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ui-space-1);
+  margin: 0;
+  padding-left: var(--ui-space-5);
+  color: var(--ui-text-muted);
+  font-size: var(--ui-text-xs);
+}
+
+.case-draft-checkpoint-summary span {
+  padding-left: var(--ui-space-2);
+}
+
+.case-editor-form,
+.case-draft-flow {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ui-space-3);
+  min-width: 0;
+  margin-top: var(--ui-space-2);
+  padding: var(--ui-space-3);
+  border: 1px solid var(--ui-divider);
+  border-radius: var(--ui-radius-md);
+  background: var(--ui-canvas);
+}
+
+.case-editor-form-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ui-space-3);
+  min-inline-size: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.case-editor-form-title {
+  padding: 0 0 var(--ui-space-2);
+  font-weight: var(--ui-weight-strong);
+  overflow-wrap: anywhere;
+}
+
+.case-editor-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr));
+  align-items: start;
+  gap: var(--ui-space-2);
+}
+
+.case-editor-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ui-space-1);
+  min-width: 0;
+  font-size: var(--ui-text-xs);
+}
+
+.case-editor-field > .ui-input,
+.case-editor-field > .ui-select-trigger {
+  width: 100%;
+}
+
+.case-editor-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ui-space-2);
+  min-inline-size: 0;
+  margin: 0;
+  padding: var(--ui-space-2);
+  border: 1px solid var(--ui-divider);
+  border-radius: var(--ui-radius-sm);
+}
+
+.case-editor-group > legend {
+  padding: 0 var(--ui-space-1);
+  font-size: var(--ui-text-xs);
+  font-weight: var(--ui-weight-medium);
+}
+
+.case-editor-textarea {
+  min-height: 4.5rem;
+  padding: var(--ui-space-2);
+  resize: vertical;
+}
+
+.case-editor-checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ui-space-2);
+  font-size: var(--ui-text-xs);
+}
+
+.case-editor-checkbox input {
+  accent-color: var(--ui-primary);
+}
+
+.case-editor-checkbox input:focus-visible {
+  outline: var(--ui-focus-width) solid var(--ui-focus);
+  outline-offset: var(--ui-focus-offset);
+}
+
+.case-editor-binding {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ui-space-2);
+  padding-bottom: var(--ui-space-2);
+  border-bottom: 1px solid var(--ui-divider);
+}
+
+.case-editor-views {
+  min-width: 0;
+}
+
+.case-editor-views > .ui-tab-panel[hidden] {
+  display: none;
+}
+
+.case-editor-three-sections,
+.case-editor-section,
+.case-editor-json {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ui-space-3);
+  min-width: 0;
+}
+
+.case-editor-section {
+  padding: var(--ui-space-3);
+  border: 1px solid var(--ui-divider);
+  border-radius: var(--ui-radius-md);
+  background: var(--ui-canvas);
+}
+
+.case-editor-section-text,
+.case-editor-json-fallback {
+  box-sizing: border-box;
+  width: 100%;
+  font-family: var(--ui-font-mono);
+  font-size: var(--ui-text-xs);
+  line-height: var(--ui-leading);
+  tab-size: 2;
+}
+
+.case-editor-section-summary {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ui-space-2);
+  margin: 0;
+  padding-left: var(--ui-space-5);
+}
+
+.case-editor-section-summary li > span {
+  margin-inline: var(--ui-space-2);
+}
+
+.case-editor-monaco {
+  width: 100%;
+  height: 32rem;
+  min-width: 0;
+  border: 1px solid var(--ui-border);
+  border-radius: var(--ui-radius-sm);
+  overflow: hidden;
+}
+
+.case-editor-monaco:focus-within,
+.case-draft-step[data-selected='true']:focus {
+  outline: var(--ui-focus-width) solid var(--ui-focus);
+  outline-offset: var(--ui-focus-offset);
+}
+
+.case-draft-step[data-selected='true'] {
+  background: var(--ui-info-bg);
+}
+
+.case-editor-source {
+  min-width: 0;
+  padding-top: var(--ui-space-2);
+  border-top: 1px solid var(--ui-divider);
+}
+
+.case-editor-source summary {
+  cursor: pointer;
+  color: var(--ui-text-muted);
+  font-size: var(--ui-text-xs);
+}
+
+.case-editor-source summary:focus-visible {
+  outline: var(--ui-focus-width) solid var(--ui-focus);
+  outline-offset: var(--ui-focus-offset);
+}
+
+.case-editor-source pre,
+.case-editor-authoring-text {
+  margin: 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-family: var(--ui-font-mono);
+  font-size: var(--ui-text-xs);
+}
+
+.case-editor-form:focus-within {
+  border-color: var(--ui-focus);
+}
+
+.case-problems-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ui-space-2);
+  min-width: 0;
+  padding: var(--ui-space-3);
+  color: var(--ui-text);
+  font-size: var(--ui-text-sm);
+}
+
+.case-problems-panel h3,
+.case-problems-panel p {
+  margin: 0;
+}
+
+.case-problems-panel h3 {
+  font-size: var(--ui-text-sm);
+}
+
+.case-problems-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ui-space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.case-problem-row {
+  display: grid;
+  grid-template-columns: var(--ui-icon-size) minmax(0, 1fr) auto var(--ui-icon-size);
+  align-items: start;
+  gap: var(--ui-space-2);
+  width: 100%;
+  padding: var(--ui-space-2);
+  border: 1px solid var(--ui-divider);
+  border-left: 3px solid var(--ui-info-border);
+  border-radius: var(--ui-radius-sm);
+  background: var(--ui-canvas);
+  color: var(--ui-text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.case-problem-row[data-severity='error'] {
+  border-left-color: var(--ui-danger-border);
+}
+
+.case-problem-row[data-severity='warning'] {
+  border-left-color: var(--ui-warning-border);
+}
+
+.case-problem-row:hover {
+  background: var(--ui-info-bg);
+}
+
+.case-problem-row:focus-visible {
+  outline: var(--ui-focus-width) solid var(--ui-focus);
+  outline-offset: var(--ui-focus-offset);
+}
+
+.case-problem-row > svg {
+  width: var(--ui-icon-size);
+  height: var(--ui-icon-size);
+  color: var(--ui-text-muted);
+}
+
+.case-problem-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ui-space-1);
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.case-problem-location {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ui-space-2);
+  color: var(--ui-text-muted);
+  font-size: var(--ui-text-xs);
+}
+
+.case-problem-location code {
+  font-family: var(--ui-font-mono);
+}
+
+@media (max-width: 600px) {
+  .case-draft-panel {
+    padding: var(--ui-space-3);
+  }
+
+  .case-problem-row {
+    grid-template-columns: var(--ui-icon-size) minmax(0, 1fr) var(--ui-icon-size);
+  }
+
+  .case-problem-row > .ui-badge {
+    grid-column: 2;
+    justify-self: start;
+  }
+
+  .case-problem-row > svg:last-child {
+    grid-column: 3;
+    grid-row: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .case-draft-step {
+    transition: none !important;
+  }
 }

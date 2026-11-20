@@ -4,6 +4,7 @@ import { ChevronDown, ChevronUp, LayoutGrid, PanelBottom, RotateCcw } from 'luci
 import { Badge, Button, Tabs, type TabItem } from '../../shared/ui';
 import { CaseDraftPanel } from '../editor/CaseDraftPanel';
 import { getCaseDraftStore } from '../editor/caseDraftStore';
+import { CaseProblemsPanel, CaseProblemsProvider } from '../editor/CaseProblems';
 import { ElementInspector } from '../inspector/ElementInspector';
 import { createElementInspectorStore } from '../inspector/inspectorStore';
 import { CaseTree } from '../projects/CaseTree';
@@ -54,9 +55,7 @@ const BOTTOM_TABS: readonly TabItem[] = [
   {
     value: 'issues',
     label: '问题',
-    content: (
-      <DockPlaceholder title="问题" description="Schema 错误与未解析引用将在 FE-P2.10 接入。" />
-    ),
+    content: <CaseProblemsPanel />,
   },
 ];
 
@@ -132,182 +131,188 @@ export function WorkbenchDock() {
   };
 
   return (
-    <div className="studio-page" data-testid="workbench-dock" data-preset={state.activePreset}>
-      <div className="studio-toolbar">
-        <span className="studio-toolbar-label">
-          <LayoutGrid aria-hidden="true" />
-          布局预设
-        </span>
-        <div className="studio-presets" role="group" aria-label="布局预设">
-          {PRESET_IDS.map((id) => (
-            <Button
-              key={id}
-              size="sm"
-              variant={state.activePreset === id ? 'primary' : 'secondary'}
-              aria-pressed={state.activePreset === id}
-              onClick={() => store.setActivePreset(id)}
-            >
-              {WORKBENCH_PRESETS[id].label}
-            </Button>
-          ))}
+    <CaseProblemsProvider store={drafts} project={projectState.project}>
+      <div className="studio-page" data-testid="workbench-dock" data-preset={state.activePreset}>
+        <div className="studio-toolbar">
+          <span className="studio-toolbar-label">
+            <LayoutGrid aria-hidden="true" />
+            布局预设
+          </span>
+          <div className="studio-presets" role="group" aria-label="布局预设">
+            {PRESET_IDS.map((id) => (
+              <Button
+                key={id}
+                size="sm"
+                variant={state.activePreset === id ? 'primary' : 'secondary'}
+                aria-pressed={state.activePreset === id}
+                onClick={() => store.setActivePreset(id)}
+              >
+                {WORKBENCH_PRESETS[id].label}
+              </Button>
+            ))}
+          </div>
+          <span className="studio-preset-note">{presetMeta.description}</span>
+          <Button
+            size="sm"
+            variant="ghost"
+            aria-pressed={elementsVisible}
+            aria-controls="elements"
+            onClick={() => {
+              const layout = elementsVisible
+                ? { device: 100, elements: 0 }
+                : { device: 75, elements: 25 };
+              store.updateGroup('right', layout);
+              rightRef.current?.setLayout(layout);
+            }}
+          >
+            {elementsVisible ? (
+              <ChevronUp aria-hidden="true" />
+            ) : (
+              <ChevronDown aria-hidden="true" />
+            )}
+            元素面板
+          </Button>
+          <Button
+            size="sm"
+            variant="ghost"
+            aria-pressed={bottomExpanded}
+            aria-controls="bottom"
+            onClick={() => {
+              const layout = bottomExpanded
+                ? { workspace: 94, bottom: 6 }
+                : { workspace: 72, bottom: 28 };
+              store.updateGroup('vertical', layout);
+              verticalRef.current?.setLayout(layout);
+            }}
+          >
+            <PanelBottom aria-hidden="true" />
+            {bottomExpanded ? '收起底部面板' : '展开底部面板'}
+          </Button>
+          <Button
+            size="sm"
+            variant="ghost"
+            onClick={() => {
+              store.resetActivePreset();
+              setResetRevision((value) => value + 1);
+            }}
+          >
+            <RotateCcw aria-hidden="true" />
+            重置当前预设
+          </Button>
         </div>
-        <span className="studio-preset-note">{presetMeta.description}</span>
-        <Button
-          size="sm"
-          variant="ghost"
-          aria-pressed={elementsVisible}
-          aria-controls="elements"
-          onClick={() => {
-            const layout = elementsVisible
-              ? { device: 100, elements: 0 }
-              : { device: 75, elements: 25 };
-            store.updateGroup('right', layout);
-            rightRef.current?.setLayout(layout);
-          }}
-        >
-          {elementsVisible ? <ChevronUp aria-hidden="true" /> : <ChevronDown aria-hidden="true" />}
-          元素面板
-        </Button>
-        <Button
-          size="sm"
-          variant="ghost"
-          aria-pressed={bottomExpanded}
-          aria-controls="bottom"
-          onClick={() => {
-            const layout = bottomExpanded
-              ? { workspace: 94, bottom: 6 }
-              : { workspace: 72, bottom: 28 };
-            store.updateGroup('vertical', layout);
-            verticalRef.current?.setLayout(layout);
-          }}
-        >
-          <PanelBottom aria-hidden="true" />
-          {bottomExpanded ? '收起底部面板' : '展开底部面板'}
-        </Button>
-        <Button
-          size="sm"
-          variant="ghost"
-          onClick={() => {
-            store.resetActivePreset();
-            setResetRevision((value) => value + 1);
-          }}
-        >
-          <RotateCcw aria-hidden="true" />
-          重置当前预设
-        </Button>
-      </div>
 
-      <div className="studio-dock">
-        <Group
-          key={`vertical-${state.activePreset}-${resetRevision}`}
-          id="studio-vertical"
-          orientation="vertical"
-          className="studio-group"
-          groupRef={verticalRef}
-          defaultLayout={preset.vertical}
-          onLayoutChanged={(layout, meta) =>
-            onGroupLayout('vertical', layout, meta.requestedLayout)
-          }
-        >
-          <Panel id="workspace" className="studio-panel" minSize="30%">
-            <Group
-              key={`horizontal-${state.activePreset}-${resetRevision}`}
-              id="studio-horizontal"
-              orientation={narrow ? 'vertical' : 'horizontal'}
-              className="studio-group"
-              defaultLayout={preset.horizontal}
-              onLayoutChanged={(layout, meta) =>
-                onGroupLayout('horizontal', layout, meta.requestedLayout)
-              }
-            >
-              <Panel id="outline" className="studio-panel" minSize={narrow ? '160px' : '14%'}>
-                <DockPanel title="用例 / 步骤大纲" phase="FE-P2.4 / P2.8">
-                  <CaseTree />
-                </DockPanel>
-              </Panel>
-              <Separator
-                id="studio-h-separator-outline"
-                className={`studio-separator studio-separator-${narrow ? 'vertical' : 'horizontal'}`}
-                aria-label={narrow ? '调整用例大纲高度' : '调整用例大纲宽度'}
-              />
-              <Panel id="editor" className="studio-panel" minSize={narrow ? '160px' : '24%'}>
-                <DockPanel title="编辑区" phase="本地草稿">
-                  <CaseDraftPanel store={drafts} />
-                </DockPanel>
-              </Panel>
-              <Separator
-                id="studio-h-separator-right"
-                className={`studio-separator studio-separator-${narrow ? 'vertical' : 'horizontal'}`}
-                aria-label={narrow ? '调整设备面板高度' : '调整右侧面板宽度'}
-              />
-              <Panel id="right" className="studio-panel" minSize={narrow ? '560px' : '28%'}>
-                <Group
-                  key={`right-${state.activePreset}-${resetRevision}`}
-                  id="studio-right"
-                  orientation="vertical"
-                  className="studio-group"
-                  groupRef={rightRef}
-                  defaultLayout={preset.right}
-                  onLayoutChanged={(layout, meta) =>
-                    onGroupLayout('right', layout, meta.requestedLayout)
-                  }
-                >
-                  <Panel id="device" className="studio-panel" minSize="40%">
-                    <DockPanel title="设备画面" phase="本机直连">
-                      <DeviceScreen inspector={inspector} onInspect={openElements} />
-                    </DockPanel>
-                  </Panel>
-                  <Separator
-                    id="studio-right-separator"
-                    className="studio-separator studio-separator-vertical"
-                    aria-label="调整设备画面与元素树高度"
-                  />
-                  <Panel
-                    id="elements"
-                    className="studio-panel"
-                    minSize="0%"
-                    inert={!elementsVisible}
-                    aria-hidden={!elementsVisible}
-                  >
-                    <DockPanel title="元素树 / 属性" phase="只读检查">
-                      <ElementInspector store={inspector} draftStore={drafts} />
-                    </DockPanel>
-                  </Panel>
-                </Group>
-              </Panel>
-            </Group>
-          </Panel>
-          <Separator
-            id="studio-v-separator"
-            className="studio-separator studio-separator-vertical"
-            aria-label="调整底部面板高度"
-          />
-          <Panel id="bottom" className="studio-panel" minSize="40px">
-            <section
-              className="studio-panel-surface"
-              aria-label="底部面板"
-              data-collapsed={!bottomExpanded}
-            >
-              <Tabs
-                className="studio-bottom-tabs"
-                label="底部面板"
-                items={BOTTOM_TABS}
-                value={preset.bottomTab}
-                onValueChange={(value) => {
-                  if (isBottomTabId(value)) {
-                    store.setBottomTab(value);
-                    if (!bottomExpanded) {
-                      const layout = { workspace: 72, bottom: 28 };
-                      store.updateGroup('vertical', layout);
-                      verticalRef.current?.setLayout(layout);
+        <div className="studio-dock">
+          <Group
+            key={`vertical-${state.activePreset}-${resetRevision}`}
+            id="studio-vertical"
+            orientation="vertical"
+            className="studio-group"
+            groupRef={verticalRef}
+            defaultLayout={preset.vertical}
+            onLayoutChanged={(layout, meta) =>
+              onGroupLayout('vertical', layout, meta.requestedLayout)
+            }
+          >
+            <Panel id="workspace" className="studio-panel" minSize="30%">
+              <Group
+                key={`horizontal-${state.activePreset}-${resetRevision}`}
+                id="studio-horizontal"
+                orientation={narrow ? 'vertical' : 'horizontal'}
+                className="studio-group"
+                defaultLayout={preset.horizontal}
+                onLayoutChanged={(layout, meta) =>
+                  onGroupLayout('horizontal', layout, meta.requestedLayout)
+                }
+              >
+                <Panel id="outline" className="studio-panel" minSize={narrow ? '160px' : '14%'}>
+                  <DockPanel title="用例 / 步骤大纲" phase="FE-P2.4">
+                    <CaseTree />
+                  </DockPanel>
+                </Panel>
+                <Separator
+                  id="studio-h-separator-outline"
+                  className={`studio-separator studio-separator-${narrow ? 'vertical' : 'horizontal'}`}
+                  aria-label={narrow ? '调整用例大纲高度' : '调整用例大纲宽度'}
+                />
+                <Panel id="editor" className="studio-panel" minSize={narrow ? '160px' : '24%'}>
+                  <DockPanel title="编辑区" phase="FE-P2.10">
+                    <CaseDraftPanel store={drafts} />
+                  </DockPanel>
+                </Panel>
+                <Separator
+                  id="studio-h-separator-right"
+                  className={`studio-separator studio-separator-${narrow ? 'vertical' : 'horizontal'}`}
+                  aria-label={narrow ? '调整设备面板高度' : '调整右侧面板宽度'}
+                />
+                <Panel id="right" className="studio-panel" minSize={narrow ? '560px' : '28%'}>
+                  <Group
+                    key={`right-${state.activePreset}-${resetRevision}`}
+                    id="studio-right"
+                    orientation="vertical"
+                    className="studio-group"
+                    groupRef={rightRef}
+                    defaultLayout={preset.right}
+                    onLayoutChanged={(layout, meta) =>
+                      onGroupLayout('right', layout, meta.requestedLayout)
                     }
-                  }
-                }}
-              />
-            </section>
-          </Panel>
-        </Group>
+                  >
+                    <Panel id="device" className="studio-panel" minSize="40%">
+                      <DockPanel title="设备画面" phase="本机直连">
+                        <DeviceScreen inspector={inspector} onInspect={openElements} />
+                      </DockPanel>
+                    </Panel>
+                    <Separator
+                      id="studio-right-separator"
+                      className="studio-separator studio-separator-vertical"
+                      aria-label="调整设备画面与元素树高度"
+                    />
+                    <Panel
+                      id="elements"
+                      className="studio-panel"
+                      minSize="0%"
+                      inert={!elementsVisible}
+                      aria-hidden={!elementsVisible}
+                    >
+                      <DockPanel title="元素树 / 属性" phase="只读检查">
+                        <ElementInspector store={inspector} draftStore={drafts} />
+                      </DockPanel>
+                    </Panel>
+                  </Group>
+                </Panel>
+              </Group>
+            </Panel>
+            <Separator
+              id="studio-v-separator"
+              className="studio-separator studio-separator-vertical"
+              aria-label="调整底部面板高度"
+            />
+            <Panel id="bottom" className="studio-panel" minSize="40px">
+              <section
+                className="studio-panel-surface"
+                aria-label="底部面板"
+                data-collapsed={!bottomExpanded}
+              >
+                <Tabs
+                  className="studio-bottom-tabs"
+                  label="底部面板"
+                  items={BOTTOM_TABS}
+                  value={preset.bottomTab}
+                  onValueChange={(value) => {
+                    if (isBottomTabId(value)) {
+                      store.setBottomTab(value);
+                      if (!bottomExpanded) {
+                        const layout = { workspace: 72, bottom: 28 };
+                        store.updateGroup('vertical', layout);
+                        verticalRef.current?.setLayout(layout);
+                      }
+                    }
+                  }}
+                />
+              </section>
+            </Panel>
+          </Group>
+        </div>
       </div>
-    </div>
+    </CaseProblemsProvider>
   );
 }
